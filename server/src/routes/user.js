@@ -17,6 +17,16 @@ app.get('/:id', (req, res) => {
     .catch(error => res.json(error))
 })
 
+// login
+app.post('/login', (req, res )=> {
+     email = req.body.email,
+     password = req.body.password
+
+    Users.findOne({emai: email, password: password})
+    .then(user => res.json(user))
+    .catch(err => console.log(err))
+})
+
 // Crear un nuevo usuario
 app.post('/', (req, res) => {
     var nuevoUser;

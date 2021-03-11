@@ -1,0 +1,22 @@
+node_modules
+node_modules/
+.expo/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.pnp/
+.pnp.js/
+
+# macOS
+.DS_Store
+

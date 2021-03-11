@@ -1,5 +1,8 @@
+#modules
 node_modules
 node_modules/
+
+#front
 .expo/
 npm-debug.*
 *.jks
@@ -9,11 +12,16 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+
+# env
+
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# back
 .pnp/
 .pnp.js/
 

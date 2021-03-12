@@ -45,6 +45,20 @@ app.post('/', (req, res) => {
 })
 
 
+//Modificar informacion de un usuario
+app.put('/:id', (req, res) => {
+    const {id} = req.params;
+    const cambios = req.body;
+
+    Users.findByIdAndUpdate(id, cambios, (err, userUpdate) =>{
+        console.log(cambios)
+        if(err) res.status(500).send({message :`Error al actualizar datos del usuario: ${err}`})
+
+        res.status(200).send({ users: userUpdate })
+        
+    })
+})
+
 
 
 

@@ -4,6 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Reset } from './src/components/Reset';
 import AppLoading from 'expo-app-loading';
 import colors from './assets/colors/colors';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+Icon.loadFont();
 
 
 import {
@@ -43,11 +46,13 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />;
 
   return (
+    
     <View style={styles.container}>
       <Text  style={styles.titleText}>Hello World</Text>
       <Reset />
       <StatusBar style="auto" />
     </View>
+    
   );
 }
 

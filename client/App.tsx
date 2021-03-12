@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image } from 'react-native';
 import { Reset } from './src/components/Reset';
 import AppLoading from 'expo-app-loading';
 import colors from './assets/colors/colors';
-import Icon from 'react-native-vector-icons/Ionicons';
+import * as PasswordReset from "./PasswordReset.png";
+import AppIntroSlider from 'react-native-app-intro-slider';
+import Icon from 'react-native-vector-icons/Entypo';
 
 Icon.loadFont();
 
@@ -45,13 +47,36 @@ export default function App() {
 
   if (!fontsLoaded) return <AppLoading />;
 
+  const data = [
+  
+  {
+      title: 'FORGOT PASSWORD?',
+      text: "Don’t worry! It happens. Please enter the email address associated with your account. You will receive an email with instructions.",
+      // image: require('../../assets/3.jpg'),
+      bg: '#22bcb5',
+    },
+  ];
+  
+const renderItem = ({item}) => {
+return (
+  <Text>Reset Password</Text>
+)
+}
+
+const keyExtractor = (item) => item.title;
+
   return (
     
-    <View style={styles.container}>
-      <Text  style={styles.titleText}>Hello World</Text>
-      <Reset />
-      <StatusBar style="auto" />
-    </View>
+    <View style={{flex: 1}}>
+    <StatusBar translucent backgroundColor="transparent" />
+    <Image source={require("./images/PasswordReset.png")} />
+    <Icon name='email' size={15} color='black' />
+    <AppIntroSlider
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
+      data={data}
+    />
+  </View>
     
   );
 }
@@ -64,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontFamily: 'Roboto_700Bold'
   },
-  titleText: {
+  tinyLogo: {
     fontSize: 25,
     fontWeight: '600',
     color: colors.textLink,

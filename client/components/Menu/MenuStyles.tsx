@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         top: 20
     },
     view: {
-        backgroundColor: "rgb(74, 71, 163)"
+        backgroundColor: "rgb(74, 71, 163)",
+        top: 20
     },
     image: {
         height: 40,

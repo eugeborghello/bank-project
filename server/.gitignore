@@ -2,3 +2,8 @@
 /node_modules
 /.pnp
 .pnp.js
+
+
+# dotenv environment variables file
+.env
+.env.test

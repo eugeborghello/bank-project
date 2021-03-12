@@ -3,6 +3,9 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Reset } from './src/components/Reset';
 import AppLoading from 'expo-app-loading';
+import colors from './assets/colors/colors';
+
+
 import {
   useFonts,
   Roboto_100Thin,
@@ -57,9 +60,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto_700Bold'
   },
   titleText: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: '600',
-    color: 'black',
+    color: colors.textLink,
     fontFamily: 'Roboto_100Thin'
   },
 });

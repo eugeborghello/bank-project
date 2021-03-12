@@ -1,4 +1,4 @@
-const colors = {
+export default colors = {
     background: '#FFFFFF',
     textGreyLight: '#E6E6E6',
     textLight: '#3F3D56',
@@ -7,5 +7,3 @@ const colors = {
     buttonGreyLight: '#E6E6E6',
     buttonViolet: '#413C69',
 };
-
-export default colors;

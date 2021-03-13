@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {DrawerContent} from "./DrawerContent"
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {Login,Register,Menu} from '../../screens/index';
-import Reset from './Reset';
+// import Reset from './Reset';
 
 const Drawer = createDrawerNavigator();
 const Home = () => {
@@ -21,7 +21,7 @@ const Nav = () => {
           <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="Login" component={Login} />
           <Drawer.Screen name="Register" component={Register} />
-          <Drawer.Screen name="Reset Password" component={Reset} />
+          {/* <Drawer.Screen name="Reset Password" component={Reset} /> */}
           <Drawer.Screen name="Menu" component={Menu} />
         </Drawer.Navigator>
     </NavigationContainer>

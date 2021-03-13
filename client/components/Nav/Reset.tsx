@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, } from 'rea
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors/colors.js';
 import Icon from 'react-native-vector-icons/Entypo';
-import image from "../../images/PasswordReset.png"
+import image from "../../assets/images/PasswordReset.png"
 
 
 

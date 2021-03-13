@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     textinput: {
         flex: 1,
         alignSelf: 'stretch',
-        height: '40',
-        marginBottom: '30',
+        height: 40,
+        marginBottom: 30,
         color: 'rgb(112, 159, 176)',
         borderBottomColor: '#fff',
         borderBottomWidth: 1,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'stretch',
         alignItems: 'center',
-        padding: '20',
+        padding: 20,
         backgroundColor: '#fff',
         marginTop: 30,
         

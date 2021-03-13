@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        size: '24',
+        width:24,
+        height:24,
         color:  'rgb(112, 159, 176)',
     },
     textinput: {

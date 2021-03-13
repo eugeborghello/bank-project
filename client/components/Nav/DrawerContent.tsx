@@ -31,7 +31,7 @@ export function DrawerContent(props:any) {
                                 />
                             )}
                             label="Login"
-                            onPress={() => {props.navigation.navigate('Search')}}
+                            onPress={() => {props.navigation.navigate('Login')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -42,7 +42,18 @@ export function DrawerContent(props:any) {
                                 />
                             )}
                             label="Register"
-                            onPress={() => {props.navigation.navigate('RegisterScreen')}}
+                            onPress={() => {props.navigation.navigate('Register')}}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-check-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Menu"
+                            onPress={() => {props.navigation.navigate('Menu')}}
                         />
                     </Drawer.Section>
                 </View>

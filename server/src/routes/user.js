@@ -99,12 +99,12 @@ app.post('/email', (req, res) => {
 });
 
 //
-app.put('/forgot', async (req, res) => {
+app.patch('/forgot', async (req, res) => {
   try {
     const { userEmail } = req.body;
     console.log('SOY------->', userEmail);
 
-    const userfind = await User.findOneAndUpdate(
+    const userfind = await Users.findOneAndUpdate(
       { email: userEmail },
       { resetCode: generateCode(6) },
       { new: true }
@@ -122,7 +122,8 @@ app.put('/forgot', async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      //   message: 'Error: ' + error,
+      status:'error',
+      message:error.message
     });
   }
 });

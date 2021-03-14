@@ -26,6 +26,7 @@ export default function Register() {
     const createNewUser = () => {
         if (!datos.email || !datos.password || !datos.repeatPass) { return alert("Por favor ingresa los datos requeridos") }
         if (datos.password === datos.repeatPass) {
+            //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
             axios.post('http://192.168.0.10:3001/user', user)
                 .then(user => {
                     console.log(user);

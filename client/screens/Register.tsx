@@ -96,20 +96,12 @@ const styles = StyleSheet.create({
     registerForm: {
         flex: 1,
         alignSelf: 'center',
-<<<<<<< HEAD
         width:'100%'
-=======
-        width: '100%'
->>>>>>> 77b95e2899463f2faca298789d8894fcb0f9bccd
     },
     image: {
         flex: 1,
         width: '100%',
-<<<<<<< HEAD
         height: '100%',       
-=======
-        height: '100%',
->>>>>>> 77b95e2899463f2faca298789d8894fcb0f9bccd
 
     },
     registerContainer: {

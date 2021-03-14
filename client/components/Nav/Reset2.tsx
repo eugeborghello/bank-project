@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, } from 'react-native';
 import AppLoading from 'expo-app-loading';
-import colors from '../../assets/colors/colors.js';
+import colors from '../../assets/colors/colors';
 import Icon from 'react-native-vector-icons/Entypo';
 import image from "../../assets/images/PasswordReset.png"
 import axios from 'axios';
 const { REACT_APP_API } = process.env;
-import { useForm } from 'react-hook-form';
 
-export default function Reset({ navigation }) {
+ 
+
+
+
+export default function Reset2() {
+ 
+
+
   const [errortext, setErrortext] = useState('');
 
-  const { control, handleSubmit, errors } = useForm();
-  
-  
   const handleSubmitPress = (data) => {
 		axios
 			.put(`${REACT_APP_API}/auth/forgot`, { userEmail: data.userEmail })
@@ -23,10 +26,10 @@ export default function Reset({ navigation }) {
 				axios
 					.post(`${REACT_APP_API}/auth/email`, {
 						name:
-							user.data.user.name +
+							user.data.user.firstName +
 							' ' +
 							user.data.user.lastName,
-						subject:'Recover your Veski account',
+						subject:'Recover your QuizMeApp account',
 						date: '01/01/2021',
 						code: user.data.user.resetCode,
 						email: data.userEmail,
@@ -39,7 +42,7 @@ export default function Reset({ navigation }) {
 								: mail.data.message + ' .Revisa tu email';
 						setErrortext(message);
 						//redirigir al componente resetPassword2
-						navigation.navigate('Reset2');
+						// navigation.navigate('Reset2');
 					})
 					.catch((error) => {
 						setErrortext(error);
@@ -49,6 +52,12 @@ export default function Reset({ navigation }) {
 				setErrortext(err.response.data.message);
 			});
 	};
+
+
+
+
+
+
 
 
   return (

@@ -20,6 +20,10 @@ const User = new mongoose.Schema({
     type: String,
     required: 'password is required',
   },
+  resetCode: {
+    type: String,
+    default: null,
+  },
   address: String,
   dni: Number,
 });

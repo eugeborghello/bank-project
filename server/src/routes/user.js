@@ -5,6 +5,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 const { generateCode } = require('../../utils/codeGen');
+const { EMAIL_ACCOUNT, EMAIL_PASSWORD } = process.env;
 
 // Traer todos los users
 app.get('/', (req, res) => {
@@ -102,7 +103,6 @@ app.post('/email', (req, res) => {
 app.patch('/forgot', async (req, res) => {
   try {
     const { userEmail } = req.body;
-    console.log('SOY------->', userEmail);
 
     const userfind = await Users.findOneAndUpdate(
       { email: userEmail },
@@ -112,38 +112,40 @@ app.patch('/forgot', async (req, res) => {
     console.log('SOY------->', userfind);
     if (userfind) {
       res.status(200).json({
-        // message: 'Code generated correctly',
-        // user: userfind,
+        message: 'Code generated correctly',
+        user: userfind,
       });
     } else {
       res.status(400).json({
-        // message: 'User not found',
+        message: 'User not found',
       });
     }
   } catch (error) {
     res.status(400).json({
-      status:'error',
-      message:error.message
+      status: 'error',
+      message: error.message,
     });
   }
+  console.log('SOY------->', resetCode);
 });
 
 //
-app.put('/resetPass', async (req, res) => {
+app.patch('/resetpass', async (req, res) => {
   try {
     const { resetCode, userEmail, newPass } = req.body;
+    console.log('soy----->', resetCode);
 
-    const user = await User.findOne({ email: userEmail });
+    const user = await Users.findOne({ email: userEmail });
     if (user && user.resetCode === resetCode) {
       user.password = newPass;
       await user.save();
       res.status(200).json({
-        message: 'Password Update correctly',
+        message: 'Password Updated correctly',
         user: user,
       });
     } else {
       res.status(400).json({
-        message: 'User not found or reset code do not match',
+        message: 'User not found or reset code does not match',
       });
     }
   } catch (error) {

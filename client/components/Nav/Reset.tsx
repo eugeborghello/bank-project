@@ -38,7 +38,7 @@ export default function Reset({ navigation }) {
 								? 'Email sent. Check your email'
 								: mail.data.message + ' .Revisa tu email';
 						setErrortext(message);
-						//redirigir al componente resetPassword2
+						//redirigir al componente Reset2
 						navigation.navigate('Reset2');
 					})
 					.catch((error) => {

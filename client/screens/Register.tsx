@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
     registerForm: {
         flex: 1,
         alignSelf: 'center',
+        width:'100%'
     },
     image: {
         flex: 1,
-        width: 100,
-        height: 100,       
+        width: '100%',
+        height: '100%',       
 
     },
     registerContainer: {
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     },
     
     header: {
+        textAlign:'center',
         flex: 1,
         fontSize: 24,
         color: 'rgb(74, 71, 163)',

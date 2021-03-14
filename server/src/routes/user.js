@@ -102,25 +102,27 @@ app.post('/email', (req, res) => {
 app.put('/forgot', async (req, res) => {
   try {
     const { userEmail } = req.body;
+    console.log('SOY------->', userEmail);
 
     const userfind = await User.findOneAndUpdate(
       { email: userEmail },
       { resetCode: generateCode(6) },
       { new: true }
     );
+    console.log('SOY------->', userfind);
     if (userfind) {
       res.status(200).json({
-        message: 'Code generated correctly',
-        user: userfind,
+        // message: 'Code generated correctly',
+        // user: userfind,
       });
     } else {
       res.status(400).json({
-        message: 'User not found',
+        // message: 'User not found',
       });
     }
   } catch (error) {
     res.status(400).json({
-      message: 'Error: ' + error,
+      //   message: 'Error: ' + error,
     });
   }
 });

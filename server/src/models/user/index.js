@@ -2,35 +2,45 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const User = new mongoose.Schema({
-    name: {
-        type: String,
-        required: 'name is required'
-    },
-    lastName: {
-        type: String,
-        required: 'lastname is required'
-    },
-    email: {
-        type: String,
-        required: 'email is required'
-    },
-    password: {
-        type: String,
-        required: 'password is required'
-    },
-    address: String,
-    dni: Number,
-})
+  name: {
+    type: String,
+    required: 'name is required',
+  },
+  lastName: {
+    type: String,
+    required: 'lastname is required',
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: 'email is required',
+    // match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Email incorrect'],
+  },
+  password: {
+    type: String,
+    required: 'password is required',
+  },
+  address: String,
+  dni: Number,
+});
 
+// User.methods.encryptPassword = async (password) => {
+//   const salt = await bcrypt.genSalt(10);
+//   const hash = bcrypt.hash(password, salt);
+//   return hash;
+// };
 
-User.methods.encryptPassword = async(password) => {
-    const salt = await bcrypt.genSalt(10);
-    const hash = bcrypt.hash(password, salt);
-    return hash;
-}
+User.methods.compare = function (password, isReset) {
+  if (this.password || this.resetCode)
+    return bcrypt.compareSync(
+      password.toString(),
+      isReset ? this.resetCode : this.password
+    );
+  else return false;
+};
 
-User.methods.matchPassword = async function(password) {
-    return await bcrypt.compare(password, this.password)
-}
+User.methods.matchPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
-module.exports = mongoose.model('Users', User)
+module.exports = mongoose.model('Users', User);

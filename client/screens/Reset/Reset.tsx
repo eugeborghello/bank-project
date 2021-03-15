@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
       top: -45,
       fontSize: 26,
       color: colors.textLight,
-      fontFamily: "Roboto_500Medium",
+      // fontFamily: "Roboto_500Medium",
       textTransform: 'uppercase',
       
       lineHeight: 30,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
       top: -44,
       fontSize: 26,
       color: colors.textLight,
-      fontFamily: "Roboto_500Medium",
+      // fontFamily: "Roboto_500Medium",
       textTransform: 'uppercase',
       
       lineHeight: 30,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
       top: -25,
       fontSize: 14,
       color: colors.textDark,
-      fontFamily: "Roboto_400Regular",
+      // fontFamily: "Roboto_400Regular",
       lineHeight: 14
       
     },
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
       textAlign: "center",
       justifyContent: 'center',
       alignItems: 'center',
-      fontFamily: "Roboto_500Medium",
+      // fontFamily: "Roboto_500Medium",
   },
   emailInput: {
     flexDirection: 'row', 

@@ -137,7 +137,7 @@ const Login = () => {
           </View>
 
           <View style={styles.lowText2}>
-            <Link to='/Reset/'>
+            <Link to='/Reset'>
               <Text style={{ color: "#4A47A3" }}>Forgot password?</Text>
             </Link>
           </View>

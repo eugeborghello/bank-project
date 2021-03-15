@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View, Image, Button, Alert, TouchableOpacity } from 'react-native';
+import React, {FC} from 'react';
+import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import styles from './MenuStyles';
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
@@ -17,7 +17,7 @@ cuenta
 ● Boton de Mandar Dinero
 */
 
-const Menu = () => {
+const Menu: FC = () => {
     return(
         <View style={styles.view}>
             <View style={styles.viewMenu} >
@@ -26,7 +26,7 @@ const Menu = () => {
                  size={35}
                  color="white" 
                  style={{top: 15}} />    
-            <Text style={styles.text}> Mi Perfil </Text>
+            <Text style={styles.text}> Hola, Pepito! </Text>
             <Image 
             style={styles.image}
             source={{

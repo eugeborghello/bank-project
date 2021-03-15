@@ -14,7 +14,7 @@ import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
 
 const Login = () => {
-  const URL = "http://localhost:3001/user/login";
+  const URL = "http://192.168.0.19:3001/user/login";
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

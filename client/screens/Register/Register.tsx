@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Button } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { Text, View, TextInput, TouchableOpacity, Image, Button } from 'react-native';
+import { Link } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from 'axios';
+import styles from "./styles";
 
 export default function Register() {
 
@@ -51,10 +53,10 @@ export default function Register() {
             </Image>
 
             <View style={styles.registerContainer}>
-                <Text style={styles.header}> REGISTER </Text>
+                <Text style={styles.title}> REGISTER </Text>
 
                 <View style={styles.emailContent}>
-                    <Entypo name="email" style={styles.icon} />
+                <Icon name='alternate-email' size={18} color='grey' style={styles.icon}/>
                     <TextInput
                         style={styles.textinput} placeholder="Email"
                         underlineColorAndroid={'transparent'}
@@ -63,7 +65,7 @@ export default function Register() {
                 </View>
 
                 <View style={styles.emailContent}>
-                    <AntDesign name="lock1" style={styles.icon} />
+                <IconPass name='lock-outline' size={18} color='grey' style={styles.icon}/>
                     <TextInput style={styles.textinput} placeholder="Password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "password")}
@@ -71,19 +73,27 @@ export default function Register() {
                 </View>
 
                 <View style={styles.emailContent}>
-                    <AntDesign name="lock1" style={styles.icon} />
+                <IconPass name='lock-outline' size={18} color='grey' style={styles.icon}/>
                     <TextInput style={styles.textinput} placeholder="Repeat password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "repeatPass")}
                     />
                 </View>
-
-                <TouchableOpacity style={styles.button}>
-                    <Button
-                        title="Register"
-                        onPress={createNewUser}
-                    />
+                {/* Register button */}
+                <View style={styles.containerButton}>
+                <TouchableOpacity style={styles.button} onPress={createNewUser}>                    
+                      
+                    <Text style={styles.btntext}>Register</Text>
                 </TouchableOpacity>
+                </View>
+
+                <View style={styles.lowText}>
+                    <Text>Already have an account?</Text>
+                    <Link to='/Login'>
+                        <Text style={{ color: "#4A47A3" }}>Login</Text>
+                    </Link>
+                </View>
+
             </View>
         </View>
 
@@ -92,62 +102,3 @@ export default function Register() {
 
 
 
-const styles = StyleSheet.create({
-    registerForm: {
-        flex: 1,
-        alignSelf: 'center',
-        width:'100%'
-    },
-    image: {
-        flex: 1,
-        width: '100%',
-        height: '100%',       
-
-    },
-    registerContainer: {
-        flex: 1,
-    },
-
-    header: {
-        textAlign:'center',
-        flex: 1,
-        fontSize: 24,
-        color: 'rgb(74, 71, 163)',
-        marginBottom: 40,
-        borderBottomColor: '#fff',
-        borderBottomWidth: 1,
-    },
-    emailContent: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    icon: {
-        width: 24,
-        height: 24,
-        color: 'rgb(112, 159, 176)',
-    },
-    textinput: {
-        flex: 1,
-        alignSelf: 'stretch',
-        height: 40,
-        marginBottom: 30,
-        color: 'rgb(112, 159, 176)',
-        borderBottomColor: '#fff',
-        borderBottomWidth: 1,
-        paddingLeft: 10,
-    },
-    button: {
-        flex: 1,
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#fff',
-        marginTop: 30,
-
-    },
-    btntext: {
-        color: 'rgb(167, 197, 235)',
-        fontWeight: 'bold',
-    }
-})

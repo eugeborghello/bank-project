@@ -26,19 +26,19 @@ export default function Register() {
     }
 
     const createNewUser = () => {
-        if (!datos.email || !datos.password || !datos.repeatPass) { return alert("Por favor ingresa los datos requeridos") }
+        if (!datos.email || !datos.password || !datos.repeatPass) { return alert("All inputs are required") }
         if (datos.password === datos.repeatPass) {
             //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
             axios.post('http://192.168.0.10:3001/user', user)
                 .then(user => {
                     console.log(user);
-                    alert("El usuario fue creado con éxito");
+                    alert("User was created successfully");
                     setDatos(initialState);
 
                 })
                 .catch(error => console.log(error))
         } else {
-            return alert("Las contraseñas ingresadas no coinciden")
+            return alert("Passwords does not match")
         }
 
     }
@@ -48,9 +48,9 @@ export default function Register() {
     return (
         <View style={styles.registerForm}>
 
-            <Image style={styles.image}
-                source={require('../../assets/images/register.png')}>
-            </Image>
+            {/* <Image style={styles.image}
+                source={require('../../assets/images/register2.png')}>
+            </Image> */}
 
             <View style={styles.registerContainer}>
                 <Text style={styles.title}> REGISTER </Text>

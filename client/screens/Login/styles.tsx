@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     color: "#413C69",
     fontWeight: "500",
     marginBottom: 10,
-    alignSelf: "center",
+    alignSelf: "flex-start",
   },
   inputContainer: {
     width: "100%",

@@ -1,6 +1,10 @@
-const mongoose= require('mongoose')
+const mongoose= require('mongoose');
+require('dotenv').config();
 
-URI=('mongodb://localhost/henrybank')
+const host = process.env.MONGO_HOST;
+const database = process.env.MONGO_DB;
+
+URI=(`mongodb://${host}/${database}`)
 
 mongoose.connect(URI, {
     useNewUrlParser:true,

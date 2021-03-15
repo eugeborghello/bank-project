@@ -49,7 +49,7 @@ export default function Register() {
         <View style={styles.registerForm}>
 
             <Image style={styles.image}
-                source={require('../assets/register.png')}>
+                source={require('../../assets/images/register.png')}>
             </Image>
 
             <View style={styles.registerContainer}>

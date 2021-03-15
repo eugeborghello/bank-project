@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors/colors.js';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -16,12 +16,12 @@ export default function Reset({ navigation }) {
   
   const handleSubmitPress = (data) => {
 		axios
-			.put(`${REACT_APP_API}/auth/forgot`, { userEmail: data.userEmail })
+			.put(`${REACT_APP_API}/user/forgot`, { userEmail: data.userEmail })
 			.then((user) => {
 				let template = 'lalala';
 				let language = 'en';
 				axios
-					.post(`${REACT_APP_API}/auth/email`, {
+					.post(`${REACT_APP_API}/user/email`, {
 						name:
 							user.data.user.name +
 							' ' +
@@ -81,7 +81,7 @@ export default function Reset({ navigation }) {
     <TouchableOpacity
         activeOpacity={0.7}
         style={styles.sendButton}
-        onPress={handleSubmitPress}
+        onPress={() => Alert.alert('Check your email')}
       >
         <Text style={styles.sendButtonText}>Send</Text>
       </TouchableOpacity>

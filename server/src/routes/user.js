@@ -66,25 +66,24 @@ app.put('/:id', (req, res) => {
 
 // Ruta para enviar notificacion por mail
 app.post('/email', (req, res) => {
-  const params = req.body;
+  const { subject, email } = req.body;
 
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user: EMAIL_ACCOUNT,
-      pass: EMAIL_PASSWORD,
+      user: 'xtremerssports@gmail.com',
+      pass: 'Hola123456!',
     },
   });
 
   transporter
     .sendMail({
       from: '"Veski" <veski@gmail.com>',
-      to: params.email,
-      subject: params.subject,
-      subject: 'lalala',
-      text: 'lalala',
+      to: email,
+      subject: 'Password Reset',
+      text: "Here's your code to reset your password: ",
     })
     .then((mail) => {
       res.status(200).json({

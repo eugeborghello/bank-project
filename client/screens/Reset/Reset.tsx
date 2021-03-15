@@ -79,6 +79,7 @@ export default function Reset({ navigation }) {
 
     <View style={{marginTop: 20}}>
     <TouchableOpacity
+        activeOpacity={0.7}
         style={styles.sendButton}
         onPress={handleSubmitPress}
       >

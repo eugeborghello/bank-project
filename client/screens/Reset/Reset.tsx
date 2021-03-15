@@ -6,12 +6,12 @@ import Icon from 'react-native-vector-icons/Entypo';
 import image from "../../assets/images/PasswordReset.png"
 import axios from 'axios';
 const { REACT_APP_API } = process.env;
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 
 export default function Reset({ navigation }) {
   const [errortext, setErrortext] = useState('');
 
-  const { control, handleSubmit, errors } = useForm();
+  // const { control, handleSubmit, errors } = useForm();
   
   
   const handleSubmitPress = (data) => {

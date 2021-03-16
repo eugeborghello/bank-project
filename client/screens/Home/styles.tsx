@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
         fontSize:  30,
       },
       containerButtons:{
+          marginBottom:'25%',
           marginTop:'-30%',
           position:'relative'
       },

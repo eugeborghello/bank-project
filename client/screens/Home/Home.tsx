@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image,ImageBackground, Button } from 'react-native';
-import { Link } from "@react-navigation/native";
-import axios from 'axios';
+import React from 'react';
+import { Text, View, TouchableOpacity, Image,ImageBackground} from 'react-native';
 import styles from "./styles";
+import {useNavigation} from '@react-navigation/native';
+import HandleDrawer from '../../components/Nav/HandleDrawer';
 
-export default function Home({navigation}) {
-
+export default function Home() {
+    const navigation = useNavigation()
     return (
+      <>
         <ImageBackground
         source={{uri:`https://image.freepik.com/foto-gratis/fondo-mesa-madera-blanca_53876-89436.jpg`}}
         style={styles.background}
       >
+        <HandleDrawer/>
         <View>
           <Image
             source={require('../../assets/images/veski.png')}
@@ -31,7 +33,7 @@ export default function Home({navigation}) {
           </View>
         </View>
       </ImageBackground>
-
+</>
     );
 }
 

@@ -111,7 +111,7 @@ app.patch('/forgot', async (req, res) => {
     console.log('SOY------->', userfind);
     if (userfind) {
       res.status(200).json({
-        message: 'Code generated correctly',
+        // message: 'Code generated correctly',
         user: userfind,
       });
     } else {

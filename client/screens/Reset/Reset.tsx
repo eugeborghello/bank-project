@@ -6,37 +6,49 @@ import Icon from 'react-native-vector-icons/Entypo';
 import image from "../../assets/images/PasswordReset.png"
 import axios from 'axios';
 const { REACT_APP_API } = process.env;
-// import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+
+
+export interface User {
+  resetCode: string,
+    _id: string,
+    name: string,
+    lastName: string,
+    email: string,
+    password: string,
+    dni:string,
+    __v: number
+}
 
 export default function Reset({ navigation }) {
   const [errortext, setErrortext] = useState('');
 
-  // const { control, handleSubmit, errors } = useForm();
+  const { control, handleSubmit, errors } = useForm();
   
   
   const handleSubmitPress = (data) => {
 		axios
-			.put(`${REACT_APP_API}/user/forgot`, { userEmail: data.userEmail })
+			.patch('http://192.168.0.156:3001user/forgot', { userEmail: data.userEmail })
+    
 			.then((user) => {
-				let template = 'lalala';
+			
 				let language = 'en';
 				axios
-					.post(`${REACT_APP_API}/user/email`, {
-						name:
-							user.data.user.name +
-							' ' +
-							user.data.user.lastName,
+					.post('http://192.168.0.156:3001/user/email', {
+						// name:
+						// 	user.data.user.name +
+						// 	' ' +
+						// user.data.user.lastName,
 						subject:'Recover your Veski account',
-						date: '01/01/2021',
-						code: user.data.user.resetCode,
+						// date: '01/01/2021',
+						// code: user.data.user.resetCode,
 						email: data.userEmail,
-						template: template,
+						
 					})
 					.then((mail) => {
 						let message =
-							language === 'en'
-								? 'Email sent. Check your email'
-								: mail.data.message + ' .Revisa tu email';
+						'Email sent. Check your email'
+							
 						setErrortext(message);
 						//redirigir al componente Reset2
 						navigation.navigate('Reset2');
@@ -67,21 +79,45 @@ export default function Reset({ navigation }) {
         You will receive an email with instructions.</Text>
     </View>
 
-    <View style={styles.emailInput}>
-    <Icon name='email' size={18}   style={styles.icon} />
-      <TextInput
-            placeholder='Email'
-            style={styles.input}
-            /* onChangeText={handleInput}
-            value={email}  */
-          />
-    </View>
+
+
+
+    
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<>
+									<Icon name='email' size={18}   style={styles.icon} />
+									<TextInput
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+                    placeholder='Email'
+                    style={styles.input}
+									/>
+								</>
+							);
+						}}
+						name='userEmail'
+						rules={{
+							required: true,
+							pattern: {
+								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+								message: "invalid email",
+							},
+						}}
+						defaultValue=''
+					/>
+          
 
     <View style={{marginTop: 20}}>
     <TouchableOpacity
         activeOpacity={0.7}
         style={styles.sendButton}
-        onPress={() => Alert.alert('Check your email')}
+        onPress={handleSubmit(handleSubmitPress)}
       >
         <Text style={styles.sendButtonText}>Send</Text>
       </TouchableOpacity>
@@ -110,7 +146,7 @@ const styles = StyleSheet.create({
       top: -45,
       fontSize: 26,
       color: colors.textLight,
-      // fontFamily: "Roboto_500Medium",
+      fontFamily: "Roboto_500Medium",
       textTransform: 'uppercase',
       
       lineHeight: 30,
@@ -122,7 +158,7 @@ const styles = StyleSheet.create({
       top: -44,
       fontSize: 26,
       color: colors.textLight,
-      // fontFamily: "Roboto_500Medium",
+      fontFamily: "Roboto_500Medium",
       textTransform: 'uppercase',
       
       lineHeight: 30,
@@ -133,7 +169,7 @@ const styles = StyleSheet.create({
       top: -25,
       fontSize: 14,
       color: colors.textDark,
-      // fontFamily: "Roboto_400Regular",
+      fontFamily: "Roboto_400Regular",
       lineHeight: 14
       
     },
@@ -161,7 +197,7 @@ const styles = StyleSheet.create({
       textAlign: "center",
       justifyContent: 'center',
       alignItems: 'center',
-      // fontFamily: "Roboto_500Medium",
+      fontFamily: "Roboto_500Medium",
   },
   emailInput: {
     flexDirection: 'row', 

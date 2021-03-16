@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Users = mongoose.model("Users")
+const bcrypt = require('bcrypt');
 var nodemailer = require('nodemailer');
 const { generateCode } = require('../../utils/codeGen');
 
@@ -8,9 +9,10 @@ const { generateCode } = require('../../utils/codeGen');
 
  exports.getUsers = (req, res) => {
     Users.find()
-    .then(users => res.status.json({status:"success", response:users}))
+    .then(users => res.status(200).json({
+      status:"success",
+       response:users}))
     .catch(error => res.status(400).json({status:"error", message:error.message}))
-
 
 } 
 
@@ -23,13 +25,23 @@ exports.getUserId=(req, res) => {
 
 
  
- exports.postLogin= (req, res )=> {
-     email = req.body.email,
-     password = req.body.password
-    
-    Users.findOne({emai: email, password: password})
-    .then(user => res.status(200).json({status:"success", response:user}))
-    .catch(err => res.status(400).json({status:"error", message:err.message}))
+ exports.postLogin= async (req, res )=> {
+   try{
+      const email = req.body.email
+      const password = req.body.password
+      const user = await Users.findOne({"email": email})
+      if(user){
+        const validPassword = await bcrypt.compareSync(
+          password,
+          user.password
+        );
+        if(user && validPassword){
+          res.status(200).json({status:'success',response:user})
+        }
+      }
+    }catch(error){
+      res.status(400).json({status:'error',message:error.message})
+    }
 }
 
 exports.createUser=(req, res) => {
@@ -45,7 +57,7 @@ exports.createUser=(req, res) => {
         return nuevoUser.save()
     })
     .then(user => res.status(200).json({status:"success", response:user}))
-    .catch(error => res.status(400).json({status:"error", message:err.message}))
+    .catch(error => res.status(400).json({status:"error", message:error.message}))
 }
   
 exports.updateDataUser=(req, res) => {

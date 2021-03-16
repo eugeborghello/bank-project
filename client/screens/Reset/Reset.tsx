@@ -5,19 +5,18 @@ import colors from '../../assets/colors/colors.js';
 import Icon from 'react-native-vector-icons/Entypo';
 import image from "../../assets/images/PasswordReset.png"
 import axios from 'axios';
-const { REACT_APP_API } = process.env;
+import  { REACT_APP_BACKEND_API_URL} from "@env";
 import { useForm, Controller } from 'react-hook-form';
 
 
 export interface User {
-  resetCode: string,
-    _id: string,
+    resetCode: string,
     name: string,
     lastName: string,
     email: string,
     password: string,
-    dni:string,
-    __v: number
+    dni:number,
+    
 }
 
 export default function Reset({ navigation }) {
@@ -28,13 +27,13 @@ export default function Reset({ navigation }) {
   
   const handleSubmitPress = (data) => {
 		axios
-			.patch('http://192.168.0.156:3001user/forgot', { userEmail: data.userEmail })
+			.patch(`${REACT_APP_BACKEND_API_URL ||"http://192.168.0.156:3001"}/users/forgot`, { userEmail: data.userEmail })
     
 			.then((user) => {
 			
 				let language = 'en';
 				axios
-					.post('http://192.168.0.156:3001/user/email', {
+					.post(`${REACT_APP_BACKEND_API_URL ||"http://192.168.0.156:3001"}users/email`, {
 						// name:
 						// 	user.data.user.name +
 						// 	' ' +

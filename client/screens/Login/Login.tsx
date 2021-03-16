@@ -12,10 +12,10 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
-import  { REACT_APP_BACKEND_API_URL} from "@env";
+
 
 const Login = () => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/user/login`;
+  const URL = 'http://192.168.0.107:3001/user/login';
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

@@ -1,16 +1,44 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {AuthContext} from '../Context';
 
 export function DrawerContent(props: any) {
+    const {state,dispatch} = React.useContext(AuthContext);;
     return (
+        <AuthContext.Consumer >
+           { AuthContext=>(
+
+
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <Drawer.Section style={styles.drawerSection}>
+                        {
+                            (state.login=='true') ? (<><DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="home-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Home"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-check-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Menu"
+                            onPress={() => { props.navigation.navigate('Menu') }}
+                        /></>) : (<>
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
@@ -44,17 +72,8 @@ export function DrawerContent(props: any) {
                             label="Register"
                             onPress={() => { props.navigation.navigate('Register') }}
                         />
-                        <DrawerItem
-                            icon={({ color, size }) => (
-                                <Icon
-                                    name="account-check-outline"
-                                    color={color}
-                                    size={size}
-                                />
-                            )}
-                            label="Menu"
-                            onPress={() => { props.navigation.navigate('Menu') }}
-                        />
+                        </>)
+                        }
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
@@ -68,10 +87,15 @@ export function DrawerContent(props: any) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => { console.log('sing out') }}
+                    onPress={() => {dispatch({
+                        type:'LOGIN_REQUEST',
+                        payload:'false'
+                      }) }}
                 />
             </Drawer.Section>
         </View>
+           )}
+        </AuthContext.Consumer>
     );
 }
 

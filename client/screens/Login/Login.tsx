@@ -12,10 +12,10 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
-import  { REACT_APP_BACKEND_API_URL} from "@env";
-
+import {AuthContext} from '../../components/Context';
 const Login = () => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/user/login`;
+  const URL = `http://192.168.0.96:3001/users/login`;
+  const {state,dispatch} = React.useContext(AuthContext);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -30,18 +30,29 @@ const Login = () => {
   };
 
   // API call
-  const handleLogin = () => {
-    axios
-      .post(URL, {
-        email: email,
-        password: password,
+  const handleLogin = async () => {
+    try{
+    const aux = await axios.post(URL, {
+      email: email,
+      password: password,
+    })
+    if(aux){
+      Alert.alert("Successfully logged")
+      return dispatch({
+        type:'LOGIN_REQUEST',
+        payload:'true'
       })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }else{
+      throw new Error('MAl')
+    }
+  }catch(error){
+    Alert.alert("LAs credenciales son incorrectas")
+    return dispatch({
+      type:'LOGIN_REQUEST',
+      payload:'false'
+    })
+  }
+    
   };
 
   // Validation
@@ -70,11 +81,12 @@ const Login = () => {
         return false;
       }
     }
-    setError("");
-    return Alert.alert("Successfully logged");
+    handleLogin()
   };
 
   return (
+    <AuthContext.Provider value={AuthContext["_currentValue"].login}>
+
     <View style={styles.root}>
       <View style={styles.logoContainer}>
         <Image
@@ -145,6 +157,7 @@ const Login = () => {
         </View>
       </View>
     </View>
+    </AuthContext.Provider>
   );
 };
 

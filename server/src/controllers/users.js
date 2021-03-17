@@ -37,9 +37,14 @@ exports.getUserId=(req, res) => {
         );
         if(user && validPassword){
           res.status(200).json({status:'success',response:user})
+        }else{
+          throw new Error('Password must be correct')
         }
+      }else{
+        throw new Error('User not found')
       }
     }catch(error){
+      console.log(error);
       res.status(400).json({status:'error',message:error.message})
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,46 +7,75 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import AppLoading from 'expo-app-loading';
+
 import colors from '../../assets/colors/colors.js';
 import Icon from 'react-native-vector-icons/Entypo';
 import image from '../../assets/images/PasswordReset.png';
+import axios from 'axios';
+// import { REACT_APP_BACKEND_API_URL } from "react-native-dotenv";
+import { useForm, Controller } from 'react-hook-form';
 
-import {
-  useFonts,
-  Roboto_100Thin,
-  Roboto_100Thin_Italic,
-  Roboto_300Light,
-  Roboto_300Light_Italic,
-  Roboto_400Regular,
-  Roboto_400Regular_Italic,
-  Roboto_500Medium,
-  Roboto_500Medium_Italic,
-  Roboto_700Bold,
-  Roboto_700Bold_Italic,
-  Roboto_900Black,
-  Roboto_900Black_Italic,
-} from '@expo-google-fonts/roboto';
+const REACT_APP_BACKEND_API_URL = 'http://192.168.0.156:3001';
 
-export default function Reset() {
-  let [fontsLoaded] = useFonts({
-    Roboto_100Thin,
-    Roboto_100Thin_Italic,
-    Roboto_300Light,
-    Roboto_300Light_Italic,
-    Roboto_400Regular,
-    Roboto_400Regular_Italic,
-    Roboto_500Medium,
-    Roboto_500Medium_Italic,
-    Roboto_700Bold,
-    Roboto_700Bold_Italic,
-    Roboto_900Black,
-    Roboto_900Black_Italic,
-  });
+export interface User {
+  resetCode: string;
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  dni: number;
+}
 
-  if (!fontsLoaded) return <AppLoading />;
+export default function Reset({ navigation }) {
+  const [errortext, setErrortext] = useState('');
 
-  const handleSubmitPress = () => {};
+  const { control, handleSubmit, errors } = useForm();
+
+  const handleSubmitPress = (data: any) => {
+    console.log(REACT_APP_BACKEND_API_URL);
+    axios
+      .patch(
+        `${
+          REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'
+        }/users/forgot`,
+        {
+          userEmail: data.userEmail,
+        }
+      )
+
+      .then((user: any) => {
+        // console.log("soy------>", user);
+        // console.log("soy------>", data.userEmail);
+        axios
+          .post(
+            `${
+              REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'
+            }users/email`,
+            {
+              name: user.data.user.name + ' ' + user.data.user.lastName,
+              subject: 'Recover your Veski account',
+              date: '01/01/2021',
+              code: user.data.user.resetCode,
+              email: data.userEmail,
+            }
+          )
+
+          .then((mail: any) => {
+            let message = 'Email sent. Check your email';
+
+            setErrortext(message);
+            //redirigir al componente Reset2
+            // navigation.navigate("Reset2");
+            console.log('REDIRECT');
+          })
+          .catch((error) => {
+            setErrortext(error);
+          });
+      })
+      .catch((err) => {
+        setErrortext(err.response.data.message);
+      });
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -71,15 +100,31 @@ export default function Reset() {
           </Text>
         </View>
 
-        <View style={styles.emailInput}>
-          <Icon name='email' size={18} style={styles.icon} />
-          <TextInput
-            placeholder='Email'
-            style={styles.input}
-            /* onChangeText={handleInput}
-            value={email}  */
-          />
-        </View>
+        <Controller
+          control={control}
+          render={({ onChange, value }) => {
+            return (
+              <>
+                {/* <Icon name="email" size={18} style={styles.icon} /> */}
+                <TextInput
+                  value={value}
+                  onChangeText={(value) => onChange(value)}
+                  placeholder='Email'
+                  style={styles.input}
+                />
+              </>
+            );
+          }}
+          name='userEmail'
+          rules={{
+            required: true,
+            pattern: {
+              value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+              message: 'invalid email',
+            },
+          }}
+          defaultValue=''
+        />
 
         <View style={{ marginTop: 20 }}>
           <TouchableOpacity

@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	TextInput,
-	TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors/colors.js';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -31,21 +24,15 @@ export default function Reset({ navigation }) {
 
 	const handleSubmitPress = (data: any) => {
 		axios
-			.patch(
-				`${
-					REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'
-				}/users/forgot`,
-				{ userEmail: data.userEmail },
-			)
+			.patch(`${REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'}/users/forgot`, {
+				userEmail: data.userEmail,
+			})
 
 			.then((user: any) => {
 				let language = 'en';
 				axios
 					.post(
-						`${
-							REACT_APP_BACKEND_API_URL ||
-							'http://192.168.0.156:3001'
-						}users/email`,
+						`${REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'}users/email`,
 						{
 							// name:
 							// 	user.data.user.name +
@@ -87,13 +74,16 @@ export default function Reset({ navigation }) {
 			</View>
 
 			<View style={{ width: '80%' }}>
-				<View style={{ flexDirection: 'column' }}>
+				<View
+					style={{
+						flexDirection: 'column',
+					}}
+				>
 					<Text style={styles.title}>Forgot</Text>
 					<Text style={styles.title2}>password ?</Text>
 					<Text style={styles.text}>
-						Don’t worry! It happens. Please enter the email address
-						associated with your account. You will receive an email
-						with instructions.
+						Don’t worry! It happens. Please enter the email address associated with your
+						account. You will receive an email with instructions.
 					</Text>
 				</View>
 
@@ -102,11 +92,7 @@ export default function Reset({ navigation }) {
 					render={({ onChange, onBlur, value }) => {
 						return (
 							<>
-								<Icon
-									name="email"
-									size={18}
-									style={styles.icon}
-								/>
+								<Icon name="email" size={18} style={styles.icon} />
 								<TextInput
 									onBlur={onBlur}
 									value={value}

@@ -13,8 +13,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
 
+
 const Login = () => {
-  const URL = "http://localhost:3001/user/login";
+  const URL = 'http://192.168.0.107:3001/user/login';
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -60,7 +61,7 @@ const Login = () => {
     }
     if (password.length) {
       var pattern = new RegExp(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+        /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
       );
       if (!pattern.test(password)) {
         setError(
@@ -137,7 +138,7 @@ const Login = () => {
           </View>
 
           <View style={styles.lowText2}>
-            <Link to='/Reset/'>
+            <Link to='/Reset'>
               <Text style={{ color: "#4A47A3" }}>Forgot password?</Text>
             </Link>
           </View>

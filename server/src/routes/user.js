@@ -1,68 +1,39 @@
 const app = require('express').Router();
 // Model user
 const Users = require('../models/user');
+const UsersCtrl = require('../controllers/users')
+
+
+
 
 // Traer todos los users
-app.get('/', (req, res) => {
-    Users.find()
-    .then(users => res.json(users))
-    .catch(error => res.json(error))
-})
+app.get('/', UsersCtrl.getUsers)
+   
+
 
 // Traer un usuario en particular
-app.get('/:id', (req, res) => {
-    const {id} = req.params;
-    Users.findOne({"_id" : id})
-    .then(user => res.json(user))
-    .catch(error => res.json(error))
-})
+app.get('/:id', UsersCtrl.getUserId)
+
 
 // login
-app.post('/login', (req, res )=> {
-     email = req.body.email,
-     password = req.body.password
-
-    Users.findOne({emai: email, password: password})
-    .then(user => res.json(user))
-    .catch(err => console.log(err))
-})
-
+app.post('/login', UsersCtrl.postLogin)
+    
 // Crear un nuevo usuario
-app.post('/', (req, res) => {
-    var nuevoUser;
-    const {name, lastName, email, password, address, dni} = req.body;
-    Users.insertMany(({name, lastName, email, password, address, dni}))
-    .then(user => {
-        nuevoUser = user[0];
-        return nuevoUser.encryptPassword(password);
-    })
-    .then(nuevoPass => {
-        nuevoUser.password = nuevoPass;
-        return nuevoUser.save()
-    })
-    .then(user => res.json(user))
-    .catch(error => res.json(error))
-})
+app.post('/', UsersCtrl.createUser)
+
 
 
 //Modificar informacion de un usuario
-app.put('/:id', (req, res) => {
-    const {id} = req.params;
-    const cambios = req.body;
+app.put('/:id', UsersCtrl.updateDataUser) 
 
-    Users.findByIdAndUpdate(id, cambios, (err, userUpdate) =>{
-        console.log(cambios)
-        if(err) res.status(500).send({message :`Error al actualizar datos del usuario: ${err}`})
+// Ruta para enviar notificacion por mail
+app.post('/email', UsersCtrl.sendEmail)
 
-        res.status(200).send({ users: userUpdate })
-        
-    })
-})
-
-
-
-
-
+app.patch('/forgot', UsersCtrl.emailCode)
+ 
+  
+app.patch('/resetpass', UsersCtrl.passwordReset)
+  
 
 
 

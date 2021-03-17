@@ -1,56 +1,54 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import colors from '../../assets/colors/colors.js';
 import Icon from 'react-native-vector-icons/Entypo';
 import image from "../../assets/images/PasswordReset.png"
+import axios from 'axios';
+const { REACT_APP_API } = process.env;
+// import { useForm } from 'react-hook-form';
 
+export default function Reset({ navigation }) {
+  const [errortext, setErrortext] = useState('');
 
-
- import {
-   useFonts,
-   Roboto_100Thin,
-   Roboto_100Thin_Italic,
-   Roboto_300Light,
-   Roboto_300Light_Italic,
-   Roboto_400Regular,
-   Roboto_400Regular_Italic,
-   Roboto_500Medium,
-   Roboto_500Medium_Italic,
-   Roboto_700Bold,
-   Roboto_700Bold_Italic,
-   Roboto_900Black,
-   Roboto_900Black_Italic,
- } from '@expo-google-fonts/roboto'; 
-
-
-
-export default function Reset() {
-  let [fontsLoaded] = useFonts({
-    Roboto_100Thin,
-    Roboto_100Thin_Italic,
-    Roboto_300Light,
-    Roboto_300Light_Italic,
-    Roboto_400Regular,
-    Roboto_400Regular_Italic,
-    Roboto_500Medium,
-    Roboto_500Medium_Italic,
-    Roboto_700Bold,
-    Roboto_700Bold_Italic,
-    Roboto_900Black,
-    Roboto_900Black_Italic,
-  }); 
-
-  if (!fontsLoaded) return <AppLoading />;
-
-
-  const handleSubmitPress = () => {}
-
-
-
-
-
-
+  // const { control, handleSubmit, errors } = useForm();
+  
+  
+  const handleSubmitPress = (data) => {
+		axios
+			.put(`${REACT_APP_API}/user/forgot`, { userEmail: data.userEmail })
+			.then((user) => {
+				let template = 'lalala';
+				let language = 'en';
+				axios
+					.post(`${REACT_APP_API}/user/email`, {
+						name:
+							user.data.user.name +
+							' ' +
+							user.data.user.lastName,
+						subject:'Recover your Veski account',
+						date: '01/01/2021',
+						code: user.data.user.resetCode,
+						email: data.userEmail,
+						template: template,
+					})
+					.then((mail) => {
+						let message =
+							language === 'en'
+								? 'Email sent. Check your email'
+								: mail.data.message + ' .Revisa tu email';
+						setErrortext(message);
+						//redirigir al componente Reset2
+						navigation.navigate('Reset2');
+					})
+					.catch((error) => {
+						setErrortext(error);
+					});
+			})
+			.catch((err) => {
+				setErrortext(err.response.data.message);
+			});
+	};
 
 
   return (
@@ -81,8 +79,9 @@ export default function Reset() {
 
     <View style={{marginTop: 20}}>
     <TouchableOpacity
+        activeOpacity={0.7}
         style={styles.sendButton}
-        onPress={handleSubmitPress}
+        onPress={() => Alert.alert('Check your email')}
       >
         <Text style={styles.sendButtonText}>Send</Text>
       </TouchableOpacity>
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
       top: -45,
       fontSize: 26,
       color: colors.textLight,
-      fontFamily: "Roboto_500Medium",
+      // fontFamily: "Roboto_500Medium",
       textTransform: 'uppercase',
       
       lineHeight: 30,
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
       top: -44,
       fontSize: 26,
       color: colors.textLight,
-      fontFamily: "Roboto_500Medium",
+      // fontFamily: "Roboto_500Medium",
       textTransform: 'uppercase',
       
       lineHeight: 30,
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
       top: -25,
       fontSize: 14,
       color: colors.textDark,
-      fontFamily: "Roboto_400Regular",
+      // fontFamily: "Roboto_400Regular",
       lineHeight: 14
       
     },
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
       textAlign: "center",
       justifyContent: 'center',
       alignItems: 'center',
-      fontFamily: "Roboto_500Medium",
+      // fontFamily: "Roboto_500Medium",
   },
   emailInput: {
     flexDirection: 'row', 

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import AppLoading from 'expo-app-loading';
-import colors from '../../assets/colors/colors.js';
-import Icon from 'react-native-vector-icons/Entypo';
-import image from '../../assets/images/PasswordReset.png';
-import axios from 'axios';
-import { REACT_APP_BACKEND_API_URL } from 'react-native-dotenv';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import AppLoading from "expo-app-loading";
+import colors from "../../assets/colors/colors.js";
+// import Icon from 'react-native-vector-icons/Entypo';
+import image from "../../assets/images/PasswordReset.png";
+import axios from "axios";
+import { REACT_APP_BACKEND_API_URL } from "react-native-dotenv";
+import { useForm, Controller } from "react-hook-form";
 
 export interface User {
 	resetCode: string;
@@ -18,38 +18,37 @@ export interface User {
 }
 
 export default function Reset({ navigation }) {
-	const [errortext, setErrortext] = useState('');
+	const [errortext, setErrortext] = useState("");
 
 	const { control, handleSubmit, errors } = useForm();
 
 	const handleSubmitPress = (data: any) => {
+		console.log(REACT_APP_BACKEND_API_URL);
 		axios
-			.patch(`${REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'}/users/forgot`, {
+			.patch(`${REACT_APP_BACKEND_API_URL || "http://192.168.0.156:3001"}/users/forgot`, {
 				userEmail: data.userEmail,
 			})
 
 			.then((user: any) => {
-				let language = 'en';
+				console.log("soy------>", user);
+				console.log("soy------>", data.userEmail);
 				axios
 					.post(
-						`${REACT_APP_BACKEND_API_URL || 'http://192.168.0.156:3001'}users/email`,
+						`${REACT_APP_BACKEND_API_URL || "http://192.168.0.156:3001"}users/email`,
 						{
-							// name:
-							// 	user.data.user.name +
-							// 	' ' +
-							// user.data.user.lastName,
-							subject: 'Recover your Veski account',
-							// date: '01/01/2021',
-							// code: user.data.user.resetCode,
+							name: user.data.user.name + " " + user.data.user.lastName,
+							subject: "Recover your Veski account",
+							date: "01/01/2021",
+							code: user.data.user.resetCode,
 							email: data.userEmail,
 						},
 					)
 					.then((mail: any) => {
-						let message = 'Email sent. Check your email';
+						let message = "Email sent. Check your email";
 
 						setErrortext(message);
 						//redirigir al componente Reset2
-						navigation.navigate('Reset2');
+						navigation.navigate("Reset2");
 					})
 					.catch((error) => {
 						setErrortext(error);
@@ -64,19 +63,19 @@ export default function Reset({ navigation }) {
 		<View style={styles.wrapper}>
 			<View
 				style={{
-					width: '80%',
+					width: "80%",
 					top: -100,
-					justifyContent: 'center',
-					alignItems: 'center',
+					justifyContent: "center",
+					alignItems: "center",
 				}}
 			>
 				<Image source={image} style={image} />
 			</View>
 
-			<View style={{ width: '80%' }}>
+			<View style={{ width: "80%" }}>
 				<View
 					style={{
-						flexDirection: 'column',
+						flexDirection: "column",
 					}}
 				>
 					<Text style={styles.title}>Forgot</Text>
@@ -89,12 +88,11 @@ export default function Reset({ navigation }) {
 
 				<Controller
 					control={control}
-					render={({ onChange, onBlur, value }) => {
+					render={({ onChange, value }) => {
 						return (
 							<>
-								<Icon name="email" size={18} style={styles.icon} />
+								{/* <Icon name="email" size={18} style={styles.icon} /> */}
 								<TextInput
-									onBlur={onBlur}
 									value={value}
 									onChangeText={(value) => onChange(value)}
 									placeholder="Email"
@@ -108,7 +106,7 @@ export default function Reset({ navigation }) {
 						required: true,
 						pattern: {
 							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: 'invalid email',
+							message: "invalid email",
 						},
 					}}
 					defaultValue=""
@@ -118,7 +116,7 @@ export default function Reset({ navigation }) {
 					<TouchableOpacity
 						activeOpacity={0.7}
 						style={styles.sendButton}
-						onPress={handleSubmit(handleSubmitPress)}
+						// onPress={() => console.log("manola")}
 					>
 						<Text style={styles.sendButtonText}>Send</Text>
 					</TouchableOpacity>
@@ -130,43 +128,43 @@ export default function Reset({ navigation }) {
 
 const styles = StyleSheet.create({
 	wrapper: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 		backgroundColor: colors.background,
-		flexDirection: 'column',
+		flexDirection: "column",
 	},
 	image: {
-		position: 'relative',
+		position: "relative",
 	},
 	title: {
 		top: -45,
 		fontSize: 26,
 		color: colors.textLight,
-		fontFamily: 'Roboto_500Medium',
-		textTransform: 'uppercase',
+		fontFamily: "Roboto_500Medium",
+		textTransform: "uppercase",
 
 		lineHeight: 30,
-		justifyContent: 'center',
+		justifyContent: "center",
 	},
 	title2: {
 		top: -44,
 		fontSize: 26,
 		color: colors.textLight,
-		fontFamily: 'Roboto_500Medium',
-		textTransform: 'uppercase',
+		fontFamily: "Roboto_500Medium",
+		textTransform: "uppercase",
 
 		lineHeight: 30,
-		justifyContent: 'center',
+		justifyContent: "center",
 	},
 	text: {
 		top: -25,
 		fontSize: 14,
 		color: colors.textDark,
-		fontFamily: 'Roboto_400Regular',
+		fontFamily: "Roboto_400Regular",
 		lineHeight: 14,
 	},
 	input: {
-		width: '80%',
+		width: "80%",
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
 	},
 
 	sendButton: {
-		justifyContent: 'center',
+		justifyContent: "center",
 		backgroundColor: colors.buttonViolet,
 		height: 41,
 
@@ -185,14 +183,14 @@ const styles = StyleSheet.create({
 	sendButtonText: {
 		fontSize: 15,
 		color: colors.textGreyLight,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		fontFamily: 'Roboto_500Medium',
+		textAlign: "center",
+		justifyContent: "center",
+		alignItems: "center",
+		fontFamily: "Roboto_500Medium",
 	},
 	emailInput: {
-		flexDirection: 'row',
-		alignItems: 'center',
+		flexDirection: "row",
+		alignItems: "center",
 	},
 	icon: {
 		color: colors.textInput,

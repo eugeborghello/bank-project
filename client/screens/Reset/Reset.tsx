@@ -29,11 +29,7 @@ export default function Reset({ navigation }) {
 
 	const { control, handleSubmit, errors } = useForm();
 
-	console.log('Hola');
-	console.log('Hola');
-	console.log('Hola');
-
-	const handleSubmitPress = (data) => {
+	const handleSubmitPress = (data: any) => {
 		axios
 			.patch(
 				`${
@@ -42,7 +38,7 @@ export default function Reset({ navigation }) {
 				{ userEmail: data.userEmail },
 			)
 
-			.then((user) => {
+			.then((user: any) => {
 				let language = 'en';
 				axios
 					.post(
@@ -61,7 +57,7 @@ export default function Reset({ navigation }) {
 							email: data.userEmail,
 						},
 					)
-					.then((mail) => {
+					.then((mail: any) => {
 						let message = 'Email sent. Check your email';
 
 						setErrortext(message);

@@ -1,32 +1,39 @@
 import React, {FC} from 'react';
 import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import styles from './MenuStyles';
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-
+import { MaterialCommunityIcons, FontAwesome, Octicons } from '@expo/vector-icons';
+import { useFonts, CutiveMono_400Regular } from '@expo-google-fonts/cutive-mono';
 /* 
-Saldo actual en pesos de mi cuenta Henry Bank
-● Sumatoria General de Ingresos y Gastos de mi cuenta Henry
-Bank
-● Selector de periodo de sumatoria de ingresos y gastos de mi
-cuenta
-● Botón de Transacciones
-● Boton de Estadisticas
-● Boton de Mis Datos
-● Botón de Mis Productos
-● Botón de Recargar Dinero
-● Boton de Mandar Dinero
+interface Props {
+    icon: string;
+    onChange : (text: string) => void
+}
+
+const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
+    
+let [fontsLoaded] = useFonts({
+    CutiveMono_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <View>
+        <Text>
+            Loading
+        </Text>
+    </View>;
+  } else {
     return(
         <View style={styles.view}>
             <View style={styles.viewMenu} >
-            <Ionicons
-                 name="notifications-circle"
-                 size={35}
-                 color="white" 
-                 style={{top: 15}} />    
-            <Text style={styles.text}> Hola, Pepito! </Text>
+            <MaterialCommunityIcons 
+                name="menu" 
+                size={26} 
+                color="white"
+                style={{top: 15}} />   
+            <Text style={styles.text}> Hello, Pepito! </Text>
             <Image 
             style={styles.image}
             source={{
@@ -39,40 +46,32 @@ const Menu: FC = () => {
                 <Text style={styles.balanceText} > $5210.50 </Text> 
             </View>
 
-            <View style={styles.viewGeneral} >
+        <View style={styles.container} >
+            <View style={styles.viewCard} >
+                <View style={styles.titulo} >
                 <Text 
-                style={styles.titulo} > General </Text>
-               <View style={styles.row} >
-                <Text> Saldo actual </Text>
-                <Text> Gastos </Text>
-               </View>
-               <View style={styles.row} >
-                <Text style={styles.number} > $3200 </Text>
-                <Text style={styles.number} > $2010.50 </Text>
-               </View>
-               <Text style={styles.titulo2} > Chequear balance según períodos: </Text>
-               <View style={styles.row}>
-                   <TouchableOpacity style={styles.periodoButton} onPress={() => Alert.alert('24 horas')} > 
-                       <Text>24horas </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.periodoButton} onPress={() => Alert.alert('Una semana')}> 
-                       <Text> 1semana </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.periodoButton} onPress={() => Alert.alert('Un mes')}> 
-                       <Text> 1mes </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.periodoButton} onPress={() => Alert.alert('Seis meses')}> 
-                       <Text> 6meses </Text>
-                    </TouchableOpacity>
+                style={styles.tituloText} > CreditCard </Text>
+                 <Text 
+                style={styles.tituloText} > BANK </Text>
+                </View>
+               <View style={styles.numberView} >
+                <Text style={{ fontSize: 18.5, fontWeight: 'bold', fontFamily: 'CutiveMono_400Regular'}} > 
+                0000 0000 0000 0000
+                </Text>
+                </View>
+               <View style={styles.dateView}>
+                    <Text> 02/22 </Text>                 
                </View>
             </View>
 
             <View style={styles.viewButton} >
+                <View style={styles.viewButtonRow}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => Alert.alert('Transacciones')}>
+                <MaterialCommunityIcons name="bank-transfer" size={26} color="black"/>
                     <Text style={styles.buttonText}> 
-                        Transacciones
+                        Transactions
                     </Text>
                 </TouchableOpacity>
             
@@ -80,17 +79,24 @@ const Menu: FC = () => {
                     style={styles.button}
                     onPress={() => Alert.alert('Estadísticas')}
                     >
+                <Octicons name="graph" size={20} color="black" />
                      <Text style={styles.buttonText}> 
-                        Estadísticas
+                        Statistics
                     </Text>
                 </TouchableOpacity>
+                </View>
 
+                <View style={styles.viewButtonRow}>
                 <TouchableOpacity 
                     style={styles.button}
                     onPress={() => Alert.alert('Mis datos')}
                     >
+                <MaterialCommunityIcons 
+                    name="account-cog" 
+                    size={20} 
+                    color="black" />
                      <Text style={styles.buttonText}> 
-                        Mis datos
+                        My account
                     </Text>
                 </TouchableOpacity>
 
@@ -98,36 +104,43 @@ const Menu: FC = () => {
                     style={styles.button}
                     onPress={() => Alert.alert('Mis productos')}
                     >
+                <MaterialCommunityIcons 
+                    name="credit-card-multiple-outline" 
+                    size={20} 
+                    color="black" />
                      <Text style={styles.buttonText}> 
-                        Mis productos
+                        Cards
                     </Text>
                 </TouchableOpacity>
-            </View>
-            <View style={styles.viewButton2} >
-            <TouchableOpacity 
-                    style={styles.button2}
+                </View>
+
+                <View style={styles.viewButtonRow}>
+                <TouchableOpacity 
+                    style={styles.button}
                     onPress={() => Alert.alert('Recargar dinero')}
                     >
                 <MaterialCommunityIcons 
-                    name="wallet-plus-outline" size={20} color="rgb(167, 197, 235)" />
-                <Text style={styles.buttonText2}> 
-                       Recargar dinero
+                    name="wallet-plus-outline" size={20} color="black" />
+                <Text style={styles.buttonText}> 
+                      Recharge money
                 </Text>
                 </TouchableOpacity>
+
             <TouchableOpacity 
-                    style={styles.button2}
+                    style={styles.button}
                     onPress={() => Alert.alert('Realizar pago')}
                     >
-                <MaterialIcons name="payment" size={20} color="rgb(167, 197, 235)" />
-                <Text style={styles.buttonText2}> 
-                        Realizar pago
+                <FontAwesome name="send" size={20} color="black" />
+                <Text style={styles.buttonText}> 
+                        Send money
                 </Text>
                 </TouchableOpacity>
-                
-               
+            </View>
+            </View>
             </View>
         </View>
     )
+}
 }
 
 export default Menu;

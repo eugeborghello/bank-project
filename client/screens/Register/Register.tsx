@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from 'axios';
 import styles from "./styles";
+import  { REACT_APP_BACKEND_API_URL} from "@env";
 
 export default function Register() {
 
@@ -26,10 +27,11 @@ export default function Register() {
     }
 
     const createNewUser = () => {
+        console.log(REACT_APP_BACKEND_API_URL);
         if (!datos.email || !datos.password || !datos.repeatPass) { return alert("All inputs are required") }
         if (datos.password === datos.repeatPass) {
             //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
-            axios.post('http://192.168.0.10:3001/user', user)
+            axios.post(`${REACT_APP_BACKEND_API_URL}/users`, user)
                 .then(user => {
                     console.log(user);
                     alert("User was created successfully");
@@ -47,16 +49,18 @@ export default function Register() {
 
     return (
         <View style={styles.registerForm}>
-
-            {/* <Image style={styles.image}
-                source={require('../../assets/images/register2.png')}>
-            </Image> */}
+            <View style={styles.logoContainer}>
+                <Image
+                    style={styles.logo}
+                    source={require("../../assets/images/veski.png")}
+                />
+            </View>
 
             <View style={styles.registerContainer}>
                 <Text style={styles.title}> REGISTER </Text>
 
                 <View style={styles.emailContent}>
-                <Icon name='alternate-email' size={18} color='grey' style={styles.icon}/>
+                    <Icon name='alternate-email' size={18} color='grey' style={styles.icon} />
                     <TextInput
                         style={styles.textinput} placeholder="Email"
                         underlineColorAndroid={'transparent'}
@@ -65,7 +69,7 @@ export default function Register() {
                 </View>
 
                 <View style={styles.emailContent}>
-                <IconPass name='lock-outline' size={18} color='grey' style={styles.icon}/>
+                    <IconPass name='lock-outline' size={18} color='grey' style={styles.icon} />
                     <TextInput style={styles.textinput} placeholder="Password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "password")}
@@ -73,7 +77,7 @@ export default function Register() {
                 </View>
 
                 <View style={styles.emailContent}>
-                <IconPass name='lock-outline' size={18} color='grey' style={styles.icon}/>
+                    <IconPass name='lock-outline' size={18} color='grey' style={styles.icon} />
                     <TextInput style={styles.textinput} placeholder="Repeat password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "repeatPass")}
@@ -81,10 +85,10 @@ export default function Register() {
                 </View>
                 {/* Register button */}
                 <View style={styles.containerButton}>
-                <TouchableOpacity style={styles.button} onPress={createNewUser}>                    
-                      
-                    <Text style={styles.btntext}>Register</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={createNewUser}>
+
+                        <Text style={styles.btntext}>Register</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.lowText}>

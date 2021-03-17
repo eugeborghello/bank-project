@@ -18,4 +18,4 @@ app.use(express.json());
 // Rutas
 app.use('/', routes);
 
-app.listen(3001,() =>  console.log('escuchando en el puerto 3001'))
+app.listen(3001 || 3002,() =>  console.log('escuchando en el puerto 3001'))

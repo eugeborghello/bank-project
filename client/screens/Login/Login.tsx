@@ -12,9 +12,10 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
+import  { REACT_APP_BACKEND_API_URL} from "@env";
 
 const Login = () => {
-  const URL = "http://localhost:3001/user/login";
+  const URL = `${REACT_APP_BACKEND_API_URL}/user/login`;
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -60,7 +61,7 @@ const Login = () => {
     }
     if (password.length) {
       var pattern = new RegExp(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+        /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
       );
       if (!pattern.test(password)) {
         setError(

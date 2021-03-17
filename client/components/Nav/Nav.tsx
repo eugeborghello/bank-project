@@ -14,16 +14,23 @@ const Nav = () => {
     <AuthContext.Consumer>
       {AuthContext=>(
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <DrawerContent {...props } />} initialRouteName={"Home"}>
-        {
-          state.login=='false' ? <><Drawer.Screen name="Home" component={Home} />
+      {
+        state.login == 'false' ? <>
+        <Drawer.Navigator drawerContent={props => <DrawerContent {...props } />} initialRouteName={"Home"}>
+        <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="Login" component={Login} />
           <Drawer.Screen name="Register" component={Register} />
-          <Drawer.Screen name="Reset" component={Reset} /></> : <><Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="Menu" component={Menu} />
-          <Drawer.Screen name="Reset" component={Reset} /></>
-        }
+          <Drawer.Screen name="Reset" component={Reset} />
       </Drawer.Navigator>
+        </>:<>
+        <Drawer.Navigator drawerContent={props => <DrawerContent {...props } />} initialRouteName={"Home"}>
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Reset" component={Reset} />
+        <Drawer.Screen name="Menu" component={Menu} />
+
+      </Drawer.Navigator></>
+      }
+      
     </NavigationContainer>)
 }
     </AuthContext.Consumer>

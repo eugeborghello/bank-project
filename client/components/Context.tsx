@@ -7,7 +7,7 @@ interface IAction{
     payload:any
 }
 const initialState:Istate ={
-    login:''
+    login:'false'
 }
 export const AuthContext = React.createContext<Istate|any>(initialState);
 function reducer(state:Istate,action:IAction){

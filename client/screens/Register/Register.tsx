@@ -27,11 +27,10 @@ export default function Register() {
     }
 
     const createNewUser = () => {
-        console.log(REACT_APP_BACKEND_API_URL);
         if (!datos.email || !datos.password || !datos.repeatPass) { return alert("All inputs are required") }
         if (datos.password === datos.repeatPass) {
             //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
-            axios.post(`${REACT_APP_BACKEND_API_URL}/users`, user)
+            axios.post(`http://192.168.0.96:3001/users`, user)
                 .then(user => {
                     console.log(user);
                     alert("User was created successfully");

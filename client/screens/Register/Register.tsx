@@ -5,9 +5,14 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from 'axios';
 import styles from "./styles";
-import  { REACT_APP_BACKEND_API_URL} from "@env";
+import {useDispatch, useSelector} from 'react-redux';
+//import  { REACT_APP_BACKEND_API_URL} from "@env";
+
+import {createUser} from '../../redux/Actions/registerAction.js';
 
 export default function Register() {
+
+    const dispatch = useDispatch();
 
     const initialState = {
         email: '',
@@ -20,32 +25,11 @@ export default function Register() {
     const handleChange = (value: string, name: string): void => {
         setDatos({ ...datos, [name]: value })
     }
-
     const user = {
         email: datos.email,
-        password: datos.password
+        password: datos.password,
+        repeatPass: datos.repeatPass
     }
-
-    const createNewUser = () => {
-        console.log(REACT_APP_BACKEND_API_URL);
-        if (!datos.email || !datos.password || !datos.repeatPass) { return alert("All inputs are required") }
-        if (datos.password === datos.repeatPass) {
-            //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
-            axios.post(`${REACT_APP_BACKEND_API_URL}/users`, user)
-                .then(user => {
-                    console.log(user);
-                    alert("User was created successfully");
-                    setDatos(initialState);
-
-                })
-                .catch(error => console.log(error))
-        } else {
-            return alert("Passwords does not match")
-        }
-
-    }
-
-
 
     return (
         <View style={styles.registerForm}>
@@ -85,7 +69,7 @@ export default function Register() {
                 </View>
                 {/* Register button */}
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={createNewUser}>
+                    <TouchableOpacity style={styles.button} onPress={()=>dispatch(createUser(datos))}>
 
                         <Text style={styles.btntext}>Register</Text>
                     </TouchableOpacity>
@@ -103,6 +87,4 @@ export default function Register() {
 
     );
 }
-
-
 

@@ -12,7 +12,7 @@ mongoose.connect(URI, {
     useCreateIndex:true,
     useFindAndModify:false
 })
- .then(db => console.log('base de datos conectada'))
+ .then(db => console.log('base de datos conectada' ))
  .catch(err => console.log(err))
 
 

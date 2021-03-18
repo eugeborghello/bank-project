@@ -24,7 +24,9 @@ const Validate = () => {
         <Text style={styles.title}>VALIDATE ACCOUNT</Text>
         <Text>Check your email address and enter the code we sent you to validate your account</Text>
            <View style={styles.inputContainer}>
-              <TextInput style={styles.input}/>
+              <TextInput
+               placeholder='code'
+               style={styles.input}/>
            </View>
            
         <View style={styles.loginButton}>

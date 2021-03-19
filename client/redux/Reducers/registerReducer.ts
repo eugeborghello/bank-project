@@ -1,11 +1,26 @@
-import { RegisterActionTypes, User, CREATE_USER } from './actionModels'
+import { RegisterActionTypes, Users, CREATE_USER } from '../ActionModels/registerModels'
+import { Reducer, Action } from 'redux';
 
-const initialState = {
+const initialState: Users = {
   users: []
 }
 
-const userReducers = (state = initialState, action) => {
-  console.log(action)
+/* const initialState = {
+      count: 0
+}
+
+  reducer...
+  const nextState = { count: state.count }
+  switch(action.type){
+    case INCREMENT_COUNTER:
+        nextState.count = state.count + 1;
+        return nextState
+        ....
+  }*/
+
+const userReducers: Reducer<Users, Action> =
+       (state = initialState, action: RegisterActionTypes) => {
+
   const auxArray = state.users;
   switch (action.type) {
     case CREATE_USER:

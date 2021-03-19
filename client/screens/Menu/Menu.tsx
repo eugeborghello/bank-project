@@ -3,6 +3,7 @@ import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import styles from './MenuStyles';
 import { MaterialCommunityIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 import { useFonts, CutiveMono_400Regular } from '@expo-google-fonts/cutive-mono';
+import { useSelector } from 'react-redux';
 /* 
 interface Props {
     icon: string;
@@ -13,7 +14,9 @@ const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
-    
+
+//const userEmail = useSelector(state => state.users[users.length - 1].email)
+
 let [fontsLoaded] = useFonts({
     CutiveMono_400Regular,
   });

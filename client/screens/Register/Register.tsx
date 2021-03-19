@@ -6,7 +6,7 @@ import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from 'axios';
 import styles from "./styles";
 import {useDispatch, useSelector} from 'react-redux';
-import  { REACT_APP_BACKEND_API_URL} from "@env";
+//import  { REACT_APP_BACKEND_API_URL} from "@env";
 
 import {createUser} from '../../redux/Actions/registerAction.js';
 
@@ -87,3 +87,4 @@ export default function Register() {
 
     );
 }
+

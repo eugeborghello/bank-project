@@ -1,60 +1,57 @@
 const mongoose = require("mongoose");
-const Users = mongoose.model("Users")
-const bcrypt = require('bcrypt');
-
-
+const Users = mongoose.model("Users");
+const bcrypt = require("bcrypt");
 
 // register
-exports.createUser= async(req, res) => {
-    var nuevoUser;
-    const {name, lastName, email, password, address, dni} = req.body;
-    Users.insertMany(({name, lastName, email, password, address, dni}))
-    .then(user => {
-      console.log(user.token)
-        
-          console.log(user)
-        nuevoUser = user[0];
-        return nuevoUser.encryptPassword(password);
+exports.createUser = async (req, res) => {
+  var nuevoUser;
+  const { name, lastName, email, password, address, dni } = req.body;
+  Users.insertMany({ name, lastName, email, password, address, dni })
+    .then((user) => {
+      console.log(user.token);
+
+      console.log(user);
+      nuevoUser = user[0];
+      return nuevoUser.encryptPassword(password);
     })
-    .then(nuevoPass => {
-        nuevoUser.password = nuevoPass;
-        return nuevoUser.save()
+    .then((nuevoPass) => {
+      nuevoUser.password = nuevoPass;
+      return nuevoUser.save();
     })
-     
-    .then(user => res.status(200).json({status:"success", response:user}))
-    .catch(error => res.status(400).json({status:"error", message:error.message}))
 
-   
-    }
+    .then((user) => res.status(200).json({ status: "success", response: user }))
+    .catch((error) =>
+      res.status(400).json({ status: "error", message: error.message })
+    );
+};
 
-  
-    //login
-    exports.postLogin= async (req, res )=> {
-      console.log('postLogin')
-   try{
-      const email = req.body.email
-      const password = req.body.password
-      const user = await Users.findOne({"email": email})
-      if(user){
-        const validPassword = await bcrypt.compareSync(
-          password,
-          user.password
-        );
-
-        if(user && validPassword){
-          const token = await user.generateAuthToken()
-          console.log(token)
-          res.status(200).json({status:'success',response:user, token: token})
-      
+//login
+exports.postLogin = async (req, res) => {
+  console.log("postLogin");
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const user = await Users.findOne({ email: email });
+    if (user) {
+      console.log("1");
+      const validPassword = await bcrypt.compareSync(password, user.password);
+      if (user && validPassword) {
+        console.log("2");
+        const token = await user.generateAuthToken();
+        console.log(token);
+        res
+          .status(200)
+          .json({ status: "success", response: user, token: token });
+      } else {
+        throw new Error("Not correct Password");
       }
-        }
-         
-    }catch(error){
-      res.status(400).json({status:'error',message:error.message})
+    } else {
+      throw new Error("Not found Email");
     }
- 
-
-}
+  } catch (error) {
+    res.status(400).json({ status: "error", message: error.message });
+  }
+};
 
 // exports.getme = async (req, res) =>{
 

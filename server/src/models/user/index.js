@@ -1,32 +1,45 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 const User = new mongoose.Schema({
-    name: {
-        type: String
-        
+  name: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  email: {
+    type: String,
+    required: "email is required",
+    match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Email incorrect"],
+    validate: (value) => {
+      if (!validator.isEmail(value)) {
+        throw new Error({ error: "Invalid Email" });
+      }
     },
-    lastName: {
-        type: String
-        
-    },
-    email: {
-        type: String,
-        required: 'email is required',
-        match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Email incorrect'],
-    },
-    password: {
-        type: String,
-        required: 'password is required',
-    },
-    resetCode: {
-        type: String,
-        default: null,
-    },
-    address: String,
-    dni: Number,
-})
+  },
+  password: {
+    type: String,
+    required: "password is required",
+  },
+  resetCode: {
+    type: String,
+    default: null,
+  },
 
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  address: String,
+  dni: Number,
+});
 
 User.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -35,16 +48,25 @@ User.methods.encryptPassword = async (password) => {
 };
 
 User.methods.compare = function (password, isReset) {
-    if (this.password || this.resetCode)
-      return bcrypt.compareSync(
-        password.toString(),
-        isReset ? this.resetCode : this.password
-      );
-    else return false;
-  };
-  
-  User.methods.matchPassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
-  };
-  
-  module.exports = mongoose.model('Users', User);
+  if (this.password || this.resetCode)
+    return bcrypt.compareSync(
+      password.toString(),
+      isReset ? this.resetCode : this.password
+    );
+  else return false;
+};
+
+User.methods.matchPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+User.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    expiresIn: 36000000,
+  });
+  user.tokens = user.tokens.concat({ token });
+  // user.save();
+  return token;
+};
+
+module.exports = mongoose.model("Users", User);

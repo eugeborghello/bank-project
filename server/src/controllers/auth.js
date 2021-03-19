@@ -8,9 +8,6 @@ exports.createUser = async (req, res) => {
   const { name, lastName, email, password, address, dni } = req.body;
   Users.insertMany({ name, lastName, email, password, address, dni })
     .then((user) => {
-      console.log(user.token);
-
-      console.log(user);
       nuevoUser = user[0];
       return nuevoUser.encryptPassword(password);
     })
@@ -27,23 +24,21 @@ exports.createUser = async (req, res) => {
 
 //login
 exports.postLogin = async (req, res) => {
-  console.log("postLogin");
+
   try {
     const email = req.body.email;
     const password = req.body.password;
     const user = await Users.findOne({ email: email });
     if (user) {
-      console.log("1");
       const validPassword = await bcrypt.compareSync(password, user.password);
       if (user && validPassword) {
-        console.log("2");
         const token = await user.generateAuthToken();
-        console.log(token);
+        
         res
           .status(200)
           .json({ status: "success", response: user, token: token });
       } else {
-        throw new Error("Not correct Password");
+        throw new Error(" Incorrect Password");
       }
     } else {
       throw new Error("Not found Email");
@@ -53,6 +48,4 @@ exports.postLogin = async (req, res) => {
   }
 };
 
-// exports.getme = async (req, res) =>{
 
-// }

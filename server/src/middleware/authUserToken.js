@@ -7,7 +7,7 @@ const authUserToken = async (req, res, next) => {
   //middleware
   const token = req.header("Authorization");
   const data = jwt.verify(token, process.env.TOKEN_SECRET);
-  console.log(data);
+  
   try {
     const user = await Users.findOne({ _id: data });
     console.log(user, "hola");

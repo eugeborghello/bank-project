@@ -5,22 +5,11 @@ const UsersCtrl = require('../controllers/users')
 
 
 
-
 // Traer todos los users
 app.get('/', UsersCtrl.getUsers)
    
-
-
 // Traer un usuario en particular
 app.get('/:id', UsersCtrl.getUserId)
-
-
-// login
-app.post('/login', UsersCtrl.postLogin)
-    
-// Crear un nuevo usuario
-app.post('/', UsersCtrl.createUser)
-
 
 
 //Modificar informacion de un usuario

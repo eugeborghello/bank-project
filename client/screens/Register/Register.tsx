@@ -5,15 +5,10 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from 'axios';
 import styles from "./styles";
-import {useDispatch, useSelector} from 'react-redux';
-import * as yup from 'yup';
 //import  { REACT_APP_BACKEND_API_URL} from "@env";
 
-import {createUser} from '../../redux/Actions/registerAction.js';
-
 export default function Register() {
-
-    const dispatch = useDispatch();
+    const URL = "http://192.168.0.19:3001/users";
 
     const initialState = {
         email: '',
@@ -21,38 +16,72 @@ export default function Register() {
         repeatPass: ''
     }
 
-    const [datos, setDatos] = useState(initialState)
+    const [datos, setDatos] = useState(initialState);
+    const [error, setError] = useState<string>("");
 
     const handleChange = (value: string, name: string): void => {
         setDatos({ ...datos, [name]: value })
-
     }
 
     const user = {
         email: datos.email,
-        password: datos.password,
-        repeatPass: datos.repeatPass
+        password: datos.password
     }
 
-    const registerSchema = yup.object({
-        email: yup
-            .string()
-            .email('Insert a valid email').required('Insert a email'),
-        password: yup.string()
-			.required('Insert a valid password')
-			.matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, 'Password must contain minimum eight characters, at least one number and one special character'),
-        repeatPass: yup.string()
-            .required('Ingresa tu contraseña')
-            .matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, 'Password must contain minimum eight characters, at least one number and one special character'),
-            //.oneOf([yup.ref('password'), null], "Passwords don't match.")
-    })
+    const createNewUser = () => {
+        //console.log(REACT_APP_BACKEND_API_URL);
+        if (!datos.email || !datos.password || !datos.repeatPass) { 
+            return alert("Email and Password cannot be empty") }
 
-    const isValid = registerSchema.isValid(user);
-    console.log('isValid-----------------', isValid)
+        if (datos.email) {
+            var pattern = new RegExp(
+              /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+            );
+            if (!pattern.test(datos.email)) 
+            // { 
+            //     return alert("Please enter a valid email address") }
+            {
+              setError("Please enter a valid email address.");
+              return false;
+            }
+          }
+
+        if (datos.password === datos.repeatPass) {
+            if (datos.password.length) {
+                var pattern = new RegExp(
+                  /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+                );
+                if (!pattern.test(datos.password)) {
+                  setError(
+                    "Password must contain minimum eight characters, at least one number and one special character"
+                  );
+                  return false;
+                }
+              } 
+            //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
+            axios.post("http://192.168.0.19:3001/users", user)
+                .then(user => {
+                    console.log('user------', user);
+                    alert("User was created successfully");
+                    setDatos(initialState);
+                    setError("");
+
+                })
+                .catch(error => console.log('error-----', error))
+        } else {
+            return alert("Passwords does not match")
+        }
+
+    }
+        
+        
+
+    
+
+
 
     return (
         <View style={styles.registerForm}>
-            
             <View style={styles.logoContainer}>
                 <Image
                     style={styles.logo}
@@ -69,7 +98,6 @@ export default function Register() {
                         style={styles.textinput} placeholder="Email"
                         underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "email")}
-                        
                     />
                 </View>
 
@@ -78,7 +106,6 @@ export default function Register() {
                     <TextInput style={styles.textinput} placeholder="Password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "password")}
-                        
                     />
                 </View>
 
@@ -87,16 +114,15 @@ export default function Register() {
                     <TextInput style={styles.textinput} placeholder="Repeat password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "repeatPass")}
-                        
                     />
                 </View>
+                
+                <Text style={styles.error}>{error && error}</Text>
+
                 {/* Register button */}
                 <View style={styles.containerButton}>
-                    
-                    <TouchableOpacity style={styles.button}
-                   
-                    onPress={()=>dispatch(createUser(datos))}>
-                    
+                    <TouchableOpacity style={styles.button} onPress={createNewUser}>
+
                         <Text style={styles.btntext}>Register</Text>
                     </TouchableOpacity>
                 </View>
@@ -113,4 +139,3 @@ export default function Register() {
 
     );
 }
-

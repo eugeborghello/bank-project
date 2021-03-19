@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     emailContent: {
+        marginBottom:'auto',
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -41,6 +42,16 @@ const styles = StyleSheet.create({
         width: 24,
         height: 24,
     },
+    logoContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 50,
+      },
+      logo: {
+        width: 250,
+        height: 50,
+        marginTop: 30,
+      },
     textinput: {
         flex: 1,
         width: "90%",

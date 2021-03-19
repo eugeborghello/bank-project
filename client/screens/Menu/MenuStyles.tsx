@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
+
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 20,
+        fontSize: 16,
         color: '#fff',
         top: 20
     },
@@ -11,70 +12,66 @@ const styles = StyleSheet.create({
         top: 20
     },
     image: {
-        height: 40,
-        width: 40,
+        height: 30,
+        width: 30,
         top: 10,
         borderRadius: 25
     },
     viewMenu: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        top: 10 
+        top: 10,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    container: {
+        backgroundColor: 'white',
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50,
+        top: 30
     },
     button: {
-        height: 60,
-        width: 80,
-        padding: 15,
-        backgroundColor: 'rgb(167, 197, 235)',
+        height: 70,
+        width: 160,
+        borderColor: 'black',
+        backgroundColor: 'white',
         borderRadius: 10,
-        top: 15,
+        borderWidth: 1,
+        top: 5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     buttonText: {
-        color: 'white',
+        color: 'black',
         fontSize: 14,
         fontWeight: 'bold',
-        justifyContent: 'center'
+        marginLeft: 3
     },
     viewButton: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',       
+    },
+    viewButtonRow: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly', 
-    },
-    button2: {
-        height: 65,
-        width: 150,
-        backgroundColor: 'rgb(65, 60, 105)',
-        borderRadius: 15,
-        paddingLeft: 5,
-        paddingTop: 20,
-        flexDirection: 'row'
-    },
-    buttonText2: {
-        color: 'rgb(167, 197, 235)',
-        fontSize:  14,
-        fontWeight: 'bold',
-        marginLeft: 3
-        
-    },
-    viewButton2: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',  
-        top: 50    
+        justifyContent: 'space-evenly',
+        paddingTop: 10
     },
     viewBalance: {
-        top: 40,
+        top: 50,
         marginBottom: 30,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        
+        justifyContent: 'space-between',  
     },
     balanceText: {
         color: 'white',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        padding: 8
     },
-    viewGeneral: {
-        height: 200,
-        width: 300,
+    viewCard: {
+        height: 180,
+        width: 290,
         backgroundColor: 'white',
         borderRadius: 15,
         top: 30,
@@ -90,32 +87,34 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     titulo: {
-        fontSize: 17,
-        fontWeight: 'bold', 
-        top: 10, 
-        alignSelf: 'center'
-    },
-    row: {
+        top: 5, 
         flexDirection: 'row',
         justifyContent: 'space-between',
+        padding: 5
+    },
+    row: {
         paddingLeft: 20,
         paddingRight: 20,
-        top: 40
+        top: 40,
+        alignSelf: 'center'
     },
-    number: {
+    tituloText: {
         fontSize: 18.5,
         fontWeight: 'bold',
         top: 8
     },
-    periodoButton:{
-        top: 50
-    },
-    titulo2: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        top: 70,
+    numberView: {
+        paddingLeft: 20,
+        paddingRight: 20,
+        top: 60,
         alignSelf: 'center'
+
+    },
+    dateView: {
+        top: 100,
+        paddingLeft: 5
     }
+   
     
 })
 export default styles;

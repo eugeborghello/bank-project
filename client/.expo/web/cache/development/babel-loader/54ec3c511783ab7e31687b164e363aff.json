@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var CREATE_USER = 'CREATE_USER';","map":{"version":3,"sources":["C:/Users/Usuario/HenryBank/bank-project/client/redux/Constants/constants.js"],"names":["CREATE_USER"],"mappings":"AAAA,OAAO,IAAMA,WAAW,GAAG,aAApB","sourcesContent":["export const CREATE_USER = 'CREATE_USER';"]},"metadata":{},"sourceType":"module"}

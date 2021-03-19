@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "@react-navigation/native";
 import {
   Text,
@@ -12,9 +12,12 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
+import { REACT_APP_BACKEND_API_URL } from "@env";
+//import AuthContext from '../../components/Context'
 
 const Login = () => {
-  const URL = "http://192.168.0.19:3001/user/login";
+  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+  //const { state, dispatch } = useContext(AuthContext)
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -30,21 +33,6 @@ const Login = () => {
 
   // API call
   const handleLogin = () => {
-    axios
-      .post(URL, {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  // Validation
-  const submit = () => {
     if (email === "" || password === "") {
       setError("Email and Password cannot be empty");
       return false;
@@ -58,9 +46,9 @@ const Login = () => {
         return false;
       }
     }
-    if (password.length) {
+     if (password.length) {
       var pattern = new RegExp(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+        /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
       );
       if (!pattern.test(password)) {
         setError(
@@ -68,12 +56,34 @@ const Login = () => {
         );
         return false;
       }
-    }
-    setError("");
-    return Alert.alert("Successfully logged");
+    } 
+    axios
+      .post(`${URL}/login`, {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        setError("");
+        setEmail("");
+        setPassword("");
+        Alert.alert("Successfully logged");
+        /* return dispatch({
+          type: 'LOGIN_REQUEST',
+          payload: true
+        }) */
+      })
+      .catch((err) => {
+        setError("User not found");
+        /* return dispatch({
+          type: 'LOGIN_REQUEST',
+          payload: false
+        }) */
+      });
   };
 
   return (
+    <>
+    {/*  <AuthContext.Provider></AuthContext.Provider> */}
     <View style={styles.root}>
       <View style={styles.logoContainer}>
         <Image
@@ -108,7 +118,7 @@ const Login = () => {
 
         {/* Login button */}
         <View style={styles.loginButton}>
-          <TouchableOpacity activeOpacity={0.2} onPress={submit}>
+          <TouchableOpacity activeOpacity={0.2} onPress={handleLogin}>
             <Text style={styles.loginStyle}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -144,6 +154,7 @@ const Login = () => {
         </View>
       </View>
     </View>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from 'axios';
 import styles from "./styles";
 import {useDispatch, useSelector} from 'react-redux';
+import * as yup from 'yup';
 //import  { REACT_APP_BACKEND_API_URL} from "@env";
 
 import {createUser} from '../../redux/Actions/registerAction.js';
@@ -24,15 +25,34 @@ export default function Register() {
 
     const handleChange = (value: string, name: string): void => {
         setDatos({ ...datos, [name]: value })
+
     }
+
     const user = {
         email: datos.email,
         password: datos.password,
         repeatPass: datos.repeatPass
     }
 
+    const registerSchema = yup.object({
+        email: yup
+            .string()
+            .email('Insert a valid email').required('Insert a email'),
+        password: yup.string()
+			.required('Insert a valid password')
+			.matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, 'Password must contain minimum eight characters, at least one number and one special character'),
+        repeatPass: yup.string()
+            .required('Ingresa tu contraseña')
+            .matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, 'Password must contain minimum eight characters, at least one number and one special character'),
+            //.oneOf([yup.ref('password'), null], "Passwords don't match.")
+    })
+
+    const isValid = registerSchema.isValid(user);
+    console.log('isValid-----------------', isValid)
+
     return (
         <View style={styles.registerForm}>
+            
             <View style={styles.logoContainer}>
                 <Image
                     style={styles.logo}
@@ -49,6 +69,7 @@ export default function Register() {
                         style={styles.textinput} placeholder="Email"
                         underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "email")}
+                        
                     />
                 </View>
 
@@ -57,6 +78,7 @@ export default function Register() {
                     <TextInput style={styles.textinput} placeholder="Password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "password")}
+                        
                     />
                 </View>
 
@@ -65,12 +87,16 @@ export default function Register() {
                     <TextInput style={styles.textinput} placeholder="Repeat password"
                         secureTextEntry={true} underlineColorAndroid={'transparent'}
                         onChangeText={value => handleChange(value, "repeatPass")}
+                        
                     />
                 </View>
                 {/* Register button */}
                 <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={()=>dispatch(createUser(datos))}>
-
+                    
+                    <TouchableOpacity style={styles.button}
+                   
+                    onPress={()=>dispatch(createUser(datos))}>
+                    
                         <Text style={styles.btntext}>Register</Text>
                     </TouchableOpacity>
                 </View>

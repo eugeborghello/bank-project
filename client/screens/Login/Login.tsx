@@ -16,7 +16,7 @@ import { REACT_APP_BACKEND_API_URL } from "@env";
 //import AuthContext from '../../components/Context'
 
 const Login = () => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+  const URL = "http://192.168.0.19:3001/users";
   //const { state, dispatch } = useContext(AuthContext)
 
   const [email, setEmail] = useState<string>("");

@@ -36,7 +36,7 @@ exports.postLogin = async (req, res) => {
         
         res
           .status(200)
-          .json({ status: "success", response: user, token: token });
+          .json({ status: "success", response: user});
       } else {
         throw new Error(" Incorrect Password");
       }

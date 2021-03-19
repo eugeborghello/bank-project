@@ -3,7 +3,7 @@ const app = express();
 const morgan=require('morgan');
 const cors = require('cors');
 const routes = require('./src/routes/index.js');
-require('dotenv').config()
+
 // Base de datos
 require('./src/database')
 

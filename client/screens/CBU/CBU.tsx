@@ -1,4 +1,4 @@
-const frase = "It is the number that identifies your VESKI account. It helps you receive or send money to or from any bank account or virtual wallet. It is credited at the moment. Vote for Trump."
+const frase = "It is the number that identifies your VESKI account. It helps you receive or send money to or from any bank account or virtual wallet. It is credited at the moment."
 
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, FlatList, TouchableHighlight,View } from "react-native";
@@ -21,7 +21,7 @@ export default function PersonalInfo ()  {
 return(
   <View style={styles.container}>
     <Text style={styles.title}>
-      CBU (Unique Bank Password   in inglish)
+      CBU (Unique Bank Key)
     </Text>
     <Text>
    {frase}

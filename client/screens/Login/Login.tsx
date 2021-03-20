@@ -12,12 +12,15 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
-import { REACT_APP_BACKEND_API_URL } from "@env";
+import {  useDispatch } from 'react-redux';
+
+/* import { REACT_APP_BACKEND_API_URL } from "@env"; */
 //import AuthContext from '../../components/Context'
 
-const Login = () => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-  //const { state, dispatch } = useContext(AuthContext)
+const Login = (props) => {
+  //const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -46,7 +49,7 @@ const Login = () => {
         return false;
       }
     }
-     if (password.length) {
+    /*  if (password.length) {
       var pattern = new RegExp(
         /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
       );
@@ -56,28 +59,33 @@ const Login = () => {
         );
         return false;
       }
-    } 
+    }  */
     axios
-      .post(`${URL}/login`, {
+      .post('http://192.168.0.130:3001/users/login', {
         email: email,
         password: password,
       })
       .then((res) => {
         setError("");
-        setEmail("");
-        setPassword("");
-        Alert.alert("Successfully logged");
-        /* return dispatch({
-          type: 'LOGIN_REQUEST',
-          payload: true
-        }) */
+        let user = res.data.response
+        let token = (res.data.response.tokens[0].token)
+        Alert.alert(
+          "Succesfully logged",
+          ".",
+          [
+            { text: "OK", onPress: () =>  props.navigation.navigate('Menu')}
+          ]
+        );
+        return dispatch({
+          type: 'LOGIN',
+          payload: user
+        })
       })
-      .catch((err) => {
+      .catch(() => {
         setError("User not found");
-        /* return dispatch({
-          type: 'LOGIN_REQUEST',
-          payload: false
-        }) */
+        return dispatch({
+          type: 'LOGOUT',
+        })
       });
   };
 

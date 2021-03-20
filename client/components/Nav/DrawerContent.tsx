@@ -55,6 +55,18 @@ export function DrawerContent(props: any) {
                             label="Menu"
                             onPress={() => { props.navigation.navigate('Menu') }}
                         />
+                    <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                name="account-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Profile"
+                            onPress={() => { props.navigation.navigate('Profile') }}
+                        />
+                        
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>

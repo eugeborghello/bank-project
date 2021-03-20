@@ -16,7 +16,6 @@
     "nodemon": "^2.0.7",
     "validator": "^13.5.2"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

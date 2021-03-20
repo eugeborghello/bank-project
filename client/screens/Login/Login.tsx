@@ -5,12 +5,14 @@ import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-nat
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
-import { REACT_APP_BACKEND_API_URL } from "@env";
-//import AuthContext from '../../components/Context'
+import {  useDispatch } from 'react-redux';
 
-const Login = () => {
-	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-	//const { state, dispatch } = useContext(AuthContext)
+import { REACT_APP_BACKEND_API_URL } from "@env"; 
+
+const Login = (props) => {
+  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+
+  const dispatch = useDispatch();
 
 	console.log(REACT_APP_BACKEND_API_URL);
 	const [email, setEmail] = useState<string>("");
@@ -25,61 +27,70 @@ const Login = () => {
 		setPassword(pass);
 	};
 
-	// API call
-	const handleLogin = () => {
-		if (email === "" || password === "") {
-			setError("Email and Password cannot be empty");
-			return false;
-		}
-		if (email) {
-			var pattern = new RegExp(
-				/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
-			);
-			if (!pattern.test(email)) {
-				setError("Please enter a valid email address.");
-				return false;
-			}
-		}
-		if (password.length) {
-			var pattern = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/);
-			if (!pattern.test(password)) {
-				setError(
-					"Password must contain minimum eight characters, at least one number and one special character",
-				);
-				return false;
-			}
-		}
-		axios
-			.post(`${URL}/login`, {
-				email: email,
-				password: password,
-			})
-			.then((res) => {
-				setError("");
-				setEmail("");
-				setPassword("");
-				Alert.alert("Successfully logged");
-				/* return dispatch({
-          type: 'LOGIN_REQUEST',
-          payload: true
-        }) */
-			})
-			.catch((err) => {
-				setError("User not found");
-				/* return dispatch({
-          type: 'LOGIN_REQUEST',
-          payload: false
-        }) */
-			});
-	};
+  // API call
+  const handleLogin = () => {
+    if (email === "" || password === "") {
+      setError("Email and Password cannot be empty");
+      return false;
+    }
+    if (email) {
+      var pattern = new RegExp(
+        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+      );
+      if (!pattern.test(email)) {
+        setError("Please enter a valid email address.");
+        return false;
+      }
+    }
+      if (password.length) {
+      var pattern = new RegExp(
+        /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+      );
+      if (!pattern.test(password)) {
+        setError(
+          "Password must contain minimum eight characters, at least one number and one special character"
+        );
+        return false;
+      }
+    }  
+    axios
+      .post(`${URL}/login`, {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        setError("");
+        let user = res.data.response
+        let token = (res.data.response.tokens[0].token)
+        Alert.alert(
+          "Succesfully logged",
+          ".",
+          [
+            { text: "OK", onPress: () =>  props.navigation.navigate('Menu')}
+          ]
+        );
+        return dispatch({
+          type: 'LOGIN',
+          payload: user
+        })
+      })
+      .catch(() => {
+        setError("User not found");
+        return dispatch({
+          type: 'LOGOUT',
+        })
+      });
+  };
 
-	return (
-		<>
-			{/*  <AuthContext.Provider></AuthContext.Provider> */}
-			<View style={styles.root}>
-				<View style={styles.logoContainer}>
-					<Image style={styles.logo} source={require("../../assets/images/veski.png")} />
-				</View>
+  return (
+    <>
+    <View style={styles.root}>
+      <View style={styles.logoContainer}>
+        <Image
+          style={styles.logo}
+          source={require("../../assets/images/veski.png")}
+        />
+      </View>
 
 				<View style={styles.inputContainer}>
 					<Text style={styles.title}>LOGIN</Text>

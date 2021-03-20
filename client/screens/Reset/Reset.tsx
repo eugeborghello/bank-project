@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import AppLoading from "expo-app-loading";
 import colors from "../../assets/colors/colors.js";
 import Icon from "react-native-vector-icons/Entypo";
 import image from "../../assets/images/PasswordReset.png";
@@ -21,46 +22,30 @@ export default function Reset({ navigation }) {
 
 	const { control, handleSubmit, errors } = useForm();
 
-	console.log("Hola");
-	console.log("Hola");
-	console.log("Hola");
-
-	const handleSubmitPress = (data) => {
-		axios
-			.patch(`${REACT_APP_BACKEND_API_URL || "http://192.168.0.156:3001"}/users/forgot`, {
+	const handleSubmitPress = async (data: any) => {
+		console.log(REACT_APP_BACKEND_API_URL);
+		try {
+			const user = await axios.patch(`${REACT_APP_BACKEND_API_URL}/users/forgot`, {
 				userEmail: data.userEmail,
-			})
-
-			.then((user) => {
-				let language = "en";
-				axios
-					.post(
-						`${REACT_APP_BACKEND_API_URL || "http://192.168.0.156:3001"}users/email`,
-						{
-							// name:
-							// 	user.data.user.name +
-							// 	' ' +
-							// user.data.user.lastName,
-							subject: "Recover your Veski account",
-							// date: '01/01/2021',
-							// code: user.data.user.resetCode,
-							email: data.userEmail,
-						},
-					)
-					.then((mail) => {
-						let message = "Email sent. Check your email";
-
-						setErrortext(message);
-						//redirigir al componente Reset2
-						navigation.navigate("Reset2");
-					})
-					.catch((error) => {
-						setErrortext(error);
-					});
-			})
-			.catch((err) => {
-				setErrortext(err.response.data.message);
 			});
+
+			const mail = await axios.post(`${REACT_APP_BACKEND_API_URL}/users/email`, {
+				name: user.data.user.name + " " + user.data.user.lastName,
+				subject: "Recover your Veski account",
+				date: "01/01/2021",
+				code: user.data.user.resetCode,
+				email: data.userEmail,
+			});
+
+			let message = "Email sent. Check your email";
+
+			setErrortext(message);
+			//redirigir al componente Reset2
+			navigation.navigate("Reset2");
+			console.log("Redirect Successful");
+		} catch (error) {
+			setErrortext(error);
+		}
 	};
 
 	return (
@@ -77,7 +62,11 @@ export default function Reset({ navigation }) {
 			</View>
 
 			<View style={{ width: "80%" }}>
-				<View style={{ flexDirection: "column" }}>
+				<View
+					style={{
+						flexDirection: "column",
+					}}
+				>
 					<Text style={styles.title}>Forgot</Text>
 					<Text style={styles.title2}>password ?</Text>
 					<Text style={styles.text}>
@@ -88,12 +77,11 @@ export default function Reset({ navigation }) {
 
 				<Controller
 					control={control}
-					render={({ onChange, onBlur, value }) => {
+					render={({ onChange, value }) => {
 						return (
 							<>
 								<Icon name="email" size={18} style={styles.icon} />
 								<TextInput
-									onBlur={onBlur}
 									value={value}
 									onChangeText={(value) => onChange(value)}
 									placeholder="Email"
@@ -107,11 +95,27 @@ export default function Reset({ navigation }) {
 						required: true,
 						pattern: {
 							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: "invalid email",
+							message: "Invalid email please try again",
 						},
 					}}
 					defaultValue=""
 				/>
+				{errors.userEmail && (
+					<View>
+						<Text
+							style={{
+								color: "#D53051",
+								fontSize: 13,
+								textTransform: "uppercase",
+								marginRight: 5,
+								fontFamily: "Roboto_500Medium",
+							}}
+						>
+							{errors.userEmail.message || "Required"}
+						</Text>
+						<Icon name={"block"} size={18} color={"#D53051"} />
+					</View>
+				)}
 
 				<View style={{ marginTop: 20 }}>
 					<TouchableOpacity

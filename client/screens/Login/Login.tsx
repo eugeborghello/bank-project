@@ -14,11 +14,10 @@ import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
 import {  useDispatch } from 'react-redux';
 
-/* import { REACT_APP_BACKEND_API_URL } from "@env"; */
-//import AuthContext from '../../components/Context'
+import { REACT_APP_BACKEND_API_URL } from "@env"; 
 
 const Login = (props) => {
-  //const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
 
   const dispatch = useDispatch();
 
@@ -49,7 +48,7 @@ const Login = (props) => {
         return false;
       }
     }
-    /*  if (password.length) {
+      if (password.length) {
       var pattern = new RegExp(
         /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
       );
@@ -59,9 +58,9 @@ const Login = (props) => {
         );
         return false;
       }
-    }  */
+    }  
     axios
-      .post('http://192.168.0.130:3001/users/login', {
+      .post(`${URL}/login`, {
         email: email,
         password: password,
       })
@@ -91,7 +90,6 @@ const Login = (props) => {
 
   return (
     <>
-    {/*  <AuthContext.Provider></AuthContext.Provider> */}
     <View style={styles.root}>
       <View style={styles.logoContainer}>
         <Image

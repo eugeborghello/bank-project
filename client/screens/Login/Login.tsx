@@ -5,8 +5,7 @@ import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-nat
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
-
-const REACT_APP_BACKEND_API_URL = "http://localhost:3001";
+import { REACT_APP_BACKEND_API_URL } from "@env";
 //import AuthContext from '../../components/Context'
 
 const Login = () => {

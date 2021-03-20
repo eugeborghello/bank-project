@@ -11,7 +11,7 @@ app.get("/", [authUser], UsersCtrl.getUsers);
 app.get("/:id", UsersCtrl.getUserId);
 
 //Modificar informacion de un usuario
-app.put("/:id", UsersCtrl.updateDataUser);
+app.put("/:id", [authUser], UsersCtrl.updateDataUser);
 
 // Ruta para enviar notificacion por mail
 app.post("/email", UsersCtrl.sendEmail);

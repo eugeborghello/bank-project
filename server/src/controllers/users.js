@@ -23,55 +23,12 @@ exports.getUserId=(req, res) => {
     .catch(error => res.status(400).json({status:"error", message:error.message}))
 }
 
-
-
- 
- exports.postLogin= async (req, res )=> {
-   try{
-      const email = req.body.email
-      const password = req.body.password
-      const user = await Users.findOne({"email": email})
-      if(user){
-        const validPassword = await bcrypt.compareSync(
-          password,
-          user.password
-        );
-        if(user && validPassword){
-          res.status(200).json({status:'success',response:user})
-        }else{
-          throw new Error('Password must be correct')
-        }
-      }else{
-        throw new Error('User not found')
-      }
-    }catch(error){
-      console.log(error);
-      res.status(400).json({status:'error',message:error.message})
-    }
-}
-
-exports.createUser=(req, res) => {
-    var nuevoUser;
-    const {name, lastName, email, password, address, dni} = req.body;
-    Users.insertMany(({name, lastName, email, password, address, dni}))
-    .then(user => {
-        nuevoUser = user[0];
-        return nuevoUser.encryptPassword(password);
-    })
-    .then(nuevoPass => {
-        nuevoUser.password = nuevoPass;
-        return nuevoUser.save()
-    })
-    .then(user => res.status(200).json({status:"success", response:user}))
-    .catch(error => res.status(400).json({status:"error", message:error.message}))
-}
-
 exports.updateDataUser=(req, res) => {
      const {id} = req.params;
     const cambios = req.body;
 
     Users.findByIdAndUpdate(id, cambios, (err, userUpdate) =>{
-        console.log(cambios)
+        
         if(err) res.status(400).json({message :`Error updating user data: ${err}`})
 
         res.status(200).json({ status:"success", response: userUpdate })

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+let Schema = mongoose.Schema;
 
 const User = new mongoose.Schema({
   name: {
@@ -28,7 +29,12 @@ const User = new mongoose.Schema({
     type: String,
     default: null,
   },
-
+  address: {
+    type: String,
+  },
+  dni: {
+    type: Number,
+  },
   tokens: [
     {
       token: {
@@ -37,8 +43,12 @@ const User = new mongoose.Schema({
       },
     },
   ],
-  address: String,
-  dni: Number,
+  accounts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
+  ],
 });
 
 User.methods.encryptPassword = async (password) => {

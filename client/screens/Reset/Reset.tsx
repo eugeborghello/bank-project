@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import colors from "../../assets/colors/colors.js";
-// import Icon from 'react-native-vector-icons/Entypo';
+import Icon from "react-native-vector-icons/Entypo";
 import image from "../../assets/images/PasswordReset.png";
 import axios from "axios";
 import { REACT_APP_BACKEND_API_URL } from "@env";
@@ -91,7 +91,7 @@ export default function Reset({ navigation }) {
 					render={({ onChange, onBlur, value }) => {
 						return (
 							<>
-								{/* <Icon name='email' size={18} style={styles.icon} /> */}
+								<Icon name="email" size={18} style={styles.icon} />
 								<TextInput
 									onBlur={onBlur}
 									value={value}

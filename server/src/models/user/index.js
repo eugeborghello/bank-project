@@ -28,18 +28,18 @@ const User = new mongoose.Schema({
     type: String,
     default: null,
   },
+  address: {
+    type: String,
+  },
+    dni: {
+    type: Number,
+  },
+    accounts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Account'
+  }]
+})
 
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-  address: String,
-  dni: Number,
-});
 
 User.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);

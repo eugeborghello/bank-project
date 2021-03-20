@@ -38,14 +38,9 @@ exports.getUserId=(req, res) => {
         );
         if(user && validPassword){
           res.status(200).json({status:'success',response:user})
-        }else{
-          throw new Error('Password must be correct')
         }
-      }else{
-        throw new Error('User not found')
       }
     }catch(error){
-      console.log(error);
       res.status(400).json({status:'error',message:error.message})
     }
 }
@@ -71,7 +66,7 @@ exports.updateDataUser=(req, res) => {
     const cambios = req.body;
 
     Users.findByIdAndUpdate(id, cambios, (err, userUpdate) =>{
-        console.log(cambios)
+        
         if(err) res.status(400).json({message :`Error updating user data: ${err}`})
 
         res.status(200).json({ status:"success", response: userUpdate })

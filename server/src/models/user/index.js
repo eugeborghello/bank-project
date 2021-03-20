@@ -1,24 +1,29 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
 let Schema = mongoose.Schema;
 
 const User = new mongoose.Schema({
   name: {
-    type: String
-
+    type: String,
   },
   lastName: {
-    type: String
-
+    type: String,
   },
   email: {
     type: String,
-    required: 'email is required',
-    match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Email incorrect'],
+    required: "email is required",
+    match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Email incorrect"],
+    validate: (value) => {
+      if (!validator.isEmail(value)) {
+        throw new Error({ error: "Invalid Email" });
+      }
+    },
   },
   password: {
     type: String,
-    required: 'password is required',
+    required: "password is required",
   },
   resetCode: {
     type: String,
@@ -55,5 +60,14 @@ User.methods.compare = function (password, isReset) {
 User.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
+User.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    expiresIn: 36000000,
+  });
+  user.tokens = user.tokens.concat({ token });
+  // user.save();
+  return token;
+};
 
-module.exports = mongoose.model('Users', User);
+module.exports = mongoose.model("Users", User);

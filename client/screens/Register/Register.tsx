@@ -35,7 +35,7 @@ export default function Register() {
         if (!datos.email || !datos.password || !datos.repeatPass) { return alert("All inputs are required") }
         if (datos.password === datos.repeatPass) {
             //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
-            axios.post('http://192.168.0.107/users', user)
+            axios.post(`http://192.168.0.107/users`, user)
                 .then(user => {
                     console.log(user);
                     alert("User was created successfully");
@@ -47,6 +47,8 @@ export default function Register() {
             return alert("Passwords does not match")
         }
 
+        // password: datos.password,
+        // repeatPass: datos.repeatPass
     }
 
     return (

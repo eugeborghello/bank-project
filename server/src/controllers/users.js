@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Users = mongoose.model('Users');
 const bcrypt = require('bcrypt');
+
 var nodemailer = require('nodemailer');
 const { generateCode } = require('../../utils/codeGen');
+const jwt = require('jsonwebtoken')
 
  exports.getUsers = (req, res) => {
     Users.find()
@@ -19,6 +21,7 @@ exports.getUserId=(req, res) => {
     .then(user => res.status(200).json({status:"success", response:user}))
     .catch(error => res.status(400).json({status:"error", message:error.message}))
 }
+
 
 
  
@@ -56,7 +59,7 @@ exports.createUser=(req, res) => {
     .then(user => res.status(200).json({status:"success", response:user}))
     .catch(error => res.status(400).json({status:"error", message:error.message}))
 }
-  
+
 exports.updateDataUser=(req, res) => {
      const {id} = req.params;
     const cambios = req.body;

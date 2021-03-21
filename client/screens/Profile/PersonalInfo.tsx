@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, FlatList, TouchableHighlight,View } from "react-native";
-import styles from './styles'
+import styles from './personalInfoStyles'
 
 
 

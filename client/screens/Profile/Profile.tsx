@@ -9,84 +9,77 @@ import {
   
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
-import styles from './styles';
+import styles from './profileStyles';
 import { Link } from "@react-navigation/native";
 
 
 let datos={
   nombre : "Bill",
   apellido : "Gates "
-
-
 }
 
 
 export default function Profile ()  {
     
   const [modalVisible, setModalVisible] = useState<any>(false);
-
-    const [selectedImage, setSelectedImage] = useState<any>("");
-
-
-   
+  const [selectedImage, setSelectedImage] = useState<any>("");
 
     const openImage= async () =>{
        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync()
        if(permissionResult.granted === false){
-           alert("Permission to access camera is require")
+           alert("Permission to access camera is required")
            return
        }
        const pickerResult = await ImagePicker.launchImageLibraryAsync()
-       
        console.log(pickerResult)
 
        if (pickerResult.cancelled === true) {
         return;
       }
-    
-   
-         setSelectedImage( {localUri: pickerResult.uri});
-      
-  
+    setSelectedImage( {localUri: pickerResult.uri});  
     }
+
     return (
-     <View style={styles.profile}>
-       <View>
+     <View style={styles.profile}>     
        <Modal
-        animationType="slide"
+        
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-         
           setModalVisible(!modalVisible);
         }}
+        
       > 
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             
             <TouchableOpacity
-              
-              onPress={() => setModalVisible(!modalVisible)}
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={styles.optionsX}
             >
-              <Text style={styles.options}>X</Text>
+              <Text style={styles.optionsXText}>X</Text>
+            </TouchableOpacity>
+
+            <View style={styles.buttons} >
+            <TouchableOpacity
+                  onPress={() =>openImage()}
+                  style={styles.options}
+            >
+              <Text style={styles.optionsText}>Subir img</Text>
             </TouchableOpacity>
             <TouchableOpacity
-             
-              onPress={() =>openImage()}
+                  onPress={() =>openImage()}
+                  style={styles.options}
             >
-              <Text style={styles.options}>Subir img</Text>
+              <Text style={styles.optionsText}>Delete Image</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-             
-              onPress={() =>openImage()}
-            >
-              <Text style={styles.options}>Delete Image</Text>
-            </TouchableOpacity>
+            </View>
           </View>
-        </View>
-
+          </View>
     </Modal>
+    
 
+    <View>
     <Pressable
         style={styles.fotocontainer}
         onPress={() => setModalVisible(true)}
@@ -104,7 +97,8 @@ export default function Profile ()  {
          {/* </TouchableHighlight> */}
          </Pressable>
            <Text style={styles.name}> Hi {datos.nombre} {datos.apellido}</Text>   
-          </View>
+         
+
           <View>
           <TouchableOpacity  >
           <Link to='/CBU' style={styles.options}>
@@ -123,7 +117,7 @@ export default function Profile ()  {
                     </TouchableOpacity>
                 </View> */}
 
-
+                </View>
           
      </View>
 

@@ -61,11 +61,7 @@ export default function Reset({ navigation }) {
 			</View>
 
 			<View style={{ width: "80%" }}>
-				<View
-					style={{
-						flexDirection: "column",
-					}}
-				>
+				<View style={styles.bricking}>
 					<Text style={styles.title}>Forgot</Text>
 					<Text style={styles.title2}>password ?</Text>
 					<Text style={styles.text}>
@@ -79,16 +75,17 @@ export default function Reset({ navigation }) {
 					render={({ onChange, onBlur, value }) => {
 						return (
 							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									onBlur={onBlur}
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="Email"
-									removeClippedSubviews={false}
-									autoFocus={true}
-									style={styles.input}
-								/>
+								<View style={{ position: "absolute", top: 13 }}>
+									<Icon name="email" size={18} style={styles.icon} />
+									<TextInput
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) => onChange(value)}
+										placeholder="Email"
+										autoFocus={true}
+										style={styles.input}
+									/>
+								</View>
 							</>
 						);
 					}}
@@ -102,22 +99,23 @@ export default function Reset({ navigation }) {
 					}}
 					defaultValue=""
 				/>
-				{errors.userEmail && (
-					<View>
+				{/* {errors.userEmail && (
+					<View style={{ position: "absolute", top: 30 }}>
 						<Text
 							style={{
 								color: "#D53051",
 								fontSize: 13,
 								textTransform: "uppercase",
 								marginRight: 5,
+								top: 40,
 								fontFamily: "Roboto_500Medium",
 							}}
 						>
-							{errors.userEmail.message || "Required"}
+							{errors.userEmail.message || "Try Again"}
 						</Text>
 						<Icon name={"block"} size={18} color={"#D53051"} />
 					</View>
-				)}
+				)} */}
 
 				<View style={{ marginTop: 20 }}>
 					<TouchableOpacity
@@ -139,12 +137,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		backgroundColor: colors.background,
 		flexDirection: "column",
+		top: -10,
 	},
 	image: {
+		top: 100,
 		position: "relative",
 	},
+	bricking: {
+		top: -35,
+	},
 	title: {
-		top: -45,
+		top: -67,
 		fontSize: 26,
 		color: colors.textLight,
 		fontFamily: "Roboto_500Medium",
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	title2: {
-		top: -44,
+		top: -69,
 		fontSize: 26,
 		color: colors.textLight,
 		fontFamily: "Roboto_500Medium",
@@ -164,22 +167,24 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	text: {
-		top: -25,
+		top: -59,
 		fontSize: 14,
 		color: colors.textDark,
 		fontFamily: "Roboto_400Regular",
 		lineHeight: 14,
 	},
 	input: {
-		width: "80%",
+		width: 270,
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
-		marginTop: 10,
-		top: -7,
+		// marginTop: 10,
+
+		left: 20,
 	},
 
 	sendButton: {
+		top: -40,
 		justifyContent: "center",
 		backgroundColor: colors.buttonViolet,
 		height: 41,
@@ -196,10 +201,14 @@ const styles = StyleSheet.create({
 		fontFamily: "Roboto_500Medium",
 	},
 	emailInput: {
+		// width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
+		position: "relative",
 	},
 	icon: {
 		color: colors.textInput,
+		position: "absolute",
+		top: 11,
 	},
 });

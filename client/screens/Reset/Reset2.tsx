@@ -68,80 +68,80 @@ export default function Reset2({ navigation, route: { params } }) {
 						And in a few seconds you will be able to access to your wallet.
 					</Text>
 				</View>
+				<View>
+					<Controller
+						control={control}
+						render={({ onChange, value }) => {
+							return (
+								<>
+									<Icon name="email" size={18} style={styles.icon} />
+									<TextInput
+										value={value}
+										onChangeText={(value) => onChange(value)}
+										placeholder="Reset code"
+										style={styles.input}
+									/>
+								</>
+							);
+						}}
+						name="resetCode"
+						rules={{ required: true }}
+						defaultValue=""
+					/>
 
-				<Controller
-					control={control}
-					render={({ onChange, value }) => {
-						return (
-							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="Reset code"
-									style={styles.input}
-								/>
-							</>
-						);
-					}}
-					name="resetCode"
-					rules={{ required: true }}
-					defaultValue=""
-				/>
+					<Controller
+						control={control}
+						render={({ onChange, value }) => {
+							return (
+								<>
+									<Icon name="email" size={18} style={styles.icon} />
+									<TextInput
+										value={value}
+										onChangeText={(value) => onChange(value)}
+										placeholder="Email"
+										style={styles.input}
+									/>
+								</>
+							);
+						}}
+						name="userEmail"
+						rules={{
+							required: true,
+							pattern: {
+								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+								message: "invalid Email",
+							},
+						}}
+						defaultValue=""
+					/>
 
-				<Controller
-					control={control}
-					render={({ onChange, value }) => {
-						return (
-							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="Email"
-									style={styles.input}
-								/>
-							</>
-						);
-					}}
-					name="userEmail"
-					rules={{
-						required: true,
-						pattern: {
-							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: "invalid Email",
-						},
-					}}
-					defaultValue=""
-				/>
-
-				<Controller
-					control={control}
-					render={({ onChange, value }) => {
-						return (
-							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									secureTextEntry={true}
-									placeholder="New Password"
-									style={styles.input}
-								/>
-							</>
-						);
-					}}
-					name="newPass"
-					rules={{
-						required: true,
-						// pattern: {
-						// 	value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-						// 	message: "invalid password",
-						// },
-					}}
-					defaultValue=""
-				/>
-
+					<Controller
+						control={control}
+						render={({ onChange, value }) => {
+							return (
+								<>
+									<Icon name="email" size={18} style={styles.icon} />
+									<TextInput
+										value={value}
+										onChangeText={(value) => onChange(value)}
+										secureTextEntry={true}
+										placeholder="New Password"
+										style={styles.input}
+									/>
+								</>
+							);
+						}}
+						name="newPass"
+						rules={{
+							required: true,
+							// pattern: {
+							// 	value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+							// 	message: "invalid password",
+							// },
+						}}
+						defaultValue=""
+					/>
+				</View>
 				<View style={{ marginTop: 20 }}>
 					<TouchableOpacity
 						onPress={handleSubmit(handleSubmitPress)}
@@ -166,31 +166,29 @@ const styles = StyleSheet.create({
 		position: "relative",
 	},
 	title: {
-		top: -45,
-		fontSize: 26,
-		color: colors.textLight,
-		fontFamily: "Roboto_500Medium",
-		textTransform: "uppercase",
-
-		lineHeight: 30,
-		justifyContent: "center",
+		// top: -45,
+		// fontSize: 26,
+		// color: colors.textLight,
+		// fontFamily: "Roboto_500Medium",
+		// textTransform: "uppercase",
+		// lineHeight: 30,
+		// justifyContent: "center",
 	},
 	title2: {
-		top: -44,
-		fontSize: 26,
-		color: colors.textLight,
-		fontFamily: "Roboto_500Medium",
-		textTransform: "uppercase",
-
-		lineHeight: 30,
-		justifyContent: "center",
+		// top: -44,
+		// fontSize: 26,
+		// color: colors.textLight,
+		// fontFamily: "Roboto_500Medium",
+		// textTransform: "uppercase",
+		// lineHeight: 30,
+		// justifyContent: "center",
 	},
 	text: {
-		top: -25,
-		fontSize: 14,
-		color: colors.textDark,
-		fontFamily: "Roboto_400Regular",
-		lineHeight: 14,
+		// top: -25,
+		// fontSize: 14,
+		// color: colors.textDark,
+		// fontFamily: "Roboto_400Regular",
+		// lineHeight: 14,
 	},
 	input: {
 		width: "80%",

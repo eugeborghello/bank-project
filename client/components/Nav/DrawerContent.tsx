@@ -3,13 +3,21 @@ import { View, StyleSheet } from 'react-native';
 import { Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch } from 'react-redux';
+
+
 
 
 export function DrawerContent(props: any) {
+    const dispatch = useDispatch();
+
+
     return (
+
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
+
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem
                             icon={({ color, size }) => (
@@ -55,10 +63,10 @@ export function DrawerContent(props: any) {
                             label="Menu"
                             onPress={() => { props.navigation.navigate('Menu') }}
                         />
-                    <DrawerItem
+                        <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
-                                name="account-outline"
+                                    name="account-outline"
                                     color={color}
                                     size={size}
                                 />
@@ -66,7 +74,7 @@ export function DrawerContent(props: any) {
                             label="Profile"
                             onPress={() => { props.navigation.navigate('Profile') }}
                         />
-                        
+
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
@@ -80,12 +88,15 @@ export function DrawerContent(props: any) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => { console.log('sing out') }}
+                    onPress={() => dispatch({
+                        type: 'LOGOUT'
+                    })}
                 />
             </Drawer.Section>
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     drawerContent: {

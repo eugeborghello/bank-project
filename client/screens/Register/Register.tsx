@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, Button } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { Link } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
@@ -8,8 +8,8 @@ import styles from "./styles";
 import {useDispatch, useSelector} from 'react-redux';
 import  { REACT_APP_BACKEND_API_URL} from "@env";
 
-export default function Register() {
-    const URL = "http://192.168.0.19:3001/users";
+export default function Register(props) {
+    const URL = `${REACT_APP_BACKEND_API_URL}/users`;
 
     const initialState = {
         email: '',
@@ -30,9 +30,10 @@ export default function Register() {
     }
 
     const createNewUser = () => {
-        //console.log(REACT_APP_BACKEND_API_URL);
         if (!datos.email || !datos.password || !datos.repeatPass) { 
-            return alert("Email and Password cannot be empty") }
+           setError("Email and Password cannot be empty") 
+           return false;
+        }
 
         if (datos.email) {
             var pattern = new RegExp(
@@ -45,10 +46,10 @@ export default function Register() {
             }
           }
 
-        if (datos.password === datos.repeatPass) {
+          if (datos.password === datos.repeatPass) {
             if (datos.password.length) {
                 var pattern = new RegExp(
-                  /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+                    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
                 );
                 if (!pattern.test(datos.password)) {
                   setError(
@@ -57,19 +58,26 @@ export default function Register() {
                   return false;
                 }
               } 
+            } else {
+                setError("Passwords does not match")
+                return false;
+            }  
             //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
-            axios.post("http://192.168.0.19:3001/users", user)
+            axios.post(URL, user)
                 .then(user => {
                     console.log('user------', user);
-                    alert("User was created successfully");
+                    Alert.alert(
+                        "User was created successfully",
+                        ".",
+                        [
+                          { text: "OK", onPress: () =>  props.navigation.navigate('CompleteRegister')}
+                        ]
+                      );
                     setDatos(initialState);
                     setError("");
 
                 })
                 .catch(error => console.log('error-----', error))
-        } else {
-            return alert("Passwords does not match")
-        }
 
     }
        
@@ -125,7 +133,7 @@ export default function Register() {
                     <Text>Already have an account?</Text>
                     <Link to='/Login'>
                         <Text style={{ color: "#4A47A3" }}>Login</Text>
-                    </Link>
+                    </Link> 
                 </View>
 
             </View>

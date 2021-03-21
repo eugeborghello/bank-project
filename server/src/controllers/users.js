@@ -1,42 +1,47 @@
-
 const mongoose = require('mongoose');
 const Users = mongoose.model('Users');
 const bcrypt = require('bcrypt');
-
+const { EMAIL_ACCOUNT, EMAIL_PASSWORD } = process.env;
 var nodemailer = require('nodemailer');
 const { generateCode } = require('../../utils/codeGen');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
- exports.getUsers = (req, res) => {
-    Users.find()
-    .then(users => res.status(200).json({
-      status:"success",
-       response:users}))
-    .catch(error => res.status(400).json({status:"error", message:error.message}))
+exports.getUsers = (req, res) => {
+  Users.find()
+    .then((users) =>
+      res.status(200).json({
+        status: 'success',
+        response: users,
+      })
+    )
+    .catch((error) =>
+      res.status(400).json({ status: 'error', message: error.message })
+    );
+};
 
-} 
+exports.getUserId = (req, res) => {
+  const { id } = req.params;
+  Users.findOne({ _id: id })
+    .then((user) => res.status(200).json({ status: 'success', response: user }))
+    .catch((error) =>
+      res.status(400).json({ status: 'error', message: error.message })
+    );
+};
 
-exports.getUserId=(req, res) => {
-   const {id} = req.params;
-    Users.findOne({"_id" : id})
-    .then(user => res.status(200).json({status:"success", response:user}))
-    .catch(error => res.status(400).json({status:"error", message:error.message}))
-}
+exports.updateDataUser = (req, res) => {
+  const { id } = req.params;
+  const cambios = req.body;
 
-exports.updateDataUser=(req, res) => {
-     const {id} = req.params;
-    const cambios = req.body;
+  Users.findByIdAndUpdate(id, cambios, (err, userUpdate) => {
+    if (err)
+      res.status(400).json({ message: `Error updating user data: ${err}` });
 
-    Users.findByIdAndUpdate(id, cambios, (err, userUpdate) =>{
-        
-        if(err) res.status(400).json({message :`Error updating user data: ${err}`})
-
-        res.status(200).json({ status:"success", response: userUpdate })
-})
-}
+    res.status(200).json({ status: 'success', response: userUpdate });
+  });
+};
 
 exports.sendEmail = (req, res) => {
-  const { name, email, code, date, subject } = req.body;
+  const { name, email, code, text, subject } = req.body;
   // const { code, email } = req.body;
 
   const transporter = nodemailer.createTransport({
@@ -44,8 +49,8 @@ exports.sendEmail = (req, res) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'xtremerssports@gmail.com',
-      pass: 'Hola123456!',
+      user: process.env.EMAIL_ACCOUNT,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
@@ -54,7 +59,7 @@ exports.sendEmail = (req, res) => {
       from: '"Veski" <veski@gmail.com>',
       to: email,
       subject: subject,
-      text: "Here's your code to reset your password: " + code,
+      text: text + code || '',
     })
     .then((mail) => {
       res.status(200).json({

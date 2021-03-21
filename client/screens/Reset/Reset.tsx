@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
-import AppLoading from "expo-app-loading";
 import colors from "../../assets/colors/colors.js";
 import Icon from "react-native-vector-icons/Entypo";
 import image from "../../assets/images/PasswordReset.png";
@@ -32,7 +31,7 @@ export default function Reset({ navigation }) {
 			const mail = await axios.post(`${REACT_APP_BACKEND_API_URL}/users/email`, {
 				name: user.data.user.name + " " + user.data.user.lastName,
 				subject: "Recover your Veski account",
-				date: "01/01/2021",
+				text: "Here's your code to reset your password: ",
 				code: user.data.user.resetCode,
 				email: data.userEmail,
 			});
@@ -85,6 +84,7 @@ export default function Reset({ navigation }) {
 									value={value}
 									onChangeText={(value) => onChange(value)}
 									placeholder="Email"
+									removeClippedSubviews={false}
 									style={styles.input}
 								/>
 							</>
@@ -95,7 +95,7 @@ export default function Reset({ navigation }) {
 						required: true,
 						pattern: {
 							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: "Invalid email please try again",
+							message: "invalid email",
 						},
 					}}
 					defaultValue=""

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import colors from '../../assets/colors/colors';
-import Icon from 'react-native-vector-icons/Entypo';
-import image from '../../assets/images/PasswordReset.png';
-import axios from 'axios';
-import { useForm, Controller } from 'react-hook-form';
-import { REACT_APP_BACKEND_API_URL } from '@env';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import colors from "../../assets/colors/colors";
+import Icon from "react-native-vector-icons/Entypo";
+import image from "../../assets/images/PasswordReset.png";
+import axios from "axios";
+import { useForm, Controller } from "react-hook-form";
+import { REACT_APP_BACKEND_API_URL } from "@env";
 
 export default function Reset2({ navigation, route: { params } }) {
-	const [errortext, setErrortext] = useState('');
+	const [errortext, setErrortext] = useState("");
 
 	const { control, handleSubmit, errors } = useForm();
 
@@ -17,7 +17,7 @@ export default function Reset2({ navigation, route: { params } }) {
 	const onPress = () => setHidePass((prevState) => !prevState);
 
 	const handleSubmitPress = async (data: any) => {
-		console.log('data', data);
+		console.log("data", data);
 
 		try {
 			const user = await axios.patch(
@@ -32,21 +32,22 @@ export default function Reset2({ navigation, route: { params } }) {
 			console.log(user);
 
 			const mail = await axios.post(`${REACT_APP_BACKEND_API_URL}/users/email`, {
-				name: user.data.user.firstName + ' ' + user.data.user.lastName,
-				subject: 'You have changed your password Successfully',
+				name: user.data.user.firstName + " " + user.data.user.lastName,
+				subject: "You have changed your password Successfully",
 				text:
-					'Congratulations, you have changed your password, if you have any other problem, please contact support ',
+					"Congratulations, you have changed your password, if you have any other problem, please contact support ",
 				email: data.userEmail,
+				code: " ",
 			});
 
 			console.log(mail);
 
-			let message = 'Email sent. Check your email';
+			let message = "Email sent. Check your email";
 
 			setErrortext(message);
 
-			console.log('Redirection to Home has Succeed');
-			navigation.navigate('Login');
+			console.log("Redirection to Home has Succeed");
+			navigation.navigate("Login");
 		} catch (error) {
 			setErrortext(error);
 		}
@@ -55,13 +56,13 @@ export default function Reset2({ navigation, route: { params } }) {
 	return (
 		<View style={styles.wrapper}>
 			<View
-				style={{ width: '80%', top: -100, justifyContent: 'center', alignItems: 'center' }}
+				style={{ width: "80%", top: -100, justifyContent: "center", alignItems: "center" }}
 			>
 				<Image source={image} style={image} />
 			</View>
 
-			<View style={{ width: '80%' }}>
-				<View style={{ flexDirection: 'column' }}>
+			<View style={{ width: "80%" }}>
+				<View style={{ flexDirection: "column" }}>
 					<Text style={styles.title}>Complete the information </Text>
 					<Text style={styles.text}>
 						And in a few seconds you will be able to access to your wallet.
@@ -108,7 +109,7 @@ export default function Reset2({ navigation, route: { params } }) {
 						required: true,
 						pattern: {
 							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: 'invalid Email',
+							message: "invalid Email",
 						},
 					}}
 					defaultValue=""
@@ -156,43 +157,43 @@ export default function Reset2({ navigation, route: { params } }) {
 
 const styles = StyleSheet.create({
 	wrapper: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		alignItems: "center",
+		justifyContent: "center",
 		backgroundColor: colors.background,
-		flexDirection: 'column',
+		flexDirection: "column",
 	},
 	image: {
-		position: 'relative',
+		position: "relative",
 	},
 	title: {
 		top: -45,
 		fontSize: 26,
 		color: colors.textLight,
-		fontFamily: 'Roboto_500Medium',
-		textTransform: 'uppercase',
+		fontFamily: "Roboto_500Medium",
+		textTransform: "uppercase",
 
 		lineHeight: 30,
-		justifyContent: 'center',
+		justifyContent: "center",
 	},
 	title2: {
 		top: -44,
 		fontSize: 26,
 		color: colors.textLight,
-		fontFamily: 'Roboto_500Medium',
-		textTransform: 'uppercase',
+		fontFamily: "Roboto_500Medium",
+		textTransform: "uppercase",
 
 		lineHeight: 30,
-		justifyContent: 'center',
+		justifyContent: "center",
 	},
 	text: {
 		top: -25,
 		fontSize: 14,
 		color: colors.textDark,
-		fontFamily: 'Roboto_400Regular',
+		fontFamily: "Roboto_400Regular",
 		lineHeight: 14,
 	},
 	input: {
-		width: '80%',
+		width: "80%",
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
 	},
 
 	sendButton: {
-		justifyContent: 'center',
+		justifyContent: "center",
 		backgroundColor: colors.buttonViolet,
 		height: 41,
 
@@ -211,14 +212,14 @@ const styles = StyleSheet.create({
 	sendButtonText: {
 		fontSize: 15,
 		color: colors.textGreyLight,
-		textAlign: 'center',
-		justifyContent: 'center',
-		alignItems: 'center',
-		fontFamily: 'Roboto_500Medium',
+		textAlign: "center",
+		justifyContent: "center",
+		alignItems: "center",
+		fontFamily: "Roboto_500Medium",
 	},
 	emailInput: {
-		flexDirection: 'row',
-		alignItems: 'center',
+		flexDirection: "row",
+		alignItems: "center",
 	},
 	icon: {
 		color: colors.textInput,

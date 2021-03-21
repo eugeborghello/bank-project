@@ -76,15 +76,17 @@ export default function Reset({ navigation }) {
 
 				<Controller
 					control={control}
-					render={({ onChange, value }) => {
+					render={({ onChange, onBlur, value }) => {
 						return (
 							<>
 								<Icon name="email" size={18} style={styles.icon} />
 								<TextInput
+									onBlur={onBlur}
 									value={value}
 									onChangeText={(value) => onChange(value)}
 									placeholder="Email"
 									removeClippedSubviews={false}
+									autoFocus={true}
 									style={styles.input}
 								/>
 							</>

@@ -14,39 +14,37 @@ const Login = (props) => {
 
   const dispatch = useDispatch();
 
-	console.log(REACT_APP_BACKEND_API_URL);
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
 	const [error, setError] = useState<string>("");
+	const [inputs, setInputs] = useState({
+		email: "",
+		password: ""
+	});
 
 	// input handlers
-	const handleEmail = (email: any) => {
-		setEmail(email);
-	};
-	const handlePassword = (pass: any) => {
-		setPassword(pass);
-	};
+	const handleChange = (value: string, name: string): void => {
+        setInputs({ ...inputs, [name]: value })
+    }
 
-  // API call
-  const handleLogin = () => {
-    if (email === "" || password === "") {
+    // API call
+    const handleLogin = () => {
+     if (inputs.email === "" || inputs.password === "") {
       setError("Email and Password cannot be empty");
       return false;
     }
-    if (email) {
+     if (inputs.email) {
       var pattern = new RegExp(
         /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
       );
-      if (!pattern.test(email)) {
+      if (!pattern.test(inputs.email)) {
         setError("Please enter a valid email address.");
         return false;
       }
     }
-      if (password.length) {
+      if (inputs.password.length) {
       var pattern = new RegExp(
-        /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
       );
-      if (!pattern.test(password)) {
+      if (!pattern.test(inputs.password)) {
         setError(
           "Password must contain minimum eight characters, at least one number and one special character"
         );
@@ -55,13 +53,16 @@ const Login = (props) => {
     }  
     axios
       .post(`${URL}/login`, {
-        email: email,
-        password: password,
+        email: inputs.email,
+        password: inputs.password,
       })
       .then((res) => {
+		let user = res.data.response
         setError("");
-        let user = res.data.response
-        let token = (res.data.response.tokens[0].token)
+        setInputs({
+			email: "",
+		    password: ""
+		})
         Alert.alert(
           "Succesfully logged",
           ".",
@@ -80,6 +81,7 @@ const Login = (props) => {
           type: 'LOGOUT',
         })
       });
+	  
   };
 
   return (
@@ -99,8 +101,8 @@ const Login = (props) => {
 						<TextInput
 							placeholder="Email"
 							style={styles.input}
-							onChangeText={handleEmail}
-							value={email}
+							onChangeText={value => handleChange(value, "email")}
+                            value={inputs.email}
 						/>
 					</View>
 					<View style={styles.emailInput}>
@@ -109,8 +111,8 @@ const Login = (props) => {
 							placeholder="Password"
 							style={styles.input}
 							secureTextEntry={true}
-							onChangeText={handlePassword}
-							value={password}
+							onChangeText={value => handleChange(value, "password")}
+                            value={inputs.password}
 						/>
 					</View>
 

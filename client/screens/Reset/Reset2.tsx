@@ -62,8 +62,8 @@ export default function Reset2({ navigation, route: { params } }) {
 			</View>
 
 			<View style={{ width: "80%" }}>
-				<View style={{ flexDirection: "column" }}>
-					<Text style={styles.title}>Complete the information </Text>
+				<View style={{ flexDirection: "column", top: -50 }}>
+					<Text style={styles.title}>complete </Text>
 					<Text style={styles.text}>
 						And in a few seconds you will be able to access to your wallet.
 					</Text>
@@ -74,18 +74,20 @@ export default function Reset2({ navigation, route: { params } }) {
 						render={({ onChange, value }) => {
 							return (
 								<>
-									<Icon name="email" size={18} style={styles.icon} />
-									<TextInput
-										value={value}
-										onChangeText={(value) => onChange(value)}
-										placeholder="Reset code"
-										style={styles.input}
-									/>
+									<View style={{ position: "absolute", top: -90 }}>
+										<Icon name="key" size={18} style={styles.icon} />
+										<TextInput
+											value={value}
+											onChangeText={(value) => onChange(value)}
+											placeholder="Reset code"
+											style={styles.input}
+										/>
+									</View>
 								</>
 							);
 						}}
 						name="resetCode"
-						rules={{ required: true }}
+						// rules={{ required: true }}
 						defaultValue=""
 					/>
 
@@ -94,24 +96,26 @@ export default function Reset2({ navigation, route: { params } }) {
 						render={({ onChange, value }) => {
 							return (
 								<>
-									<Icon name="email" size={18} style={styles.icon} />
-									<TextInput
-										value={value}
-										onChangeText={(value) => onChange(value)}
-										placeholder="Email"
-										style={styles.input}
-									/>
+									<View style={{ position: "relative", top: -60 }}>
+										<Icon name="email" size={18} style={styles.icon} />
+										<TextInput
+											value={value}
+											onChangeText={(value) => onChange(value)}
+											placeholder="Email"
+											style={styles.input}
+										/>
+									</View>
 								</>
 							);
 						}}
 						name="userEmail"
-						rules={{
-							required: true,
-							pattern: {
-								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-								message: "invalid Email",
-							},
-						}}
+						// rules={{
+						// 	required: true,
+						// 	pattern: {
+						// 		value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+						// 		message: "invalid Email",
+						// 	},
+						// }}
 						defaultValue=""
 					/>
 
@@ -120,29 +124,35 @@ export default function Reset2({ navigation, route: { params } }) {
 						render={({ onChange, value }) => {
 							return (
 								<>
-									<Icon name="email" size={18} style={styles.icon} />
-									<TextInput
-										value={value}
-										onChangeText={(value) => onChange(value)}
-										secureTextEntry={true}
-										placeholder="New Password"
-										style={styles.input}
-									/>
+									<View style={{ position: "relative", top: -60 }}>
+										<Icon
+											name="arrow-bold-right"
+											size={18}
+											style={styles.icon}
+										/>
+										<TextInput
+											value={value}
+											onChangeText={(value) => onChange(value)}
+											secureTextEntry={true}
+											placeholder="New Password"
+											style={styles.input}
+										/>
+									</View>
 								</>
 							);
 						}}
 						name="newPass"
-						rules={{
-							required: true,
-							// pattern: {
-							// 	value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-							// 	message: "invalid password",
-							// },
-						}}
+						// rules={{
+						// 	required: true,
+						// pattern: {
+						// 	value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+						// 	message: "invalid password",
+						// },
+						// }}
 						defaultValue=""
 					/>
 				</View>
-				<View style={{ marginTop: 20 }}>
+				<View style={{ top: -50, marginTop: 20 }}>
 					<TouchableOpacity
 						onPress={handleSubmit(handleSubmitPress)}
 						style={styles.sendButton}
@@ -161,42 +171,44 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		backgroundColor: colors.background,
 		flexDirection: "column",
+		top: -10,
 	},
 	image: {
 		position: "relative",
 	},
 	title: {
-		// top: -45,
-		// fontSize: 26,
-		// color: colors.textLight,
-		// fontFamily: "Roboto_500Medium",
-		// textTransform: "uppercase",
-		// lineHeight: 30,
-		// justifyContent: "center",
+		top: -45,
+		fontSize: 26,
+		color: colors.textLight,
+		fontFamily: "Roboto_500Medium",
+		textTransform: "uppercase",
+		lineHeight: 30,
+		justifyContent: "center",
 	},
 	title2: {
-		// top: -44,
-		// fontSize: 26,
-		// color: colors.textLight,
-		// fontFamily: "Roboto_500Medium",
-		// textTransform: "uppercase",
-		// lineHeight: 30,
-		// justifyContent: "center",
+		top: -44,
+		fontSize: 26,
+		color: colors.textLight,
+		fontFamily: "Roboto_500Medium",
+		textTransform: "uppercase",
+		lineHeight: 30,
+		justifyContent: "center",
 	},
 	text: {
-		// top: -25,
-		// fontSize: 14,
-		// color: colors.textDark,
-		// fontFamily: "Roboto_400Regular",
-		// lineHeight: 14,
+		top: -35,
+		fontSize: 14,
+		color: colors.textDark,
+		fontFamily: "Roboto_400Regular",
+		lineHeight: 14,
 	},
 	input: {
-		width: "80%",
+		width: 270,
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
-		marginTop: 10,
-		top: -7,
+		// marginTop: 10,
+
+		left: 20,
 	},
 
 	sendButton: {
@@ -221,5 +233,7 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		color: colors.textInput,
+		position: "absolute",
+		top: 11,
 	},
 });

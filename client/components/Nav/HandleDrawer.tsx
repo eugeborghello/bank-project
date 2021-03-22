@@ -5,7 +5,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome";
 const HandleDrawer = () => {
     const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{zIndex:0}}>
     <TouchableOpacity style={{alignItems:'flex-end',marginTop:30,marginRight:30,marginBottom:10}} onPress={()=>navigation.dispatch(DrawerActions.openDrawer())}>
     <FontAwesome5 name='bars' size={24} color='grey' />
     </TouchableOpacity>

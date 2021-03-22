@@ -3,10 +3,10 @@ import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-nat
 import { Link } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
-import axios from 'axios';
+import axios from "axios";
 import styles from "./styles";
-import {useDispatch, useSelector} from 'react-redux';
-import  { REACT_APP_BACKEND_API_URL} from "@env";
+import { useDispatch, useSelector } from "react-redux";
+import { REACT_APP_BACKEND_API_URL } from "@env";
 
 export default function Register(props) {
     const URL = `http://${REACT_APP_BACKEND_API_URL}/users`;

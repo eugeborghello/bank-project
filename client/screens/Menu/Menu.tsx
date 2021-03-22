@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {FC} from 'react';
 import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import styles from './MenuStyles';
@@ -6,6 +7,13 @@ import { useFonts, CutiveMono_400Regular } from '@expo-google-fonts/cutive-mono'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
+=======
+import React, { FC, useState } from "react";
+import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
+import styles from "./MenuStyles";
+import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
+import { useFonts, Roboto_500Medium, Roboto_400Regular } from "@expo-google-fonts/roboto";
+>>>>>>> 1a7dfc1afbdc7654fdd5c5883e49bc59d57e797a
 /* 
 interface Props {
     icon: string;
@@ -48,45 +56,41 @@ let [fontsLoaded] = useFonts({
                 <Text style={styles.balanceText} > ${account.balance||400} </Text> 
             </View>
 
-        <View style={styles.container} >
-            <View style={styles.viewCard} >
-                <View style={styles.titulo} >
-                <Text 
-                style={styles.tituloText} > CreditCard </Text>
-                 <Text 
-                style={styles.tituloText} > BANK </Text>
-                </View>
-               <View style={styles.numberView} >
-                <Text style={{ fontSize: 18.5, fontWeight: 'bold', fontFamily: 'CutiveMono_400Regular'}} > 
-                0000 0000 0000 0000
-                </Text>
-                </View>
-               <View style={styles.dateView}>
-                    <Text> 02/22 </Text>                 
-               </View>
-            </View>
+				<View style={styles.container}>
+					<View style={styles.viewCard}>
+						<View style={styles.titulo}>
+							<Text style={styles.tituloText}> CreditCard </Text>
+							<Text style={styles.tituloText}> BANK </Text>
+						</View>
+						<View style={styles.numberView}>
+							<Text
+								style={{
+									fontSize: 18.5,
+									// fontWeight: 'bold',
+									fontFamily: "Roboto_500Medium",
+								}}
+							>
+								0000 0000 0000 0000
+							</Text>
+						</View>
+						<View style={styles.dateView}>
+							<Text> 02/22 </Text>
+						</View>
+					</View>
 
-            <View style={styles.viewButton} >
-                <View style={styles.viewButtonRow}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => Alert.alert('Transacciones')}>
-                <MaterialCommunityIcons name="bank-transfer" size={26} color="black"/>
-                    <Text style={styles.buttonText}> 
-                        Transactions
-                    </Text>
-                </TouchableOpacity>
-            
-                <TouchableOpacity 
-                    style={styles.button}
-                    onPress={() => Alert.alert('Estadísticas')}
-                    >
-                <Octicons name="graph" size={20} color="black" />
-                     <Text style={styles.buttonText}> 
-                        Statistics
-                    </Text>
-                </TouchableOpacity>
-                </View>
+					<View style={styles.viewButton}>
+						<View style={styles.viewButtonRow}>
+							<TouchableOpacity
+								style={styles.button}
+								onPress={() => Alert.alert("Transacciones")}
+							>
+								<MaterialCommunityIcons
+									name="bank-transfer"
+									size={26}
+									color="black"
+								/>
+								<Text style={styles.buttonText}>Transactions</Text>
+							</TouchableOpacity>
 
                 <View style={styles.viewButtonRow}>
                 <TouchableOpacity 
@@ -116,33 +120,45 @@ let [fontsLoaded] = useFonts({
                 </TouchableOpacity>
                 </View>
 
-                <View style={styles.viewButtonRow}>
-                <TouchableOpacity 
-                    style={styles.button}
-                    onPress={() => Alert.alert('Recargar dinero')}
-                    >
-                <MaterialCommunityIcons 
-                    name="wallet-plus-outline" size={20} color="black" />
-                <Text style={styles.buttonText}> 
-                      Recharge money
-                </Text>
-                </TouchableOpacity>
+							<TouchableOpacity
+								style={styles.button}
+								onPress={() => Alert.alert("Mis productos")}
+							>
+								<MaterialCommunityIcons
+									name="credit-card-multiple-outline"
+									size={20}
+									color="black"
+								/>
+								<Text style={styles.buttonText}>Cards</Text>
+							</TouchableOpacity>
+						</View>
 
-            <TouchableOpacity 
-                    style={styles.button}
-                    onPress={() => Alert.alert('Realizar pago')}
-                    >
-                <FontAwesome name="send" size={20} color="black" />
-                <Text style={styles.buttonText}> 
-                        Send money
-                </Text>
-                </TouchableOpacity>
-            </View>
-            </View>
-            </View>
-        </View>
-    )
-}
-}
+						<View style={styles.viewButtonRow}>
+							<TouchableOpacity
+								style={styles.button}
+								onPress={() => Alert.alert("Recargar dinero")}
+							>
+								<MaterialCommunityIcons
+									name="wallet-plus-outline"
+									size={20}
+									color="black"
+								/>
+								<Text style={styles.buttonText}>Recharge money</Text>
+							</TouchableOpacity>
+
+							<TouchableOpacity
+								style={styles.button}
+								onPress={() => Alert.alert("Realizar pago")}
+							>
+								<FontAwesome name="send" size={20} color="black" />
+								<Text style={styles.buttonText}>Send money</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				</View>
+			</View>
+		);
+	}
+};
 
 export default Menu;

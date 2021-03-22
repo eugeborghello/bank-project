@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
-import AppLoading from "expo-app-loading";
 import colors from "../../assets/colors/colors.js";
 import Icon from "react-native-vector-icons/Entypo";
 import image from "../../assets/images/PasswordReset.png";
@@ -31,7 +30,7 @@ export default function Reset({ navigation }) {
 			const mail = await axios.post(`${REACT_APP_BACKEND_API_URL}/users/email`, {
 				name: user.data.user.name + " " + user.data.user.lastName,
 				subject: "Recover your Veski account",
-				date: "01/01/2021",
+				text: "Here's your code to reset your password: ",
 				code: user.data.user.resetCode,
 				email: data.userEmail,
 			});
@@ -61,11 +60,7 @@ export default function Reset({ navigation }) {
 			</View>
 
 			<View style={{ width: "80%" }}>
-				<View
-					style={{
-						flexDirection: "column",
-					}}
-				>
+				<View style={styles.bricking}>
 					<Text style={styles.title}>Forgot</Text>
 					<Text style={styles.title2}>password ?</Text>
 					<Text style={styles.text}>
@@ -76,16 +71,20 @@ export default function Reset({ navigation }) {
 
 				<Controller
 					control={control}
-					render={({ onChange, value }) => {
+					render={({ onChange, onBlur, value }) => {
 						return (
 							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="Email"
-									style={styles.input}
-								/>
+								<View style={{ position: "absolute", top: 13 }}>
+									<Icon name="email" size={18} style={styles.icon} />
+									<TextInput
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) => onChange(value)}
+										placeholder="Email"
+										autoFocus={true}
+										style={styles.input}
+									/>
+								</View>
 							</>
 						);
 					}}
@@ -94,25 +93,30 @@ export default function Reset({ navigation }) {
 						required: true,
 						pattern: {
 							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: "Invalid email please try again",
+							message: "invalid email",
 						},
 					}}
 					defaultValue=""
 				/>
 				{errors.userEmail && (
-					<View>
+					<View style={{ position: "absolute", top: -10, right: 22 }}>
 						<Text
 							style={{
 								color: "#D53051",
 								fontSize: 13,
 								textTransform: "uppercase",
 								marginRight: 5,
+								top: 30,
 								fontFamily: "Roboto_500Medium",
+								padding: 5,
+								// marginTop: 10,
+
+								left: 20,
 							}}
 						>
-							{errors.userEmail.message || "Required"}
+							{errors.userEmail.message || "Try Again"}
 						</Text>
-						<Icon name={"block"} size={18} color={"#D53051"} />
+						<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
 					</View>
 				)}
 
@@ -136,12 +140,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		backgroundColor: colors.background,
 		flexDirection: "column",
+		top: -10,
 	},
 	image: {
+		top: 100,
 		position: "relative",
 	},
+	bricking: {
+		top: -35,
+	},
 	title: {
-		top: -45,
+		top: -67,
 		fontSize: 26,
 		color: colors.textLight,
 		fontFamily: "Roboto_500Medium",
@@ -151,7 +160,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	title2: {
-		top: -44,
+		top: -69,
 		fontSize: 26,
 		color: colors.textLight,
 		fontFamily: "Roboto_500Medium",
@@ -161,22 +170,24 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	text: {
-		top: -25,
+		top: -59,
 		fontSize: 14,
 		color: colors.textDark,
 		fontFamily: "Roboto_400Regular",
 		lineHeight: 14,
 	},
 	input: {
-		width: "80%",
+		width: 270,
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
-		marginTop: 10,
-		top: -7,
+		// marginTop: 10,
+
+		left: 20,
 	},
 
 	sendButton: {
+		top: -40,
 		justifyContent: "center",
 		backgroundColor: colors.buttonViolet,
 		height: 41,
@@ -193,10 +204,14 @@ const styles = StyleSheet.create({
 		fontFamily: "Roboto_500Medium",
 	},
 	emailInput: {
+		// width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
+		position: "relative",
 	},
 	icon: {
 		color: colors.textInput,
+		position: "absolute",
+		top: 11,
 	},
 });

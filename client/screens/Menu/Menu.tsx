@@ -3,6 +3,7 @@ import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
 import styles from "./MenuStyles";
 import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
 import { useFonts, Roboto_500Medium, Roboto_400Regular } from "@expo-google-fonts/roboto";
+import { useSelector } from "react-redux";
 /* 
 interface Props {
     icon: string;
@@ -13,9 +14,12 @@ const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
+	const user = useSelector((state) => state.user.currentUser);
+	console.log("soy---->", user);
+	console.log(user[0].name);
+	console.log(user[0].accounts[0]);
 	let [fontsLoaded] = useFonts({
 		Roboto_500Medium,
-		Roboto_400Regular,
 	});
 
 	if (!fontsLoaded) {
@@ -34,23 +38,28 @@ const Menu: FC = () => {
 						color="white"
 						style={{ top: 15 }}
 					/>
-					<Text style={styles.text}> Hello, Pepito! </Text>
-					<Image
-						style={styles.image}
-						source={{
-							uri: "https://image.flaticon.com/icons/png/512/2936/2936469.png",
-						}}
-					/>
+					{!user == false && (
+						<>
+							<Text style={styles.text}> Hello, {user[0].name} </Text>
+							<Image
+								style={styles.image}
+								source={{
+									uri:
+										"https://image.flaticon.com/icons/png/512/2936/2936469.png",
+								}}
+							/>
+						</>
+					)}
 				</View>
 				<View style={styles.viewBalance}>
 					<Text style={styles.balanceText}> Total balance:</Text>
-					<Text style={styles.balanceText}> $5210.50 </Text>
+					<Text style={styles.balanceText2}> {user ? "$0" : ""} </Text>
 				</View>
 
 				<View style={styles.container}>
 					<View style={styles.viewCard}>
 						<View style={styles.titulo}>
-							<Text style={styles.tituloText}> CreditCard </Text>
+							<Text style={styles.tituloText}> CBU </Text>
 							<Text style={styles.tituloText}> BANK </Text>
 						</View>
 						<View style={styles.numberView}>
@@ -61,7 +70,7 @@ const Menu: FC = () => {
 									fontFamily: "Roboto_500Medium",
 								}}
 							>
-								0000 0000 0000 0000
+								{user[0].accounts[0]}
 							</Text>
 						</View>
 						<View style={styles.dateView}>

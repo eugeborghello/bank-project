@@ -3,6 +3,9 @@ import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import styles from './MenuStyles';
 import { MaterialCommunityIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 import { useFonts, CutiveMono_400Regular } from '@expo-google-fonts/cutive-mono';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
 /* 
 interface Props {
     icon: string;
@@ -13,7 +16,11 @@ const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
-    
+    const user = useSelector(state => state.user.currentUser);
+    const account = useSelector(state => state.accountsReducer)
+    console.log({'res':account})
+    console.log(user[0])
+    const navigation = useNavigation()
 let [fontsLoaded] = useFonts({
     CutiveMono_400Regular,
   });
@@ -27,13 +34,8 @@ let [fontsLoaded] = useFonts({
   } else {
     return(
         <View style={styles.view}>
-            <View style={styles.viewMenu} >
-            <MaterialCommunityIcons 
-                name="menu" 
-                size={26} 
-                color="white"
-                style={{top: 15}} />   
-            <Text style={styles.text}> Hello, Pepito! </Text>
+            <View style={styles.viewMenu} > 
+            <Text style={styles.text}> Hello, {user[0].name}! </Text>
             <Image 
             style={styles.image}
             source={{
@@ -43,7 +45,7 @@ let [fontsLoaded] = useFonts({
             </View>
             <View style={styles.viewBalance} >
                 <Text style={styles.balanceText} > Total balance:</Text>
-                <Text style={styles.balanceText} > $5210.50 </Text> 
+                <Text style={styles.balanceText} > ${account.balance||400} </Text> 
             </View>
 
         <View style={styles.container} >
@@ -89,7 +91,7 @@ let [fontsLoaded] = useFonts({
                 <View style={styles.viewButtonRow}>
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => Alert.alert('Mis datos')}
+                    onPress={() => navigation.navigate('CBU')}
                     >
                 <MaterialCommunityIcons 
                     name="account-cog" 
@@ -102,7 +104,7 @@ let [fontsLoaded] = useFonts({
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => Alert.alert('Mis productos')}
+                    onPress={() => navigation.navigate('CreditCard')}
                     >
                 <MaterialCommunityIcons 
                     name="credit-card-multiple-outline" 

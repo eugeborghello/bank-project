@@ -23,7 +23,6 @@ export default function Reset({ navigation }) {
 	const { control, handleSubmit, errors } = useForm();
 
 	const handleSubmitPress = async (data: any) => {
-		console.log(REACT_APP_BACKEND_API_URL);
 		try {
 			const user = await axios.patch(`${REACT_APP_BACKEND_API_URL}/users/forgot`, {
 				userEmail: data.userEmail,

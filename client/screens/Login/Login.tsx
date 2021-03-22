@@ -54,7 +54,7 @@ const Login = (props) => {
       }
     }  
     axios
-      .post(`${URL}/login`, {
+      .post(`http://${URL}/login`, {
         email: inputs.email,
         password: inputs.password,
       })

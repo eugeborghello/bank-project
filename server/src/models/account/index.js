@@ -13,7 +13,10 @@ const Account = new mongoose.Schema({
         enum: ['Pesos', 'Dolares'],
         required: true
     },
-
+    balance:{
+        type:Number,
+        unique:true
+    },
     userId: [{
         type: Schema.Types.ObjectId,
         required: true,

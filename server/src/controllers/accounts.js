@@ -13,8 +13,8 @@ exports.createAccount = async (req, res) => {
 
     const pesosCVU = await generateCBU()
     const dolaresCVU = await generateCBU()
-    const accountOne = await generateAccount(pesosCVU, 'Pesos', user._id)
-    const accountTwo = await generateAccount(dolaresCVU, 'Dolares', user._id);
+    const accountOne = await generateAccount(pesosCVU, 'Pesos', user._id,0)
+    const accountTwo = await generateAccount(dolaresCVU, 'Dolares', user._id,0);
     await accountOne.save();
     await accountTwo.save();
     user.accounts.push(accountOne, accountTwo)

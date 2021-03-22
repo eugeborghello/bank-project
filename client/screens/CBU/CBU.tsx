@@ -3,13 +3,15 @@ const frase = "It is the number that identifies your VESKI account. It helps you
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, FlatList, TouchableHighlight,View } from "react-native";
 import styles from './styles'
+import {useSelector} from 'react-redux';
 
 
 
 
 
 export default function PersonalInfo ()  {
-  
+  const account = useSelector(state => state.accountsReducer.accounts[0][0]);
+  console.log(account)
   let datos={
     CBU : "12345678901234567890",
     Nickname : " OTRODESANTAFE.VESKI  ",
@@ -27,26 +29,26 @@ return(
    {frase}
     </Text>
     {/*                              <CBU>  */}
-        <View> 
-    <Text  style={styles.principal}>
-      CBU
-    </Text>
-
-    <Text style={styles.second} >
-      {datos.CBU}
-    </Text>
-         </View>
-    
-    <View> 
+    <View style={styles.row}> 
     {/*                             <NICKNAME>  */}
     <Text style={styles.principal} >
     Nickname
     </Text>
     <Text  style={styles.second}>
-      {datos.Nickname}
+      Nickname
     </Text>
     
         </View>
+        <View style={styles.row}> 
+    <Text  style={styles.principal}>
+    CBU (Unique Bank Key)
+    </Text>
+
+    <Text style={styles.second} >
+        {account.cbu}
+    </Text>
+         </View>
+    
    
    
   </View>

@@ -6,7 +6,6 @@ const initialState = {
 }
 
 const user = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
   case LOGIN:
     return {...state, currentUser: [action.payload && action.payload || {}]};

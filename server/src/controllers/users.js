@@ -23,15 +23,23 @@ exports.getUserId=(req, res) => {
     .catch(error => res.status(400).json({status:"error", message:error.message}))
 }
 
-exports.updateDataUser=(req, res) => {
+exports.updateDataUser=async (req, res) => {
      const {id} = req.params;
     const cambios = req.body;
 
-    Users.findByIdAndUpdate(id, cambios, (err, userUpdate) =>{
+    Users.findByIdAndUpdate(id, cambios, async(err, userUpdate) =>{
         
-        if(err) res.status(400).json({message :`Error updating user data: ${err}`})
+        if(err) {
+          res.status(400).json({message :`Error updating user data: ${err.message}`})
+        }else{
+          const userUp = await Users.findById(userUpdate.id)
+          await userUp.populated('Accounts')
+          userUp.save()
+          console.log(userUp);
+          res.status(200).json({ status:"success", response: userUp })
+        }
 
-        res.status(200).json({ status:"success", response: userUpdate })
+        
 })
 }
 

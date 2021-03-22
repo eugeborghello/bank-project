@@ -59,11 +59,15 @@ import { StyleSheet } from 'react-native'
   },
   container: {
     flex: 1,
-    paddingTop: 22
+    padding: '5%'
    },
    title:{
-     margin: 50,
-     fontSize:  27,
+     margin: 20,
+     fontSize:  20,
+   },
+   row:{
+    alignItems:'center',
+    flexDirection:'column'
    },
    item: {
      padding: 10,

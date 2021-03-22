@@ -1,50 +1,65 @@
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, FlatList, TouchableHighlight,View } from "react-native";
 import styles from './personalInfoStyles'
+import { useSelector } from 'react-redux';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
 
 
 
 
-
-export default function PersonalInfo ()  {
-  
-  let datos={
-    email : "otro@gmail.com",
-    adress : " Comarca  ",
+export default function PersonalInfo() {
+  const navigation = useNavigation()
+  let datos = {
+    email: "otro@gmail.com",
+    adress: " Comarca  ",
     postalCode: "5588",
-    location:"New York",
+    location: "New York",
     province: "Santa Fe"
-  
-  
+
+
   }
+  const user = useSelector(state => state.user.currentUser);
+  console.log(user)
 
-return(
-  <View style={styles.container}>
-    <Text style={styles.title}>
-      Personal Information
+  return (
+    <>
+      {
+        user[0].name == undefined ? <>
+          <View style={styles.container}>
+            <Text style={styles.title}>Complete Register</Text>
+            <TouchableOpacity onPress={()=>{navigation.navigate('CompleteRegister')}}>
+            <Text style={styles.signup}>Go to Complete Register</Text>
+            </TouchableOpacity>
+          </View>
+
+        </> : <>
+          <View style={styles.container}>
+            <Text style={styles.title}>
+              Personal Information
     </Text>
-    {/*                              <EMAIL>  */}
-        <View> 
-    <Text  style={styles.principal}>
-      Email
+            {/*                              <EMAIL>  */}
+            <View style={styles.row}>
+              <Text style={styles.principal}>
+                Email
     </Text>
 
-    <Text style={styles.second} >
-      {datos.email}
+              <Text style={styles.second} >
+              {user[0].email}
+              </Text>
+            </View>
+
+            <View style={styles.row}>
+              {/*                             <ADRESS>  */}
+              <Text style={styles.principal} >
+                Adress
     </Text>
-         </View>
-    
-    <View> 
-    {/*                             <ADRESS>  */}
-    <Text style={styles.principal} >
-      Adress
-    </Text>
-    <Text  style={styles.second}>
-      {datos.adress}
+              <Text style={styles.second}>
+              {user[0].address}
     </Text>
     
         </View>
-    <View> 
+    <View style={styles.row}> 
     {/*                         <POSTAL CODE>  */}
     <Text  style={styles.principal}>
     Postal Code
@@ -53,7 +68,7 @@ return(
       {datos.postalCode}
     </Text>
         </View>
-    <View> 
+    <View style={styles.row}> 
      {/*                         <LOCATION>  */}
     <Text style={styles.principal} >
       Location
@@ -62,7 +77,7 @@ return(
       {datos.location}
     </Text>
         </View>
-    <View> 
+    <View style={styles.row}> 
 
      {/*                          <PROVINCE>  */}
     <Text style={styles.principal}>
@@ -73,6 +88,8 @@ return(
     </Text>
         </View>
    
-  </View>
+  </View></>
+  }
+  </>
 )}
 

@@ -35,6 +35,9 @@ const User = new mongoose.Schema({
   dni: {
     type: Number,
   },
+  imgUrl:{
+    type: String,
+  },
   tokens: [
     {
       token: {

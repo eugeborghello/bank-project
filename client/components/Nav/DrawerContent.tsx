@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export function DrawerContent(props: any) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.currentUser);
+    console.log(user)
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -58,12 +59,12 @@ export function DrawerContent(props: any) {
                                     <View style={{ flexDirection: 'row', marginTop: 15 }}>
                                         <Avatar.Image
                                             source={{
-                                                uri: `https://culturageek.com.ar/wp-content/uploads/2021/02/tomholland-scaled.jpg`
+                                                uri:user[0].imgUrl + ''||`https://culturageek.com.ar/wp-content/uploads/2021/02/tomholland-scaled.jpg`
                                             }}
                                             size={50}
                                         />
                                         <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                            <Title style={styles.title}>{user[0].email}</Title>
+                                            <Title style={styles.title}>{user[0].name||user[0].email}</Title>
                                         </View>
                                     </View>
                                 </View>

@@ -9,8 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import  { REACT_APP_BACKEND_API_URL} from "@env";
 
 export default function Register(props) {
-    const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-
+    const URL = `http://${REACT_APP_BACKEND_API_URL}/users`;
     const initialState = {
         email: '',
         password: '',
@@ -65,12 +64,11 @@ export default function Register(props) {
             //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
             axios.post(URL, user)
                 .then(user => {
-                    console.log('user------', user);
                     Alert.alert(
                         "User was created successfully",
                         ".",
                         [
-                          { text: "OK", onPress: () =>  props.navigation.navigate('CompleteRegister')}
+                          { text: "OK", onPress: () =>  props.navigation.navigate('Login')}
                         ]
                       );
                     setDatos(initialState);

@@ -5,12 +5,12 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Address from "react-native-vector-icons/SimpleLineIcons";
 import Id from "react-native-vector-icons/AntDesign";
 import { REACT_APP_BACKEND_API_URL, REACT_APP_TOKEN } from "@env";
+import { useSelector } from 'react-redux';
 
 import styles from "./styles";
 const CompleteRegister = (props) => {
-	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-	const token = REACT_APP_TOKEN;
-
+	const URL = `http://${REACT_APP_BACKEND_API_URL}`;
+	const token = useSelector(state => state.user.currentUser[0].tokens[0].token);
 	const [error, setError] = useState<string>("");
 	const [inputs, setInputs] = useState({
 		name: "",
@@ -18,24 +18,8 @@ const CompleteRegister = (props) => {
 		address: "",
 		id: "",
 	});
-	const [userId, setUserId] = useState<string>("");
-
-	useEffect(() => {
-		axios
-			.get(URL, {
-				headers: {
-					Authorization: `${token}`,
-				},
-			})
-			.then((res) => {
-				let findUser = res.data.response[res.data.response.length - 1]["_id"];
-				console.log(findUser);
-				setUserId(findUser);
-			})
-			.catch((err) => {
-				console.log("NOO");
-			});
-	}, []);
+	
+	const userId= useSelector(state => state.user.currentUser[0]._id);
 
 	const handleChange = (value: string, name: string): void => {
 		setInputs({ ...inputs, [name]: value });
@@ -48,21 +32,22 @@ const CompleteRegister = (props) => {
 		}
 
 		axios
-			.put(`${URL}/${userId}`, inputs, {
+			.patch(`${URL}/users/${userId}`, inputs, {
 				headers: {
 					Authorization: `${token}`,
 				},
 			})
 			.then((res) => {
 				console.log(res);
-        setInputs({
-          name: "",
-		      lastName: "",
-		      address: "",
-		      id: "",
-        })
+				axios.post(`${URL}/accounts/${userId}`)
+				setInputs({
+					name: "",
+					lastName: "",
+					address: "",
+					id: "",
+				})
 				Alert.alert("Register completed successfully", ".", [
-					{ text: "OK", onPress: () => props.navigation.navigate("Login") },
+					{ text: "OK", onPress: () => props.navigation.navigate("Home") },
 				]);
 			})
 			.catch((err) => {

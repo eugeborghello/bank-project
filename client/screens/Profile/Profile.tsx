@@ -11,7 +11,8 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import styles from './profileStyles';
 import { Link } from "@react-navigation/native";
-
+import { AntDesign, Feather, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import HandleDrawer from '../../components/Nav/HandleDrawer';
 
 let datos={
   nombre : "Bill",
@@ -41,6 +42,12 @@ export default function Profile ()  {
 
     return (
      <View style={styles.profile}>     
+     <HandleDrawer/>
+       <View style={styles.fotocontainer1}>
+      <Image source={require("../../assets/images/Profile2.jpg")} 
+            style={styles.foto1}/>
+      </View>
+      
        <Modal
         
         transparent={true}
@@ -57,7 +64,8 @@ export default function Profile ()  {
                   onPress={() => setModalVisible(!modalVisible)}
                   style={styles.optionsX}
             >
-              <Text style={styles.optionsXText}>X</Text>
+              <AntDesign name="closecircleo" size={24} color="black" 
+                    style={{ backgroundColor: 'white' }}/>
             </TouchableOpacity>
 
             <View style={styles.buttons} >
@@ -65,12 +73,14 @@ export default function Profile ()  {
                   onPress={() =>openImage()}
                   style={styles.options}
             >
-              <Text style={styles.optionsText}>Subir img</Text>
+              <Feather name="upload" size={20} color="black" />
+              <Text style={styles.optionsText}> Upload image</Text>
             </TouchableOpacity>
             <TouchableOpacity
                   onPress={() =>openImage()}
                   style={styles.options}
             >
+              <MaterialCommunityIcons name="delete-off-outline" size={22} color="black" />
               <Text style={styles.optionsText}>Delete Image</Text>
             </TouchableOpacity>
             </View>
@@ -79,7 +89,7 @@ export default function Profile ()  {
     </Modal>
     
 
-    <View>
+    <View style={styles.generalView} >
     <Pressable
         style={styles.fotocontainer}
         onPress={() => setModalVisible(true)}
@@ -91,24 +101,31 @@ export default function Profile ()  {
            uri:
            selectedImage !== ""
            ? selectedImage.localUri
-           :'https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg'
+           :'https://www.seekpng.com/png/full/114-1149972_avatar-free-png-image-avatar-png.png'
           }}         
           />   
          {/* </TouchableHighlight> */}
          </Pressable>
+         <View style={styles.greeting}>
            <Text style={styles.name}> Hi {datos.nombre} {datos.apellido}</Text>   
-         
+         </View>
 
-          <View>
-          <TouchableOpacity  >
-          <Link to='/CBU' style={styles.options}>
-            <Text   >CBU</Text>
-            </Link>
+          <View style={styles.infoButtonsView}>
             
-          <Link to='/PersonalInfo' style={styles.options}>
-            <Text  > Personal information</Text>
-         </Link>
+          <TouchableOpacity style={styles.infoButton}>
+          <Link to='/CBU' >
+            <FontAwesome name="bank" size={20} color="black" />
+            <Text style={styles.infoButtonText} >CBU</Text>
+            </Link>
           </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.infoButton}>
+          <Link to='/PersonalInfo'>
+            <AntDesign name="edit" size={20} color="black" />
+            <Text style={styles.infoButtonText}> Personal information</Text>
+         </Link>
+         </TouchableOpacity>
+         
           </View>
           {/* <View style={styles.containerButton}>
                     <TouchableOpacity style={styles.button} onPress={createNewUser}>

@@ -4,8 +4,6 @@ const Users = require('../models/user');
 const UsersCtrl = require('../controllers/users')
 
 
-
-
 // Traer todos los users
 app.get('/', UsersCtrl.getUsers)
    

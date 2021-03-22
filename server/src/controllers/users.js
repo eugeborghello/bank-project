@@ -109,7 +109,9 @@ exports.passwordReset = async (req, res) => {
 
     const user = await Users.findOne({ email: userEmail });
     if (user && user.resetCode === resetCode) {
-      user.password = newPass;
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(newPass, salt);
+      user.password = hash;
       await user.save();
       res.status(200).json({
         message: 'Password Updated correctly',

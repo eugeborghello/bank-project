@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
-import styles from './MenuStyles';
-import { MaterialCommunityIcons, FontAwesome, Octicons } from '@expo/vector-icons';
-import { useFonts, Roboto_500Medium, Roboto_400Regular } from '@expo-google-fonts/roboto';
+import React, { FC, useState } from "react";
+import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
+import styles from "./MenuStyles";
+import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
+import { useFonts, Roboto_500Medium, Roboto_400Regular } from "@expo-google-fonts/roboto";
 /* 
 interface Props {
     icon: string;
@@ -38,7 +38,7 @@ const Menu: FC = () => {
 					<Image
 						style={styles.image}
 						source={{
-							uri: 'https://image.flaticon.com/icons/png/512/2936/2936469.png',
+							uri: "https://image.flaticon.com/icons/png/512/2936/2936469.png",
 						}}
 					/>
 				</View>
@@ -58,7 +58,7 @@ const Menu: FC = () => {
 								style={{
 									fontSize: 18.5,
 									// fontWeight: 'bold',
-									fontFamily: 'Roboto_500Medium',
+									fontFamily: "Roboto_500Medium",
 								}}
 							>
 								0000 0000 0000 0000
@@ -73,7 +73,7 @@ const Menu: FC = () => {
 						<View style={styles.viewButtonRow}>
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert('Transacciones')}
+								onPress={() => Alert.alert("Transacciones")}
 							>
 								<MaterialCommunityIcons
 									name="bank-transfer"
@@ -85,7 +85,7 @@ const Menu: FC = () => {
 
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert('Estadísticas')}
+								onPress={() => Alert.alert("Estadísticas")}
 							>
 								<Octicons name="graph" size={20} color="black" />
 								<Text style={styles.buttonText}>Statistics</Text>
@@ -95,7 +95,7 @@ const Menu: FC = () => {
 						<View style={styles.viewButtonRow}>
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert('Mis datos')}
+								onPress={() => Alert.alert("Mis datos")}
 							>
 								<MaterialCommunityIcons
 									name="account-cog"
@@ -107,7 +107,7 @@ const Menu: FC = () => {
 
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert('Mis productos')}
+								onPress={() => Alert.alert("Mis productos")}
 							>
 								<MaterialCommunityIcons
 									name="credit-card-multiple-outline"
@@ -121,7 +121,7 @@ const Menu: FC = () => {
 						<View style={styles.viewButtonRow}>
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert('Recargar dinero')}
+								onPress={() => Alert.alert("Recargar dinero")}
 							>
 								<MaterialCommunityIcons
 									name="wallet-plus-outline"
@@ -133,7 +133,7 @@ const Menu: FC = () => {
 
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert('Realizar pago')}
+								onPress={() => Alert.alert("Realizar pago")}
 							>
 								<FontAwesome name="send" size={20} color="black" />
 								<Text style={styles.buttonText}>Send money</Text>

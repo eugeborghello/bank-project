@@ -99,23 +99,27 @@ export default function Reset({ navigation }) {
 					}}
 					defaultValue=""
 				/>
-				{/* {errors.userEmail && (
-					<View style={{ position: "absolute", top: 30 }}>
+				{errors.userEmail && (
+					<View style={{ position: "absolute", top: -10, right: 22 }}>
 						<Text
 							style={{
 								color: "#D53051",
 								fontSize: 13,
 								textTransform: "uppercase",
 								marginRight: 5,
-								top: 40,
+								top: 30,
 								fontFamily: "Roboto_500Medium",
+								padding: 5,
+								// marginTop: 10,
+
+								left: 20,
 							}}
 						>
 							{errors.userEmail.message || "Try Again"}
 						</Text>
-						<Icon name={"block"} size={18} color={"#D53051"} />
+						<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
 					</View>
-				)} */}
+				)}
 
 				<View style={{ marginTop: 20 }}>
 					<TouchableOpacity

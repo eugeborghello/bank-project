@@ -87,10 +87,30 @@ export default function Reset2({ navigation, route: { params } }) {
 							);
 						}}
 						name="resetCode"
-						// rules={{ required: true }}
+						rules={{ required: true }}
 						defaultValue=""
 					/>
+					{errors.resetCode && (
+						<View style={{ position: "absolute", top: -115, left: 210 }}>
+							<Text
+								style={{
+									color: "#D53051",
+									fontSize: 13,
+									textTransform: "uppercase",
+									marginRight: 5,
+									top: 31,
+									fontFamily: "Roboto_500Medium",
+									padding: 5,
+									// marginTop: 10,
 
+									left: 20,
+								}}
+							>
+								{"Required"}
+							</Text>
+							<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
+						</View>
+					)}
 					<Controller
 						control={control}
 						render={({ onChange, value }) => {
@@ -109,15 +129,36 @@ export default function Reset2({ navigation, route: { params } }) {
 							);
 						}}
 						name="userEmail"
-						// rules={{
-						// 	required: true,
-						// 	pattern: {
-						// 		value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-						// 		message: "invalid Email",
-						// 	},
-						// }}
+						rules={{
+							required: true,
+							pattern: {
+								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+								message: "invalid Email",
+							},
+						}}
 						defaultValue=""
 					/>
+					{errors.userEmail && (
+						<View style={{ position: "absolute", top: -84, left: 210 }}>
+							<Text
+								style={{
+									color: "#D53051",
+									fontSize: 13,
+									textTransform: "uppercase",
+									marginRight: 5,
+									top: 31,
+									fontFamily: "Roboto_500Medium",
+									padding: 5,
+									// marginTop: 10,
+
+									left: 20,
+								}}
+							>
+								{"Invalid"}
+							</Text>
+							<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
+						</View>
+					)}
 
 					<Controller
 						control={control}
@@ -142,15 +183,36 @@ export default function Reset2({ navigation, route: { params } }) {
 							);
 						}}
 						name="newPass"
-						// rules={{
-						// 	required: true,
-						// pattern: {
-						// 	value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-						// 	message: "invalid password",
-						// },
-						// }}
+						rules={{
+							required: true,
+							pattern: {
+								value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
+								message: "invalid password",
+							},
+						}}
 						defaultValue=""
 					/>
+					{errors.newPass && (
+						<View style={{ position: "absolute", bottom: 79, left: 210 }}>
+							<Text
+								style={{
+									color: "#D53051",
+									fontSize: 13,
+									textTransform: "uppercase",
+									marginRight: 5,
+									top: 31,
+									fontFamily: "Roboto_500Medium",
+									padding: 5,
+									// marginTop: 10,
+
+									left: 20,
+								}}
+							>
+								{errors.newPass.message || "Required"}
+							</Text>
+							<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
+						</View>
+					)}
 				</View>
 				<View style={{ top: -50, marginTop: 20 }}>
 					<TouchableOpacity

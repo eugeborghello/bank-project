@@ -11,7 +11,7 @@ const user = (state = initialState, action) => {
   case LOGIN:
     return {...state, currentUser: [action.payload && action.payload || {}]};
   case LOGOUT:
-    return [];
+    return {...state, currentUser: []};
   default:
     return state
     }

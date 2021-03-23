@@ -10,7 +10,6 @@ import {
 import { Link } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconPass from 'react-native-vector-icons/MaterialIcons';
-import axios from 'axios';
 import styles from "./styles";
 import {useDispatch, useSelector} from 'react-redux';
 import {createUser} from '../../redux/Actions/registerAction';

@@ -1,15 +1,20 @@
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import thunk, {ThunkMiddleware} from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension' 
 import rootReducer from './Reducers/index.js'
+import { AppActions } from './ActionModels/index.js';
 
+//const middleware = [thunk]
 
-const middleware = [thunk]
+export type AppState = ReturnType<typeof rootReducer>
 
-const store = createStore(rootReducer, composeWithDevTools 
-(applyMiddleware(...middleware)))
+const store = createStore<AppState, AppActions, {}, {}>(
+    rootReducer, 
+    composeWithDevTools 
+    (applyMiddleware(thunk as ThunkMiddleware<AppState, AppActions>)))
 
 export default store;
+
 
 /*
 useSelector is analogous to connect’s mapStateToProps. You pass it a 

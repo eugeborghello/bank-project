@@ -4,7 +4,7 @@ import styles from "./MenuStyles";
 import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
 import { useFonts, CutiveMono_400Regular } from "@expo-google-fonts/cutive-mono";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 /* 
 interface Props {
@@ -16,8 +16,8 @@ const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
-	const user = useSelector((state) => state.user.currentUser);
-	const account = useSelector((state) => state.accountsReducer);
+	const user = useSelector((state: RootStateOrAny) => state.user.currentUser);
+	const account = useSelector((state: RootStateOrAny) => state.accountsReducer);
 	console.log({ res: account });
 	console.log(user[0]);
 	const navigation = useNavigation();

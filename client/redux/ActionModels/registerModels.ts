@@ -6,7 +6,8 @@ export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
 export interface User {
     id?: string,
     email: string,
-    password: string
+    password: string,
+    //resetCode?: any
 } 
 
 export interface Users {

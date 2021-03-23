@@ -50,21 +50,8 @@ export const createUser = (user: User) => {
   return (dispatch: Dispatch <AppActions>) => {
     dispatch(requestCreateUser()); //dispatchamos la request y nos devuelve la llamada a la api
     return axios.post('http://192.168.1.3:3001/users', user)
-              .then((myUser: AxiosResponse <User>) => dispatch(successCreateUser(myUser)))
+              .then((res: AxiosResponse  ) => res.data.response)
+              .then((myUser) => dispatch(successCreateUser(myUser)))
   }
 }
 
-/*export const createUser = (user) => async(dispatch,getState) => {
-  try{
-    const auc = await  (await axios.post('http://192.168.1.3:3001/users', user)).data.response
-    dispatch(
-      {
-        type: CREATE_USER,
-        payload: auc
-      }
-    )    
-  }catch(error){
-    console.log(error)
-  }
-}
-*/

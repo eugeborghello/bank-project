@@ -62,7 +62,7 @@ export default function Reset({ navigation }) {
 
 			<View style={{ width: "80%" }}>
 				<View style={styles.bricking}>
-					<Text style={styles.title}>{REACT_APP_BACKEND_API_URL}</Text>
+					<Text style={styles.title}>forgot</Text>
 					<Text style={styles.title2}>password ?</Text>
 					<Text style={styles.text}>
 						Don’t worry! It happens. Please enter the email address associated with your

@@ -63,7 +63,7 @@ export default function Reset2({ navigation, route: { params } }) {
 
 			<View style={{ width: "80%" }}>
 				<View style={{ flexDirection: "column", top: -50 }}>
-					<Text style={styles.title}>{REACT_APP_BACKEND_API_URL}</Text>
+					<Text style={styles.title}>complete</Text>
 					<Text style={styles.text}>
 						And in a few seconds you will be able to access to your wallet.
 					</Text>

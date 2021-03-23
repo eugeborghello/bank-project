@@ -14,10 +14,10 @@ const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
-	const user = useSelector((state) => state.user.currentUser);
-	console.log("soy---->", user);
-	console.log(user[0].name);
-	console.log(user[0].accounts[0]);
+	// const user = useSelector((state) => state.user.currentUser);
+	// console.log("soy---->", user);
+	// console.log(user[0].name);
+	// console.log(user[0].accounts[0]);
 	let [fontsLoaded] = useFonts({
 		Roboto_500Medium,
 	});
@@ -38,7 +38,7 @@ const Menu: FC = () => {
 						color="white"
 						style={{ top: 15 }}
 					/>
-					{!user == false && (
+					{/* {!user == false && (
 						<>
 							<Text style={styles.text}> Hello, {user[0].name} </Text>
 							<Image
@@ -49,11 +49,11 @@ const Menu: FC = () => {
 								}}
 							/>
 						</>
-					)}
+					)} */}
 				</View>
 				<View style={styles.viewBalance}>
 					<Text style={styles.balanceText}> Total balance:</Text>
-					<Text style={styles.balanceText2}> {user ? "$0" : ""} </Text>
+					<Text style={styles.balanceText2}> $0 </Text>
 				</View>
 
 				<View style={styles.container}>
@@ -70,7 +70,7 @@ const Menu: FC = () => {
 									fontFamily: "Roboto_500Medium",
 								}}
 							>
-								{user[0].accounts[0]}
+								{/* {user[0].accounts[0]} */}
 							</Text>
 						</View>
 						<View style={styles.dateView}>

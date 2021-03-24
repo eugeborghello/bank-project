@@ -4,9 +4,9 @@ require('dotenv').config();
 const host = process.env.MONGO_HOST;
 const database = process.env.MONGO_DB;
 
-URI = `mongodb://${host}/${database}`;
+// URI = `mongodb://${host}/${database}`;
 
-// const URI = process.env.MONGO_URI;
+const URI = process.env.MONGO_URI;
 
 mongoose
   .connect(URI, {

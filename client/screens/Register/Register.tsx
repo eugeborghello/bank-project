@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import React, { useState } from "react";
+import { Text, View, TextInput, TouchableOpacity, Image, Alert } from "react-native";
 import { Link } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
@@ -9,133 +9,126 @@ import { useDispatch, useSelector } from "react-redux";
 import { REACT_APP_BACKEND_API_URL } from "@env";
 
 export default function Register(props) {
-    const URL = `http://${REACT_APP_BACKEND_API_URL}/users`;
-    const initialState = {
-        email: '',
-        password: '',
-        repeatPass: ''
-    }
+	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+	const initialState = {
+		email: "",
+		password: "",
+		repeatPass: "",
+	};
 
-    const [datos, setDatos] = useState(initialState);
-    const [error, setError] = useState<string>("");
+	const [datos, setDatos] = useState(initialState);
+	const [error, setError] = useState<string>("");
 
-    const handleChange = (value: string, name: string): void => {
-        setDatos({ ...datos, [name]: value })
-    }
+	const handleChange = (value: string, name: string): void => {
+		setDatos({ ...datos, [name]: value });
+	};
 
-    const user = {
-        email: datos.email,
-        password: datos.password
-    }
+	const user = {
+		email: datos.email,
+		password: datos.password,
+	};
 
-    const createNewUser = () => {
-        if (!datos.email || !datos.password || !datos.repeatPass) { 
-           setError("Email and Password cannot be empty") 
-           return false;
-        }
+	const createNewUser = () => {
+		console.log(REACT_APP_BACKEND_API_URL);
+		if (!datos.email || !datos.password || !datos.repeatPass) {
+			setError("Email and Password cannot be empty");
+			return false;
+		}
 
-        if (datos.email) {
-            var pattern = new RegExp(
-              /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-            );
-            if (!pattern.test(datos.email)) 
-            {
-              setError("Please enter a valid email address.");
-              return false;
-            }
-          }
+		if (datos.email) {
+			var pattern = new RegExp(
+				/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
+			);
+			if (!pattern.test(datos.email)) {
+				setError("Please enter a valid email address.");
+				return false;
+			}
+		}
 
-          if (datos.password === datos.repeatPass) {
-            if (datos.password.length) {
-                var pattern = new RegExp(
-                    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-                );
-                if (!pattern.test(datos.password)) {
-                  setError(
-                    "Password must contain minimum eight characters, at least one number and one special character"
-                  );
-                  return false;
-                }
-              } 
-            } else {
-                setError("Passwords does not match")
-                return false;
-            }  
-            //En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
-            axios.post(URL, user)
-                .then(user => {
-                    Alert.alert(
-                        "User was created successfully",
-                        ".",
-                        [
-                          { text: "OK", onPress: () =>  props.navigation.navigate('Login')}
-                        ]
-                      );
-                    setDatos(initialState);
-                    setError("");
+		if (datos.password === datos.repeatPass) {
+			if (datos.password.length) {
+				var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+				if (!pattern.test(datos.password)) {
+					setError(
+						"Password must contain minimum eight characters, at least one number and one special character",
+					);
+					return false;
+				}
+			}
+		} else {
+			setError("Passwords does not match");
+			return false;
+		}
+		//En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
+		axios
+			.post(URL, user)
+			.then((user) => {
+				Alert.alert("User was created successfully", ".", [
+					{ text: "OK", onPress: () => props.navigation.navigate("Login") },
+				]);
+				setDatos(initialState);
+				setError("");
+			})
+			.catch((error) => console.log("error-----", error));
+	};
 
-                })
-                .catch(error => console.log('error-----', error))
+	return (
+		<View style={styles.registerForm}>
+			<View style={styles.logoContainer}>
+				<Image style={styles.logo} source={require("../../assets/images/veski.png")} />
+			</View>
 
-    }
-       
+			<View style={styles.registerContainer}>
+				<Text style={styles.title}> REGISTER </Text>
 
-    return (
-        <View style={styles.registerForm}>
-            <View style={styles.logoContainer}>
-                <Image
-                    style={styles.logo}
-                    source={require("../../assets/images/veski.png")}
-                />
-            </View>
+				<View style={styles.emailContent}>
+					<Icon name="alternate-email" size={18} color="grey" style={styles.icon} />
+					<TextInput
+						style={styles.textinput}
+						placeholder="Email"
+						underlineColorAndroid={"transparent"}
+						onChangeText={(value) => handleChange(value, "email")}
+					/>
+				</View>
 
-            <View style={styles.registerContainer}>
-                <Text style={styles.title}> REGISTER </Text>
+				<View style={styles.emailContent}>
+					<IconPass name="lock-outline" size={18} color="grey" style={styles.icon} />
+					<TextInput
+						style={styles.textinput}
+						placeholder="Password"
+						secureTextEntry={true}
+						underlineColorAndroid={"transparent"}
+						onChangeText={(value) => handleChange(value, "password")}
+					/>
+				</View>
 
-                <View style={styles.emailContent}>
-                    <Icon name='alternate-email' size={18} color='grey' style={styles.icon} />
-                    <TextInput
-                        style={styles.textinput} placeholder="Email"
-                        underlineColorAndroid={'transparent'}
-                        onChangeText={value => handleChange(value, "email")}
-                    />
-                </View>
+				<View style={styles.emailContent}>
+					<IconPass name="lock-outline" size={18} color="grey" style={styles.icon} />
+					<TextInput
+						style={styles.textinput}
+						placeholder="Repeat password"
+						secureTextEntry={true}
+						underlineColorAndroid={"transparent"}
+						onChangeText={(value) => handleChange(value, "repeatPass")}
+					/>
+				</View>
 
-                <View style={styles.emailContent}>
-                    <IconPass name='lock-outline' size={18} color='grey' style={styles.icon} />
-                    <TextInput style={styles.textinput} placeholder="Password"
-                        secureTextEntry={true} underlineColorAndroid={'transparent'}
-                        onChangeText={value => handleChange(value, "password")}
-                    />
-                </View>
+				<Text style={styles.error}>{error && error}</Text>
 
-                <View style={styles.emailContent}>
-                    <IconPass name='lock-outline' size={18} color='grey' style={styles.icon} />
-                    <TextInput style={styles.textinput} placeholder="Repeat password"
-                        secureTextEntry={true} underlineColorAndroid={'transparent'}
-                        onChangeText={value => handleChange(value, "repeatPass")}
-                    />
-                </View>
-                
-                <Text style={styles.error}>{error && error}</Text>
+				{/* Register button */}
+				<View style={styles.containerButton}>
+					<TouchableOpacity style={styles.button} onPress={createNewUser}>
+						<Text style={styles.btntext}>Register</Text>
+					</TouchableOpacity>
+				</View>
 
-                {/* Register button */}
-                <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={createNewUser}>
-
-                        <Text style={styles.btntext}>Register</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.lowText}>
-                    <Text>Already have an account?</Text>
-                    <Link to='/Login'>
-                        <Text style={{ color: "#4A47A3" }}>Login</Text>
-                    </Link> 
-                </View>
-
-            </View>
-        </View>
-
-    );
+				<View style={styles.lowText}>
+					<Text>Already have an account?</Text>
+					<Link to="/Login">
+						<Text style={{ color: "#4A47A3" }}>Login</Text>
+					</Link>
+				</View>
+			</View>
+		</View>
+	);
 }

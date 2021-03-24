@@ -5,7 +5,7 @@ const cors = require('cors');
 const routes = require('./src/routes/index.js');
 require('dotenv').config();
 // Base de datos
-require('./src/database');
+require('./src/database.js');
 
 // Middelwares
 app.use(cors());

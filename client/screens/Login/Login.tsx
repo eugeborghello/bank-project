@@ -5,97 +5,85 @@ import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-nat
 import Icon from "react-native-vector-icons/MaterialIcons";
 import IconPass from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import HandleDrawer from "../../components/Nav/HandleDrawer";
 
-
-
-import { REACT_APP_BACKEND_API_URL } from "@env"; 
+import { REACT_APP_BACKEND_API_URL } from "@env";
 
 const Login = (props) => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-  const dispatch = useDispatch();
+	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+	const dispatch = useDispatch();
 
 	const [error, setError] = useState<string>("");
 	const [inputs, setInputs] = useState({
 		email: "",
-		password: ""
+		password: "",
 	});
 
 	// input handlers
 	const handleChange = (value: string, name: string): void => {
-        setInputs({ ...inputs, [name]: value })
-    }
+		setInputs({ ...inputs, [name]: value });
+	};
 
-    // API call
-    const handleLogin = () => {
-     if (inputs.email === "" || inputs.password === "") {
-      setError("Email and Password cannot be empty");
-      return false;
-    }
-     if (inputs.email) {
-      var pattern = new RegExp(
-        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-      );
-      if (!pattern.test(inputs.email)) {
-        setError("Please enter a valid email address.");
-        return false;
-      }
-    }
-      if (inputs.password.length) {
-      var pattern = new RegExp(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-      );
-      if (!pattern.test(inputs.password)) {
-        setError(
-          "Password must contain minimum eight characters, at least one number and one special character"
-        );
-        return false;
-      }
-    }  
-    axios
-      .post(`http://${URL}/login`, {
-        email: inputs.email,
-        password: inputs.password,
-      })
-      .then((res) => {
-		let user = res.data.response
-        setError("");
-        setInputs({
-			email: "",
-		    password: ""
-		})
-        Alert.alert(
-          "Succesfully logged",
-          ".",
-          [
-            { text: "OK", onPress: () =>  props.navigation.navigate('Menu')}
-          ]
-        );
-        return dispatch({
-          type: 'LOGIN',
-          payload: user
-        })
-      })
-      .catch(() => {
-        setError("User not found");
-        return dispatch({
-          type: 'LOGOUT',
-        })
-      });
-	  
-  };
+	// API call
+	const handleLogin = () => {
+		if (inputs.email === "" || inputs.password === "") {
+			setError("Email and Password cannot be empty");
+			return false;
+		}
+		if (inputs.email) {
+			var pattern = new RegExp(
+				/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
+			);
+			if (!pattern.test(inputs.email)) {
+				setError("Please enter a valid email address.");
+				return false;
+			}
+		}
+		if (inputs.password.length) {
+			var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+			if (!pattern.test(inputs.password)) {
+				setError(
+					"Password must contain minimum eight characters, at least one number and one special character",
+				);
+				return false;
+			}
+		}
+		axios
+			.post(`${URL}/login`, {
+				email: inputs.email,
+				password: inputs.password,
+			})
+			.then((res) => {
+				let user = res.data.response;
+				setError("");
+				setInputs({
+					email: "",
+					password: "",
+				});
+				Alert.alert("Succesfully logged", ".", [
+					{ text: "OK", onPress: () => props.navigation.navigate("Menu") },
+				]);
+				return dispatch({
+					type: "LOGIN",
+					payload: user,
+				});
+			})
+			.catch(() => {
+				setError("User not found");
+				return dispatch({
+					type: "LOGOUT",
+				});
+			});
+	};
 
-  return (
-    <>
-    <View style={styles.root}>
-	<HandleDrawer/>
-      <View style={styles.logoContainer}>
-        <Image
-          style={styles.logo}
-          source={require("../../assets/images/veski.png")}
-        />
-      </View>
+	return (
+		<>
+			<View style={styles.root}>
+				<HandleDrawer />
+				<View style={styles.logoContainer}>
+					<Image style={styles.logo} source={require("../../assets/images/veski.png")} />
+				</View>
 
 				<View style={styles.inputContainer}>
 					<Text style={styles.title}>LOGIN</Text>
@@ -104,8 +92,8 @@ const Login = (props) => {
 						<TextInput
 							placeholder="Email"
 							style={styles.input}
-							onChangeText={value => handleChange(value, "email")}
-                            value={inputs.email}
+							onChangeText={(value) => handleChange(value, "email")}
+							value={inputs.email}
 						/>
 					</View>
 					<View style={styles.emailInput}>
@@ -114,8 +102,8 @@ const Login = (props) => {
 							placeholder="Password"
 							style={styles.input}
 							secureTextEntry={true}
-							onChangeText={value => handleChange(value, "password")}
-                            value={inputs.password}
+							onChangeText={(value) => handleChange(value, "password")}
+							value={inputs.password}
 						/>
 					</View>
 

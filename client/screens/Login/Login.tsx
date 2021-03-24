@@ -69,7 +69,7 @@ const Login = (props) => {
           "Succesfully logged",
           ".",
           [
-            { text: "OK", onPress: () =>  props.navigation.navigate('Menu')}
+            { text: "OK", onPress: () =>  props.navigation.navigate('Home')}
           ]
         );
         return dispatch({

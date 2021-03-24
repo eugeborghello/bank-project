@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 export function DrawerContent(props: any) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.currentUser);
-    console.log(user)
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>

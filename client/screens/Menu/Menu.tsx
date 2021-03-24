@@ -18,8 +18,7 @@ const Menu: FC <Props> = () => {}
 const Menu: FC = () => {
     const user = useSelector(state => state.user.currentUser);
     const account = useSelector(state => state.accountsReducer)
-    console.log({'res':account})
-    console.log(user[0])
+    console.log({bet:account})
     const navigation = useNavigation()
 let [fontsLoaded] = useFonts({
     CutiveMono_400Regular,
@@ -45,7 +44,7 @@ let [fontsLoaded] = useFonts({
             </View>
             <View style={styles.viewBalance} >
                 <Text style={styles.balanceText} > Total balance:</Text>
-                <Text style={styles.balanceText} > ${account.balance||400} </Text> 
+                <Text style={styles.balanceText} > ${account.accounts.length ==0 ? 400 :account.accounts[0][0].balance} </Text> 
             </View>
 
         <View style={styles.container} >
@@ -58,7 +57,7 @@ let [fontsLoaded] = useFonts({
                 </View>
                <View style={styles.numberView} >
                 <Text style={{ fontSize: 18.5, fontWeight: 'bold', fontFamily: 'CutiveMono_400Regular'}} > 
-                0000 0000 0000 0000
+                {account.accounts.length ==0 ? 'none' : account.accounts[0][0].cbu}
                 </Text>
                 </View>
                <View style={styles.dateView}>
@@ -104,7 +103,7 @@ let [fontsLoaded] = useFonts({
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => navigation.navigate('CreditCard')}
+                    onPress={() => Alert.alert('CreditCard')}
                     >
                 <MaterialCommunityIcons 
                     name="credit-card-multiple-outline" 

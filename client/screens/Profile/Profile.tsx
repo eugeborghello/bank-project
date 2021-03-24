@@ -31,7 +31,6 @@ export default function Profile() {
       return
     }
     const pickerResult = await ImagePicker.launchImageLibraryAsync()
-    console.log(pickerResult)
 
     if (pickerResult.cancelled === true) {
       return;
@@ -44,18 +43,19 @@ export default function Profile() {
         Authorization: `${user[0].tokens[0].token}`,
       },
     }).then(userUpdate => {
-      console.log({maicol:userUpdate});
       dispatch({ type: 'Login', payload:userUpdate })
     }).catch(() => {
       console.log('error')
     })  
   },[selectedImage])
   useEffect(()=>{
+    console.log(user[0].tokens[0].token);
     axios.get(`http://${REACT_APP_BACKEND_API_URL}/accounts/${user[0]._id}`,{
       headers: {
         Authorization: `${user[0].tokens[0].token}`,
       },
     }).then(accounts => {
+      console.log(accounts)
       dispatch({ type: 'GET_ACCOUNTS', payload: accounts.data })
     }).catch(() => {
       console.log('error')

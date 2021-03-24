@@ -6,7 +6,6 @@ const initialState = {
 }
 
 const userReducers = (state = initialState, action) => {
-  console.log(action)
   const auxArray = state.users;
   switch (action.type) {
     case CREATE_USER:

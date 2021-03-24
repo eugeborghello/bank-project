@@ -38,7 +38,6 @@ const CompleteRegister = (props) => {
 				},
 			})
 			.then((res) => {
-				console.log(res);
 				axios.post(`${URL}/accounts/${userId}`)
 				setInputs({
 					name: "",

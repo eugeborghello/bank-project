@@ -29,8 +29,6 @@ export default function Reset2({ navigation, route: { params } }) {
 					newPass: data.newPass,
 				},
 			);
-			console.log(user);
-
 			const mail = await axios.post(`${REACT_APP_BACKEND_API_URL}/users/email`, {
 				name: user.data.user.firstName + " " + user.data.user.lastName,
 				subject: "You have changed your password Successfully",

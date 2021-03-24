@@ -8,12 +8,12 @@ import styles from "./styles";
 import { useDispatch } from "react-redux";
 import HandleDrawer from "../../components/Nav/HandleDrawer";
 
-import { REACT_APP_BACKEND_API_URL } from "@env";
+//import { REACT_APP_BACKEND_API_URL } from "@env";
 
 const Login = (props) => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-  console.log(URL);
-  const dispatch = useDispatch();
+	const URL = 'http://192.168.1.43:3002/users';
+	console.log(URL);
+	const dispatch = useDispatch();
 
 	const [error, setError] = useState<string>("");
 	const [inputs, setInputs] = useState({

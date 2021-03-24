@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { DrawerContent } from "./DrawerContent"
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Login, Register, Menu, Reset, Home, Profile, PersonalInfo, CBU, CompleteRegister,CreditCard } from '../../screens/index';
+import { Login, Register, Menu, Reset, Home, Profile, PersonalInfo, CBU, CompleteRegister, CreditCard, Historial } from '../../screens/index';
 import { useSelector } from 'react-redux';
 
 const Drawer = createDrawerNavigator();
@@ -19,6 +19,7 @@ const Nav = () => {
               <Drawer.Screen name="Login" component={Login} />
               <Drawer.Screen name="Register" component={Register} />
               <Drawer.Screen name="Reset" component={Reset} />
+              <Drawer.Screen name="HistorialTransacciones" component={Historial}/>
             </Drawer.Navigator>
             </>
           : <>
@@ -30,6 +31,7 @@ const Nav = () => {
               <Drawer.Screen name="PersonalInfo" component={PersonalInfo} />
               <Drawer.Screen name="CreditCard" component={CreditCard} />
               <Drawer.Screen name="CompleteRegister" component={CompleteRegister}/>
+              <Drawer.Screen name="Historial" component={Historial}/>
             </Drawer.Navigator>
             </>
       }

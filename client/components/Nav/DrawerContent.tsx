@@ -102,6 +102,17 @@ export function DrawerContent(props: any) {
                                         label="Profile"
                                         onPress={() => { props.navigation.navigate('Profile') }}
                                     />
+                                    <DrawerItem
+                                        icon={({ color, size }) => (
+                                            <Icon
+                                                name="account-outline"
+                                                color={color}
+                                                size={size}
+                                            />
+                                        )}
+                                        label="Historial"
+                                        onPress={() => { props.navigation.navigate('Historial') }}
+                                    />
 
                                 </Drawer.Section>
 

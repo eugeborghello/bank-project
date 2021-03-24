@@ -8,4 +8,5 @@ export { default as PersonalInfo } from './Profile/PersonalInfo';
 export { default as CBU } from './CBU/CBU';
 export { default as Validate } from './Validate/Validate';
 export { default as CompleteRegister } from './CompleteRegister/CompleteRegister';
+export { default as Historial } from './Historial/Historial';
 

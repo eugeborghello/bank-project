@@ -44,7 +44,7 @@ const Login = (props) => {
 			var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
 			if (!pattern.test(inputs.password)) {
 				setError(
-					"Password must contain minimum eight characters, at least one number and one special character",
+					"Password must contain minimum eight characters and at least one number ",
 				);
 				return false;
 			}

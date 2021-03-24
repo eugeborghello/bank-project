@@ -7,6 +7,7 @@ import {
 	Login,
 	Register,
 	Menu,
+	Historial,
 	Reset,
 	Home,
 	Profile,
@@ -42,6 +43,7 @@ const Nav = () => {
 						<Drawer.Screen name="Home" component={Home} />
 						<Drawer.Screen name="Menu" component={Menu} />
 						<Drawer.Screen name="Profile" component={Profile} />
+						<Drawer.Screen name="Historial" component={Historial} />
 						<Drawer.Screen name="CBU" component={CBU} />
 						<Drawer.Screen name="PersonalInfo" component={PersonalInfo} />
 						{/* <Drawer.Screen name="CreditCard" component={CreditCard} /> */}

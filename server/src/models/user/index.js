@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const fs = require('fs')
 let Schema = mongoose.Schema;
+
 
 const User = new mongoose.Schema({
   name: {
@@ -74,12 +76,30 @@ User.methods.matchPassword = async function (password) {
 };
 User.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-    expiresIn: 36000000,
+  const privateKey = fs.readFileSync('jwtRS256.key');
+  const tokenUser = jwt.sign({ _id: user._id }, privateKey, {
+     algorithm: 'RS256',
+     expiresIn: 60 * 60
   });
-  user.tokens = user.tokens.concat({ token });
-  // user.save();
-  return token;
+  
+   
+ var token = `${tokenUser}`;
+
+const publicKey = fs.readFileSync('jwtRS256.key.pub');
+jwt.verify(
+  token,
+  publicKey,
+  { algorithm: 'RS256' },
+  (err, decoded) => {
+    if (err) throw new Error('Invalid token');
+    console.log(decoded.token);
+  }
+);
+  user.tokens = user.tokens.concat({ publicKey });
+  console.log(publicKey)
+   user.save();
+  return publicKey;
 };
+
 
 module.exports = mongoose.model("Users", User);

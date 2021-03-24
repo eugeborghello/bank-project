@@ -99,7 +99,7 @@ const Menu: FC = () => {
 
 								<TouchableOpacity
 									style={styles.button}
-									onPress={() => navigation.navigate("CreditCard")}
+									// onPress={() => navigation.navigate("CreditCard")}
 								>
 									<MaterialCommunityIcons
 										name="credit-card-multiple-outline"

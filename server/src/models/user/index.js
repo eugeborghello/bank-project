@@ -37,7 +37,7 @@ const User = new mongoose.Schema({
   dni: {
     type: Number,
   },
-  imgUrl:{
+  imgUrl: {
     type: String,
   },
   tokens: [
@@ -76,28 +76,39 @@ User.methods.matchPassword = async function (password) {
 };
 User.methods.generateAuthToken = async function () {
   const user = this;
-  const privateKey = fs.readFileSync('jwtRS256.key');
-  const tokenUser = jwt.sign({ _id: user._id }, privateKey, {
-     algorithm: 'RS256',
-     expiresIn: 60 * 60
+  const privateKey = await fs.readFileSync('./src/models/user/jwtRS256.key', 'utf8', (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log({ data: data })
+      return data;
+    }
   });
-  
-   
- var token = `${tokenUser}`;
+  console.log({ data2: privateKey })
+  console.log('hola')
+  const tokenUser = await jwt.sign({ _id: user._id }, privateKey, {
+    algorithm: 'RS256',
+    expiresIn: 60 * 60
+  });
+  console.log('hola2')
 
-const publicKey = fs.readFileSync('jwtRS256.key.pub');
-jwt.verify(
-  token,
-  publicKey,
-  { algorithm: 'RS256' },
-  (err, decoded) => {
-    if (err) throw new Error('Invalid token');
-    console.log(decoded.token);
-  }
-);
+
+  var token = `${tokenUser}`;
+
+  const publicKey = await fs.readFileSync('./src/models/user/jwtRS256.key.pub', 'utf8');
+  console.log({ publicKey, token })
+  jwt.verify(
+    token,
+    publicKey,
+    { algorithm: 'RS256' },
+    (err, decoded) => {
+      if (err) throw new Error('Invalid token');
+      console.log(decoded.token);
+    }
+  );
   user.tokens = user.tokens.concat({ publicKey });
   console.log(publicKey)
-   user.save();
+  user.save();
   return publicKey;
 };
 

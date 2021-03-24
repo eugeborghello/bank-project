@@ -8,11 +8,11 @@ import styles from "./styles";
 import { useDispatch } from "react-redux";
 import HandleDrawer from "../../components/Nav/HandleDrawer";
 
-import { REACT_APP_BACKEND_API_URL } from "@env";
+//import { REACT_APP_BACKEND_API_URL } from "@env";
 
 const Login = (props) => {
-  const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-  console.log(URL);
+  //const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+  //console.log(URL);
   const dispatch = useDispatch();
 
 	const [error, setError] = useState<string>("");
@@ -51,7 +51,7 @@ const Login = (props) => {
 			}
 		}
 		axios
-			.post(`${URL}/login`, {
+			.post("http://192.168.0.19:3002/users/login", {
 				email: inputs.email,
 				password: inputs.password,
 			})

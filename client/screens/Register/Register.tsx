@@ -6,10 +6,10 @@ import IconPass from "react-native-vector-icons/MaterialIcons";
 import axios from "axios";
 import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { REACT_APP_BACKEND_API_URL } from "@env";
+//import { REACT_APP_BACKEND_API_URL } from "@env";
 
 export default function Register(props) {
-	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+	//const URL = `${REACT_APP_BACKEND_API_URL}/users`;
 	const initialState = {
 		email: "",
 		password: "",
@@ -29,7 +29,7 @@ export default function Register(props) {
 	};
 
 	const createNewUser = () => {
-		console.log(REACT_APP_BACKEND_API_URL);
+		//console.log(REACT_APP_BACKEND_API_URL);
 		if (!datos.email || !datos.password || !datos.repeatPass) {
 			setError("Email and Password cannot be empty");
 			return false;
@@ -61,7 +61,7 @@ export default function Register(props) {
 		}
 		//En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
 		axios
-			.post(URL, user)
+			.post("http://192.168.0.19:3002/users", user)
 			.then((user) => {
 				Alert.alert("User was created successfully", ".", [
 					{ text: "OK", onPress: () => props.navigation.navigate("Login") },

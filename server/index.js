@@ -5,7 +5,7 @@ const cors = require('cors');
 const routes = require('./src/routes/index.js');
 require('dotenv').config();
 // Base de datos
-require('./src/database.js');
+require('./src/database');
 
 // Middelwares
 app.use(cors());
@@ -16,4 +16,4 @@ app.use(express.json());
 // Rutas
 app.use('/', routes);
 
-app.listen(3001, () => console.log('escuchando en el puerto 3001'));
+app.listen(3002, () => console.log('escuchando en el puerto 3002'));

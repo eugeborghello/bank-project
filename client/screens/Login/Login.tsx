@@ -14,6 +14,7 @@ import { REACT_APP_BACKEND_API_URL } from "@env";
 
 const Login = (props) => {
   const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+  console.log(URL);
   const dispatch = useDispatch();
 
 	const [error, setError] = useState<string>("");

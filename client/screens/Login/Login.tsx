@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { REACT_APP_BACKEND_API_URL } from "@env";
 
 const Login = (props) => {
-	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+	// const URL = `${REACT_APP_BACKEND_API_URL}/users`;
 
 	const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const Login = (props) => {
 			}
 		}
 		axios
-			.post(`${URL}/login`, {
+			.post(`${REACT_APP_BACKEND_API_URL}/users/login`, {
 				email: email,
 				password: password,
 			})

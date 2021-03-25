@@ -5,6 +5,7 @@ import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icon
 import { useFonts, CutiveMono_400Regular } from "@expo-google-fonts/cutive-mono";
 import { useNavigation } from "@react-navigation/native";
 import { RootStateOrAny, useSelector } from "react-redux";
+// import RNPickerSelect from "react-native-picker-select";
 
 /* 
 interface Props {
@@ -35,7 +36,7 @@ const Menu: FC = () => {
 		return (
 			<View style={styles.view}>
 				<View style={styles.viewMenu}>
-					<Text style={styles.text}> Hello, {user[0].name}! </Text>
+					<Text style={styles.text}> Hello, {user[0].name || "Stranger"}! </Text>
 					<Image
 						style={styles.image}
 						source={{
@@ -45,7 +46,14 @@ const Menu: FC = () => {
 				</View>
 				<View style={styles.viewBalance}>
 					<Text style={styles.balanceText}> Total balance:</Text>
-					<Text style={styles.balanceText}> ${account.balance || 400} </Text>
+					<Text style={styles.balanceText}> ${account.balance || 0} </Text>
+					{/* <RNPickerSelect
+						onValueChange={(value) => console.log(value)}
+						items={[
+							{ label: "JavaScript", value: "JavaScript" },
+							{ label: "TypeStript", value: "TypeStript" },
+						]}
+					/> */}
 				</View>
 
 				<View style={styles.container}>

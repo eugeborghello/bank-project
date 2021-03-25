@@ -4,13 +4,13 @@ import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, Alert } fro
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Address from "react-native-vector-icons/SimpleLineIcons";
 import Id from "react-native-vector-icons/AntDesign";
-import { REACT_APP_BACKEND_API_URL, REACT_APP_TOKEN } from "@env";
-import { useSelector } from 'react-redux';
+import { REACT_APP_BACKEND_API_URL } from "@env";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 import styles from "./styles";
 const CompleteRegister = (props) => {
-	const URL = `http://${REACT_APP_BACKEND_API_URL}`;
-	const token = useSelector(state => state.user.currentUser[0].tokens[0].token);
+	const URL = `${REACT_APP_BACKEND_API_URL}`;
+	const token = useSelector((state: RootStateOrAny) => state.user.currentUser[0].tokens[0].token);
 	const [error, setError] = useState<string>("");
 	const [inputs, setInputs] = useState({
 		name: "",
@@ -18,8 +18,8 @@ const CompleteRegister = (props) => {
 		address: "",
 		id: "",
 	});
-	
-	const userId= useSelector(state => state.user.currentUser[0]._id);
+
+	const userId = useSelector((state: RootStateOrAny) => state.user.currentUser[0]._id);
 
 	const handleChange = (value: string, name: string): void => {
 		setInputs({ ...inputs, [name]: value });
@@ -39,13 +39,13 @@ const CompleteRegister = (props) => {
 			})
 			.then((res) => {
 				console.log(res);
-				axios.post(`${URL}/accounts/${userId}`)
+				axios.post(`${URL}/accounts/${userId}`);
 				setInputs({
 					name: "",
 					lastName: "",
 					address: "",
 					id: "",
-				})
+				});
 				Alert.alert("Register completed successfully", ".", [
 					{ text: "OK", onPress: () => props.navigation.navigate("Home") },
 				]);
@@ -74,7 +74,7 @@ const CompleteRegister = (props) => {
 							placeholder="Name"
 							style={styles.input}
 							onChangeText={(value) => handleChange(value, "name")}
-              value={inputs.name}
+							value={inputs.name}
 						/>
 					</View>
 					<View style={styles.emailInput}>
@@ -83,7 +83,7 @@ const CompleteRegister = (props) => {
 							placeholder="Last Name"
 							style={styles.input}
 							onChangeText={(value) => handleChange(value, "lastName")}
-              value={inputs.lastName}
+							value={inputs.lastName}
 						/>
 					</View>
 					<View style={styles.emailInput}>
@@ -92,7 +92,7 @@ const CompleteRegister = (props) => {
 							placeholder="Address"
 							style={styles.input}
 							onChangeText={(value) => handleChange(value, "address")}
-              value={inputs.address}
+							value={inputs.address}
 						/>
 					</View>
 					<View style={styles.emailInput}>
@@ -101,7 +101,7 @@ const CompleteRegister = (props) => {
 							placeholder="ID"
 							style={styles.input}
 							onChangeText={(value) => handleChange(value, "id")}
-              value={inputs.id}
+							value={inputs.id}
 						/>
 					</View>
 					<Text style={styles.error}>{error && error}</Text>

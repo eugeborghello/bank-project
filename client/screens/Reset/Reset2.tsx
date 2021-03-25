@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import colors from "../../assets/colors/colors";
 import Icon from "react-native-vector-icons/Entypo";
-import image from "../../assets/images/PasswordReset.png";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { REACT_APP_BACKEND_API_URL } from "@env";
@@ -58,12 +57,15 @@ export default function Reset2({ navigation, route: { params } }) {
 			<View
 				style={{ width: "80%", top: -100, justifyContent: "center", alignItems: "center" }}
 			>
-				<Image source={image} style={image} />
+				<Image
+					source={require("../../assets/images/PasswordReset.png")}
+					style={styles.image}
+				/>
 			</View>
 
 			<View style={{ width: "80%" }}>
 				<View style={{ flexDirection: "column", top: -50 }}>
-					<Text style={styles.title}>complete </Text>
+					<Text style={styles.title}>complete</Text>
 					<Text style={styles.text}>
 						And in a few seconds you will be able to access to your wallet.
 					</Text>

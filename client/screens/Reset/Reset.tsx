@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import colors from "../../assets/colors/colors.js";
 import Icon from "react-native-vector-icons/Entypo";
-import image from "../../assets/images/PasswordReset.png";
 import axios from "axios";
 import { REACT_APP_BACKEND_API_URL } from "@env";
 import { useForm, Controller } from "react-hook-form";
@@ -57,12 +56,15 @@ export default function Reset({ navigation }) {
 					alignItems: "center",
 				}}
 			>
-				<Image source={image} style={image} />
+				<Image
+					source={require("../../assets/images/PasswordReset.png")}
+					style={styles.image}
+				/>
 			</View>
 
 			<View style={{ width: "80%" }}>
 				<View style={styles.bricking}>
-					<Text style={styles.title}>Forgot</Text>
+					<Text style={styles.title}>forgot</Text>
 					<Text style={styles.title2}>password ?</Text>
 					<Text style={styles.text}>
 						Don’t worry! It happens. Please enter the email address associated with your
@@ -144,8 +146,8 @@ const styles = StyleSheet.create({
 		top: -10,
 	},
 	image: {
-		top: 100,
-		position: "relative",
+		// top: 100,
+		// position: "relative",
 	},
 	bricking: {
 		top: -35,
@@ -182,8 +184,6 @@ const styles = StyleSheet.create({
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
-		// marginTop: 10,
-
 		left: 20,
 	},
 
@@ -192,9 +192,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		backgroundColor: colors.buttonViolet,
 		height: 41,
-
 		borderRadius: 7,
-	} as const,
+	},
 
 	sendButtonText: {
 		fontSize: 15,
@@ -205,7 +204,6 @@ const styles = StyleSheet.create({
 		fontFamily: "Roboto_500Medium",
 	},
 	emailInput: {
-		// width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
 		position: "relative",

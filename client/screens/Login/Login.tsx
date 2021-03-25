@@ -86,7 +86,7 @@ const Login = (props) => {
 				</View>
 
 				<View style={styles.inputContainer}>
-					<Text style={styles.title}>LOGIN</Text>
+					<Text style={styles.title}> LOGIN </Text>
 					<View style={styles.emailInput}>
 						<Icon name="alternate-email" size={18} color="grey" />
 						<TextInput

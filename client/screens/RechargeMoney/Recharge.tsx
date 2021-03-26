@@ -50,6 +50,7 @@ const Recharge = () => {
 						selectedValue={inputs.account}
 						onValueChange={(itemValue, itemIndex) => handleChange(itemValue, "account")}
 					>
+						<Picker.Item label="Select account" value="Select account" />
 						<Picker.Item label="US DOLLARS" value="US DOLLARS" />
 						<Picker.Item label="ARG PESO" value="ARG PESO" />
 					</Picker>
@@ -59,6 +60,7 @@ const Recharge = () => {
 						selectedValue={inputs.bank}
 						onValueChange={(itemValue, itemIndex) => handleChange(itemValue, "bank")}
 					>
+						<Picker.Item label="Select bank" value="Select bank" />
 						<Picker.Item label="BANCO NACION" value="BANCO NACION" />
 						<Picker.Item label="BANCO SANTANDER" value="BANCO SANTANDER" />
 						<Picker.Item label="BANCO GALICIA" value="BANCO GALICIA" />
@@ -69,6 +71,7 @@ const Recharge = () => {
 						selectedValue={inputs.type}
 						onValueChange={(itemValue, itemIndex) => handleChange(itemValue, "type")}
 					>
+						<Picker.Item label="Select document type" value="Select document type" />
 						<Picker.Item label="DNI" value="DNI" />
 						<Picker.Item label="CÉDULA" value="CÉDULA" />
 						<Picker.Item label="OTRO" value="OTRO" />

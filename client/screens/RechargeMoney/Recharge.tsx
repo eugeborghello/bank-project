@@ -1,17 +1,16 @@
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Text, View, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./styles";
-import { useDispatch } from "react-redux";
 import HandleDrawer from "../../components/Nav/HandleDrawer";
 import { Picker } from "@react-native-picker/picker";
 
 import { REACT_APP_BACKEND_API_URL } from "@env";
 
-const Login = () => {
-	/* const URL = `${REACT_APP_BACKEND_API_URL}/users`;
-	const dispatch = useDispatch(); */
+const Recharge = () => {
 
+	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
+	
 	const [error, setError] = useState<string>("");
 	const [inputs, setInputs] = useState({
 		cardNumber: "",
@@ -143,4 +142,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Recharge;

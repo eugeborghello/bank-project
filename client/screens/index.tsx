@@ -9,3 +9,4 @@ export { default as CBU } from './CBU/CBU';
 export { default as Validate } from './Validate/Validate';
 export { default as CompleteRegister } from './CompleteRegister/CompleteRegister';
 
+export { default as Recharge } from './RechargeMoney/Recharge';

@@ -116,13 +116,13 @@ const Login = (props) => {
 						</TouchableOpacity>
 					</View>
 
-					<Text style={{ margin: 12 }}>or</Text>
+					{/* <Text style={{ margin: 12 }}>or</Text> */}
 
 					{/* Google button */}
 					<View style={styles.container}>
-						<TouchableOpacity
+						{/* <TouchableOpacity
 							style={styles.buttonGStyle}
-							activeOpacity={0.2} /* onPress={()=>{}} */
+							activeOpacity={0.2} 
 						>
 							<Image
 								source={require("../../assets/icons/google.png")}
@@ -130,7 +130,7 @@ const Login = (props) => {
 							/>
 							<View style={styles.buttonIconSeparatorStyle} />
 							<Text style={styles.buttonTextStyle}>Login with Google</Text>
-						</TouchableOpacity>
+						</TouchableOpacity> */}
 
 						<View style={styles.lowText}>
 							<Text>Not a member?</Text>

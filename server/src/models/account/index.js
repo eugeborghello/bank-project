@@ -15,8 +15,13 @@ const Account = new mongoose.Schema({
     },
     balance:{
         type:Number,
-        unique:true
+        default: 500
     },
+    transactions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Transaction'
+    }],
+
     userId: [{
         type: Schema.Types.ObjectId,
         required: true,

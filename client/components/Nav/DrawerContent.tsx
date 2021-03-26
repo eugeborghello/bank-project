@@ -55,6 +55,17 @@ export function DrawerContent(props: any) {
                             label="Menu"
                             onPress={() => { props.navigation.navigate('Menu') }}
                         />
+                         <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="home-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="My Contacts"
+                            onPress={() => { props.navigation.navigate('ContactList') }}
+                        />
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>

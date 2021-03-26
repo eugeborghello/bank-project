@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-const Account = new mongoose.Schema({
+const Accounts = new mongoose.Schema({
     cbu: {
         type: String,
         unique: true,
@@ -15,7 +15,7 @@ const Account = new mongoose.Schema({
     },
     balance:{
         type:Number,
-        unique:true
+        default:0
     },
     userId: [{
         type: Schema.Types.ObjectId,
@@ -26,4 +26,4 @@ const Account = new mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('Accounts', Account);
+module.exports = mongoose.model('Accounts', Accounts);

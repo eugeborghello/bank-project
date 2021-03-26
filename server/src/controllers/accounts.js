@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Users = mongoose.model("Users")
-const Account = mongoose.model("Accounts")
+const Accounts = mongoose.model("Accounts")
 const { generateAccount, generateCBU } = require('../../utils/accountGen');
 
 exports.createAccount = async (req, res) => {
@@ -8,13 +8,14 @@ exports.createAccount = async (req, res) => {
     
     const user = await Users.findById(id)
     if(user.accounts.length === 0) {
+        console.log('no tiene cuentas')
     
         
 
     const pesosCVU = await generateCBU()
     const dolaresCVU = await generateCBU()
-    const accountOne = await generateAccount(pesosCVU, 'Pesos', user._id,0)
-    const accountTwo = await generateAccount(dolaresCVU, 'Dolares', user._id,0);
+    const accountOne = await generateAccount(pesosCVU, 'Pesos',0.00, user._id)
+    const accountTwo = await generateAccount(dolaresCVU, 'Dolares',0.00, user._id);
     await accountOne.save();
     await accountTwo.save();
     user.accounts.push(accountOne, accountTwo)
@@ -30,7 +31,7 @@ exports.createAccount = async (req, res) => {
 
 exports.getAccount = async (req, res) =>{
         const { id } = req.params
-        const accounts = await Account.find({ userId: id })
+        const accounts = await Accounts.find({ userId: id })
 
         if (!accounts) {
             res.status(400).json({ message: 'there are not accounts for this user!' })
@@ -43,9 +44,9 @@ exports.getAccount = async (req, res) =>{
 exports.deleteAccount = async (req, res)=>{
     const {id} = req.params
   
-    const account = Account.find({_id: id}, function(err){
+    const account = Accounts.find({_id: id}, function(err){
         console.log(account)
-        Account.remove()
+        Accounts.remove()
         
             res.status(200).json({message :'las cuentas han sido borradas'})
         

@@ -3,6 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="fb2d51ff-b14e-4fbd-be96-9df2928f26f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.expo/packager-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/.expo/packager-info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.expo/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/.expo/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/components/Nav/DrawerContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/components/Nav/DrawerContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/components/Nav/Nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/components/Nav/Nav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/redux/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/screens/CompleteRegister/CompleteRegister.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/CompleteRegister/CompleteRegister.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/screens/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

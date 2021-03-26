@@ -1,33 +1,40 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  root: {
+    flexDirection: "column",
+    padding: 30,
+  },
     background: {
         flex: 1,
     flexDirection: "column"
+      },
+      container:{
+        maxHeight:'100%'
       },
       logo:{
         width: 280,
         height: 280,
         marginLeft: '15%',
-        marginTop: '10%'
+        marginTop:'-5%'
       },
       text: {
         color: '#413C69',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginTop: 'auto',
+        marginTop:'-15%',
         fontSize:  18,
       },
       text2: {
         color: '#413C69',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginTop: '20%',
+        marginTop:'10%',
         fontSize:  30,
       },
       containerButtons:{
           marginBottom:'25%',
-          marginTop:'-30%',
+          marginTop:'30%',
           position:'relative'
       },
       signup: {
@@ -40,7 +47,6 @@ const styles = StyleSheet.create({
         marginLeft: '11%',
         padding: "2%",
         fontSize:  27,
-        marginTop: '70%'
       },
       login: {
         backgroundColor: '#413C69',

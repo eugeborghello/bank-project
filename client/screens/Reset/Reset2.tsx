@@ -34,10 +34,10 @@ export default function Reset2({ navigation, route: { params } }) {
 			const mail = await axios.post(`${REACT_APP_BACKEND_API_URL}/users/email`, {
 				name: user.data.user.firstName + " " + user.data.user.lastName,
 				subject: "You have changed your password Successfully",
-				// date: "01/01/2021",
 				text:
-					"Congratulations, you have changed your password, if you have any other problem, please contact support",
+					"Congratulations, you have changed your password, if you have any other problem, please contact support ",
 				email: data.userEmail,
+				code: " ",
 			});
 
 			console.log(mail);
@@ -62,86 +62,159 @@ export default function Reset2({ navigation, route: { params } }) {
 			</View>
 
 			<View style={{ width: "80%" }}>
-				<View style={{ flexDirection: "column" }}>
-					<Text style={styles.title}>Complete the information </Text>
+				<View style={{ flexDirection: "column", top: -50 }}>
+					<Text style={styles.title}>complete </Text>
 					<Text style={styles.text}>
 						And in a few seconds you will be able to access to your wallet.
 					</Text>
 				</View>
+				<View>
+					<Controller
+						control={control}
+						render={({ onChange, value }) => {
+							return (
+								<>
+									<View style={{ position: "absolute", top: -90 }}>
+										<Icon name="key" size={18} style={styles.icon} />
+										<TextInput
+											value={value}
+											onChangeText={(value) => onChange(value)}
+											placeholder="Reset code"
+											style={styles.input}
+										/>
+									</View>
+								</>
+							);
+						}}
+						name="resetCode"
+						rules={{ required: true }}
+						defaultValue=""
+					/>
+					{errors.resetCode && (
+						<View style={{ position: "absolute", top: -115, left: 210 }}>
+							<Text
+								style={{
+									color: "#D53051",
+									fontSize: 13,
+									textTransform: "uppercase",
+									marginRight: 5,
+									top: 31,
+									fontFamily: "Roboto_500Medium",
+									padding: 5,
+									// marginTop: 10,
 
-				<Controller
-					control={control}
-					render={({ onChange, value }) => {
-						return (
-							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="Reset code"
-									style={styles.input}
-								/>
-							</>
-						);
-					}}
-					name="resetCode"
-					rules={{ required: true }}
-					defaultValue=""
-				/>
+									left: 20,
+								}}
+							>
+								{"Required"}
+							</Text>
+							<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
+						</View>
+					)}
+					<Controller
+						control={control}
+						render={({ onChange, value }) => {
+							return (
+								<>
+									<View style={{ position: "relative", top: -60 }}>
+										<Icon name="email" size={18} style={styles.icon} />
+										<TextInput
+											value={value}
+											onChangeText={(value) => onChange(value)}
+											placeholder="Email"
+											style={styles.input}
+										/>
+									</View>
+								</>
+							);
+						}}
+						name="userEmail"
+						rules={{
+							required: true,
+							pattern: {
+								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+								message: "invalid Email",
+							},
+						}}
+						defaultValue=""
+					/>
+					{errors.userEmail && (
+						<View style={{ position: "absolute", top: -84, left: 210 }}>
+							<Text
+								style={{
+									color: "#D53051",
+									fontSize: 13,
+									textTransform: "uppercase",
+									marginRight: 5,
+									top: 31,
+									fontFamily: "Roboto_500Medium",
+									padding: 5,
+									// marginTop: 10,
 
-				<Controller
-					control={control}
-					render={({ onChange, value }) => {
-						return (
-							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="Email"
-									style={styles.input}
-								/>
-							</>
-						);
-					}}
-					name="userEmail"
-					rules={{
-						required: true,
-						pattern: {
-							value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-							message: "invalid Email",
-						},
-					}}
-					defaultValue=""
-				/>
+									left: 20,
+								}}
+							>
+								{"Invalid"}
+							</Text>
+							<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
+						</View>
+					)}
 
-				<Controller
-					control={control}
-					render={({ onChange, value }) => {
-						return (
-							<>
-								<Icon name="email" size={18} style={styles.icon} />
-								<TextInput
-									value={value}
-									onChangeText={(value) => onChange(value)}
-									placeholder="New Password"
-									style={styles.input}
-								/>
-							</>
-						);
-					}}
-					name="newPass"
-					rules={{
-						required: true,
-						// pattern: {
-						// 	value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-						// 	message: "invalid password",
-						// },
-					}}
-					defaultValue=""
-				/>
+					<Controller
+						control={control}
+						render={({ onChange, value }) => {
+							return (
+								<>
+									<View style={{ position: "relative", top: -60 }}>
+										<Icon
+											name="arrow-bold-right"
+											size={18}
+											style={styles.icon}
+										/>
+										<TextInput
+											value={value}
+											onChangeText={(value) => onChange(value)}
+											secureTextEntry={true}
+											placeholder="New Password"
+											style={styles.input}
+										/>
+									</View>
+								</>
+							);
+						}}
+						name="newPass"
+						rules={{
+							required: true,
+							pattern: {
+								value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
+								message: "invalid password",
+							},
+						}}
+						defaultValue=""
+					/>
+					{errors.newPass && (
+						<View style={{ position: "absolute", bottom: 79, left: 210 }}>
+							<Text
+								style={{
+									color: "#D53051",
+									fontSize: 13,
+									textTransform: "uppercase",
+									marginRight: 5,
+									top: 31,
+									fontFamily: "Roboto_500Medium",
+									padding: 5,
+									// marginTop: 10,
 
-				<View style={{ marginTop: 20 }}>
+									left: 20,
+								}}
+							>
+								{errors.newPass.message || "Required"}
+							</Text>
+							<Icon name={"block"} size={18} color={"#D53051"} style={{ top: 6 }} />
+						</View>
+					)}
+				</View>
+				<View style={{ top: -50, marginTop: 20 }}>
 					<TouchableOpacity
 						onPress={handleSubmit(handleSubmitPress)}
 						style={styles.sendButton}
@@ -160,6 +233,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		backgroundColor: colors.background,
 		flexDirection: "column",
+		top: -10,
 	},
 	image: {
 		position: "relative",
@@ -170,7 +244,6 @@ const styles = StyleSheet.create({
 		color: colors.textLight,
 		fontFamily: "Roboto_500Medium",
 		textTransform: "uppercase",
-
 		lineHeight: 30,
 		justifyContent: "center",
 	},
@@ -180,24 +253,24 @@ const styles = StyleSheet.create({
 		color: colors.textLight,
 		fontFamily: "Roboto_500Medium",
 		textTransform: "uppercase",
-
 		lineHeight: 30,
 		justifyContent: "center",
 	},
 	text: {
-		top: -25,
+		top: -35,
 		fontSize: 14,
 		color: colors.textDark,
 		fontFamily: "Roboto_400Regular",
 		lineHeight: 14,
 	},
 	input: {
-		width: "80%",
+		width: 270,
 		borderBottomColor: colors.textInput,
 		borderBottomWidth: 1,
 		padding: 5,
-		marginTop: 10,
-		top: -7,
+		// marginTop: 10,
+
+		left: 20,
 	},
 
 	sendButton: {
@@ -222,5 +295,7 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		color: colors.textInput,
+		position: "absolute",
+		top: 11,
 	},
 });

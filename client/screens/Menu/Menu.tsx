@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
 import styles from "./MenuStyles";
-import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome, Octicons, Ionicons } from "@expo/vector-icons";
 import { useFonts, CutiveMono_400Regular } from "@expo-google-fonts/cutive-mono";
 import { useNavigation } from "@react-navigation/native";
 import { RootStateOrAny, useSelector } from "react-redux";
@@ -142,6 +142,13 @@ const Menu: FC = () => {
 							>
 								<FontAwesome name="send" size={20} color="black" />
 								<Text style={styles.buttonText}>Send money</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={styles.button}
+								onPress={() => navigation.navigate('Statistics')}
+							>
+								<Ionicons name="ios-stats-chart" size={20} color="black" />
+								<Text style={styles.buttonText}>Statistics</Text>
 							</TouchableOpacity>
 						</View>
 					</View>

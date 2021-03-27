@@ -13,6 +13,7 @@ import {
 	PersonalInfo,
 	CBU,
 	CompleteRegister,
+	Statistics
 } from "../../screens/index";
 
 const Drawer = createDrawerNavigator();
@@ -31,6 +32,7 @@ const Nav = () => {
 						<Drawer.Screen name="Login" component={Login} />
 						<Drawer.Screen name="Register" component={Register} />
 						<Drawer.Screen name="Reset" component={Reset} />
+						<Drawer.Screen name="Statistics" component={Statistics} />
 					</Drawer.Navigator>
 				</>
 			) : (
@@ -46,6 +48,7 @@ const Nav = () => {
 						<Drawer.Screen name="PersonalInfo" component={PersonalInfo} />
 						{/* <Drawer.Screen name="CreditCard" component={CreditCard} /> */}
 						<Drawer.Screen name="CompleteRegister" component={CompleteRegister} />
+						<Drawer.Screen name="Statistics" component={Statistics} />
 					</Drawer.Navigator>
 				</>
 			)}

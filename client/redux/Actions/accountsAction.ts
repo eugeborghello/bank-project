@@ -1,4 +1,6 @@
-import { GET_ACCOUNTS} from '../../Constants/constants';
+
+
+/*import { GET_ACCOUNTS} from '../Constants/constants';
 
 export const  getAccounts= (accounts) => {
     return {
@@ -6,3 +8,4 @@ export const  getAccounts= (accounts) => {
         payload: accounts
     }
 }
+*/

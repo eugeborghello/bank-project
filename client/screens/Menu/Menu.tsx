@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {FC} from 'react';
 import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
 import styles from './MenuStyles';
@@ -7,13 +6,6 @@ import { useFonts, CutiveMono_400Regular } from '@expo-google-fonts/cutive-mono'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-=======
-import React, { FC, useState } from "react";
-import { Text, View, Image, Alert, TouchableOpacity } from "react-native";
-import styles from "./MenuStyles";
-import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
-import { useFonts, Roboto_500Medium, Roboto_400Regular } from "@expo-google-fonts/roboto";
->>>>>>> 1a7dfc1afbdc7654fdd5c5883e49bc59d57e797a
 /* 
 interface Props {
     icon: string;
@@ -24,10 +16,10 @@ const Menu: FC <Props> = () => {}
 */
 
 const Menu: FC = () => {
-    const user = useSelector(state => state.user.currentUser);
+   	/*const user = useSelector(state => state.user.currentUser);
     const account = useSelector(state => state.accountsReducer)
     console.log({'res':account})
-    console.log(user[0])
+    console.log(user[0])*/
     const navigation = useNavigation()
 let [fontsLoaded] = useFonts({
     CutiveMono_400Regular,
@@ -43,7 +35,7 @@ let [fontsLoaded] = useFonts({
     return(
         <View style={styles.view}>
             <View style={styles.viewMenu} > 
-            <Text style={styles.text}> Hello, {user[0].name}! </Text>
+            <Text style={styles.text}> Hello, {/*user[0].name*/}! </Text>
             <Image 
             style={styles.image}
             source={{
@@ -53,7 +45,7 @@ let [fontsLoaded] = useFonts({
             </View>
             <View style={styles.viewBalance} >
                 <Text style={styles.balanceText} > Total balance:</Text>
-                <Text style={styles.balanceText} > ${account.balance||400} </Text> 
+                <Text style={styles.balanceText} > ${/*account.balance||*/400} </Text> 
             </View>
 
 				<View style={styles.container}>

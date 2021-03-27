@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 const Drawer = createDrawerNavigator();
 
 const Nav = () => {
-  const user = useSelector(state => state.user.currentUser);
+  const user = useSelector(state => state.loginUserReducer.currentUser);
   return (
     <NavigationContainer>
       {

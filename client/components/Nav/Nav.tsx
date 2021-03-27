@@ -13,6 +13,8 @@ import {
 	PersonalInfo,
 	CBU,
 	CompleteRegister,
+
+	Recharge
 } from "../../screens/index";
 
 const Drawer = createDrawerNavigator();
@@ -46,6 +48,9 @@ const Nav = () => {
 						<Drawer.Screen name="PersonalInfo" component={PersonalInfo} />
 						{/* <Drawer.Screen name="CreditCard" component={CreditCard} /> */}
 						<Drawer.Screen name="CompleteRegister" component={CompleteRegister} />
+
+
+						<Drawer.Screen name="Recharge" component={Recharge} />
 					</Drawer.Navigator>
 				</>
 			)}

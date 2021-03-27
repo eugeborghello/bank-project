@@ -126,7 +126,7 @@ const Menu: FC = () => {
 						<View style={styles.viewButtonRow}>
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert("Recargar dinero")}
+								onPress={() => navigation.navigate("Recharge")}
 							>
 								<MaterialCommunityIcons
 									name="wallet-plus-outline"

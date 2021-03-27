@@ -22,7 +22,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState<any>(false);
   const [selectedImage, setSelectedImage] = useState<any>("");
-  const URL = `http://${REACT_APP_BACKEND_API_URL}`;
+  const URL = `${REACT_APP_BACKEND_API_URL}`;
   const user = useSelector(state => state.user.currentUser);
   const openImage = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -39,7 +39,7 @@ export default function Profile() {
     setSelectedImage({ localUri: pickerResult.uri });
   }
   useEffect(()=>{
-    axios.patch(`http://${REACT_APP_BACKEND_API_URL}/users/${user[0]._id}`,{imgUrl:selectedImage.localUri},{
+    axios.patch(`${REACT_APP_BACKEND_API_URL}/users/${user[0]._id}`,{imgUrl:selectedImage.localUri},{
       headers: {
         Authorization: `${user[0].tokens[0].token}`,
       },
@@ -51,7 +51,7 @@ export default function Profile() {
     })  
   },[selectedImage])
   useEffect(()=>{
-    axios.get(`http://${REACT_APP_BACKEND_API_URL}/accounts/${user[0]._id}`,{
+    axios.get(`${REACT_APP_BACKEND_API_URL}/accounts/${user[0]._id}`,{
       headers: {
         Authorization: `${user[0].tokens[0].token}`,
       },

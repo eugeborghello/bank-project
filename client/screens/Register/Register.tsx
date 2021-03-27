@@ -61,7 +61,7 @@ export default function Register(props) {
 		}
 		//En lugar de localhost, debe ir la dirección ip de cada uno. Sino tira network error
 		axios
-			.post("http://192.168.0.19:3002/users", user)
+			.post("/users", user)
 			.then((user) => {
 				Alert.alert("User was created successfully", ".", [
 					{ text: "OK", onPress: () => props.navigation.navigate("Login") },

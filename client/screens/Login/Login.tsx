@@ -51,7 +51,7 @@ const Login = (props) => {
 			}
 		}
 		axios
-			.post("http://192.168.0.19:3002/users/login", {
+			.post("/users/login", {
 				email: inputs.email,
 				password: inputs.password,
 			})

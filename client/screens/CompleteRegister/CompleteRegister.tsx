@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 import styles from "./styles";
 const CompleteRegister = (props) => {
-	const URL = `http://${REACT_APP_BACKEND_API_URL}`;
+	const URL = `${REACT_APP_BACKEND_API_URL}`;
 
 	console.log(URL);
 	const token = useSelector(state => state.user.currentUser[0].tokens[0].token);

@@ -4,7 +4,7 @@ import styles from "./MenuStyles";
 import { MaterialCommunityIcons, FontAwesome, Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { REACT_APP_BACKEND_API_URL } from "@env";
+
 import { Provider, TextInput } from "react-native-paper";
 import { SafeAreaView, StyleSheet } from "react-native";
 import DropDown from "react-native-paper-dropdown";
@@ -18,21 +18,18 @@ interface Props {
 
 const Menu: FC <Props> = () => {}
 */
-let account: any;
 let accountList: { label: any; value: any }[] = [];
 let datos:
 	| any[]
 	| { balance: number; userId: string[]; _id: string; cbu: string; currency: string; __v: 0 }[];
 const Menu: FC = () => {
 	const user = useSelector((state: RootStateOrAny) => state.user.currentUser);
-	console.log("---->", user);
-	// const account = useSelector((state: RootStateOrAny) => state.accountsReducer);
+	const account = useSelector((state: RootStateOrAny) => state.accountsReducer);
 
 	const userId = "605d00a37be06146d47b575a";
 
-	axios.get(`${REACT_APP_BACKEND_API_URL}/accounts/${userId}`).then((val) => {
+	axios.get("http://localhost:3002/accounts/" + userId).then((val) => {
 		datos = val.data;
-		console.log(datos);
 		val.data.forEach((accountE) => {
 			console.log(accountE);
 			accountList.push({
@@ -48,13 +45,9 @@ const Menu: FC = () => {
 	};
 	const [accountType, setAccountType] = useState<string | number>();
 	const setAccountType2 = (val: string | number) => {
-		account = datos.find((acE) => {
+		account.balance = datos.find((acE) => {
 			return acE._id === val;
-		});
-		console.log(account);
-		// account.balance = datos.find((acE) => {
-		// 	return acE._id === val;
-		// }).balance;
+		}).balance;
 		console.log(account.balance);
 	};
 
@@ -82,7 +75,7 @@ const Menu: FC = () => {
 			<Provider>
 				<SafeAreaView style={styles2.containerStyle}>
 					<DropDown
-						label={""}
+						label={"Cuentas"}
 						mode={"outlined"}
 						value={accountType}
 						setValue={setAccountType2}
@@ -115,7 +108,7 @@ const Menu: FC = () => {
 								fontFamily: "Roboto_500Medium",
 							}}
 						>
-							{account.cbu}
+							0000 0000 0000 0000
 						</Text>
 					</View>
 					<View style={styles.dateView}>

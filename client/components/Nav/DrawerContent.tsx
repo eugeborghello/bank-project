@@ -36,6 +36,15 @@ export function DrawerContent(props: any) {
 								/>
 								<DrawerItem
 									icon={({ color, size }) => (
+										<Icon name="account-outline" color={color} size={size} />
+									)}
+									label="Transfer"
+									onPress={() => {
+										props.navigation.navigate("Transfer");
+									}}
+								/>
+								<DrawerItem
+									icon={({ color, size }) => (
 										<Icon
 											name="account-check-outline"
 											color={color}
@@ -47,6 +56,7 @@ export function DrawerContent(props: any) {
 										props.navigation.navigate("Register");
 									}}
 								/>
+
 							</Drawer.Section>
 						</>
 					) : (

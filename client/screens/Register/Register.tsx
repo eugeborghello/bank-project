@@ -113,6 +113,7 @@ export default function Register(props) {
 					/>
 				</View>
 
+
 				<Text style={styles.error}>{error && error}</Text>
 
 				{/* Register button */}

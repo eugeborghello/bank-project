@@ -8,8 +8,8 @@ import { RootStateOrAny, useSelector } from "react-redux";
 
 /* 
 interface Props {
-    icon: string;
-    onChange : (text: string) => void
+	icon: string;
+	onChange : (text: string) => void
 }
 
 const Menu: FC <Props> = () => {}
@@ -99,7 +99,7 @@ const Menu: FC = () => {
 
 								<TouchableOpacity
 									style={styles.button}
-									// onPress={() => navigation.navigate("CreditCard")}
+								// onPress={() => navigation.navigate("CreditCard")}
 								>
 									<MaterialCommunityIcons
 										name="credit-card-multiple-outline"
@@ -138,10 +138,11 @@ const Menu: FC = () => {
 
 							<TouchableOpacity
 								style={styles.button}
-								onPress={() => Alert.alert("Realizar pago")}
+								onPress={() => navigation.navigate("Transfer")}
 							>
 								<FontAwesome name="send" size={20} color="black" />
-								<Text style={styles.buttonText}>Send money</Text>
+								<Text style={styles.buttonText}>Transfer</Text>
+
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -150,5 +151,6 @@ const Menu: FC = () => {
 		);
 	}
 };
+
 
 export default Menu;

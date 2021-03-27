@@ -10,7 +10,7 @@ import HandleDrawer from "../../components/Nav/HandleDrawer";
 
 import { REACT_APP_BACKEND_API_URL } from "@env";
 
-const Login = (props) => {
+const Login = (props, navigation) => {
 	const URL = `${REACT_APP_BACKEND_API_URL}/users`;
 	const dispatch = useDispatch();
 

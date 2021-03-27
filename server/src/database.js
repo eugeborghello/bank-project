@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const host = process.env.MONGO_HOST;
-const database = process.env.MONGO_DB;
+// const host = process.env.MONGO_HOST;
+// const database = process.env.MONGO_DB;
 
 // URI = `mongodb://${host}/${database}`;
 

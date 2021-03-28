@@ -84,10 +84,9 @@ const Transfer: FC = () => {
 							<View style={styles.contacts}>
 								{contacts.map((el) => {
 									return (
-										<View>
+										<View key={el.key}>
 											<TouchableOpacity
-												onPress={() => handleChange(el.name, "name")}
-												key={el.key}
+												onPress={() => handleChange(el.name, "name")}								
 											>
 												<Image
 													source={{ uri: el.image }}

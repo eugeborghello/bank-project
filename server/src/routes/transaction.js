@@ -7,7 +7,7 @@ const TransactionCtrl = require("../controllers/transaction");
 const authUser = require("../middleware/authUserToken");
 
 // [authUser],
-// app.get("/:id",  AccountsCtrl.getAccount);
+app.get("/:cbu",  TransactionCtrl.getTransaction);
 app.post("/", TransactionCtrl.createTransaction);
 
 module.exports = app;

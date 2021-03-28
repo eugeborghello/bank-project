@@ -4,12 +4,12 @@ let Schema = mongoose.Schema;
 const Transaction = new mongoose.Schema({
     fromAccount: [{
         type: Schema.Types.ObjectId,
-        ref: 'Account'
+        ref: 'Accounts'
     }],
 
     toAccount: [{
         type: Schema.Types.ObjectId,
-        ref: 'Account'
+        ref: 'Accounts'
     }],
 
     description: {

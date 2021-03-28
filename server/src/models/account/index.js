@@ -19,7 +19,7 @@ const Account = new mongoose.Schema({
     },
     transactions: [{
         type: Schema.Types.ObjectId,
-        ref: 'Transaction'
+        ref: 'Transactions'
     }],
 
     userId: [{

@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
+
 
 export const styles = StyleSheet.create({
     general: {
@@ -47,7 +48,7 @@ export const styles = StyleSheet.create({
         top: 15
     },
     allContacts: {
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     subtitles: {
         flexDirection: 'row',
@@ -72,7 +73,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignSelf: 'center',
-        top: 100
+        top: 100,
     },
     card: {
         backgroundColor:'rgb(229, 238, 249)',
@@ -111,5 +112,105 @@ export const styles = StyleSheet.create({
     account: {
         color: 'grey',
         fontSize: 14.5
-    }
+    },
+    myModal: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 20,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        flex: 1
+    },
+    modalView: {
+        height: 340,
+        width: 280,
+        backgroundColor: "white",
+        borderRadius: 5,
+        padding: 20,
+        //flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        //alignItems: 'center'
+    },
+    close: {
+        alignSelf: 'flex-end',
+        marginTop: -10
+    },
+    photoandname: {
+        //flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        
+    },
+    buttons: {
+        alignContent: 'center',
+        justifyContent: 'space-between'
+        
+    },
+    button: {
+        backgroundColor: 'rgb(47, 46, 65)',
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 40,
+        marginTop: 10,
+        paddingTop: 10
+    },
+    text: {
+        color: 'white',
+    },
+    modalImg: {
+            height: 60,
+            width: 60,
+            borderRadius: 50 
+    },
+    inputsContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-evenly'
+    },
+    inputContainer: {
+        marginTop: 10,
+        marginLeft: 10
+    },
+    inputTitle: {
+        fontSize: 14,
+        color: 'grey',
+        fontWeight: 'bold',
+        paddingBottom: 5
+    },
+    inputStuff: {
+        flexDirection: 'row', 
+        //marginLeft: 16
+        
+    },
+    input: {
+        height: 20,
+        width: 150,
+        borderBottomWidth: 1,
+        marginLeft: 10,
+        borderBottomColor: 'grey'
+        
+    },
+    editButtons: {
+       flexDirection: 'row',
+       justifyContent: 'space-evenly'
+    },
+    saveButton: {
+        backgroundColor: 'rgb(52, 168, 83)',
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 40,
+        marginTop: 10,
+        paddingTop: 10
+    },
+    backButton: {
+        backgroundColor: 'rgb(65, 60, 105)',
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 40,
+        width: 80,
+        marginTop: 10,
+        paddingTop: 10
+    },
+   
 })

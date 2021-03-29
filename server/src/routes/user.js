@@ -3,9 +3,8 @@ const app = require("express").Router();
 const Users = require("../models/user");
 const UsersCtrl = require("../controllers/users");
 const authUser = require("../middleware/authUserToken");
-
 // Traer todos los users
-app.get("/", [authUser], UsersCtrl.getUsers);
+app.get("/", UsersCtrl.getUsers);
 
 // Traer un usuario en particular
 app.get("/:id", UsersCtrl.getUserId);

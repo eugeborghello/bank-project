@@ -52,6 +52,15 @@ const User = new mongoose.Schema({
       ref: "Account",
     },
   ],
+  contacts: [{ 
+    email: String, 
+    alias: String,
+    cbu: {
+      type: String,
+      unique: true,
+      required: true
+    },
+  }],
 });
 
 User.methods.encryptPassword = async (password) => {

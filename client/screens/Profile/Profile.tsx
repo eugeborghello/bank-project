@@ -15,15 +15,16 @@ import { AntDesign, Feather, MaterialCommunityIcons, FontAwesome } from '@expo/v
 import HandleDrawer from '../../components/Nav/HandleDrawer';
 import { useDispatch } from 'react-redux';
 import axios from "axios";
-import { useSelector } from 'react-redux';
+import { useSelector,RootStateOrAny } from 'react-redux';
 import { REACT_APP_BACKEND_API_URL } from "@env";
 
 export default function Profile() {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState<any>(false);
   const [selectedImage, setSelectedImage] = useState<any>("");
+  const [selectedImageUrl, setSelectedImageUrl] = useState<any>("");
   const URL = `http://${REACT_APP_BACKEND_API_URL}`;
-  const user = useSelector(state => state.user.currentUser);
+  const user = useSelector((state: RootStateOrAny) => state.user.currentUser);
   const openImage = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (permissionResult.granted === false) {
@@ -36,8 +37,27 @@ export default function Profile() {
     if (pickerResult.cancelled === true) {
       return;
     }
-    setSelectedImage({ localUri: pickerResult.uri });
+   
+  
+  setSelectedImage(pickerResult.uri );
+      
   }
+const uploadImage = (imagenfinal) => {
+  const data = new FormData();
+  data.append('file',imagenfinal)
+  data.append('upload_preset','veskiapp')
+  data.append('cloud_name','projectZeta')
+
+  fetch('https://api.cloudinary.com/v1_1/projectZeta/image/upload',{
+    method: "post",
+    body: data
+  }).then(res => res.json())
+  .then(data =>{
+    console.log(data)
+    setSelectedImageUrl(data.secure_url)
+  })
+}
+
   useEffect(()=>{
     axios.patch(`http://${REACT_APP_BACKEND_API_URL}/users/${user[0]._id}`,{imgUrl:selectedImage.localUri},{
       headers: {
@@ -99,7 +119,7 @@ export default function Profile() {
               <Text style={styles.optionsText}> Upload image</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                  onPress={() =>openImage()}
+                  onPress={() =>uploadImage(selectedImage)}
                   style={styles.options}
             >
               <MaterialCommunityIcons name="delete-off-outline" size={22} color="black" />
@@ -121,8 +141,8 @@ export default function Profile() {
          style={styles.foto}  
          source={{
            uri:
-           selectedImage !== ""
-           ? selectedImage.localUri
+           selectedImageUrl !== ""
+           ? selectedImageUrl
            :'https://www.seekpng.com/png/full/114-1149972_avatar-free-png-image-avatar-png.png'
           }}         
           />   
@@ -162,4 +182,3 @@ export default function Profile() {
 
 
     )}
-    

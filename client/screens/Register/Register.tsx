@@ -79,7 +79,7 @@ export default function Register(props) {
 			</View>
 
 			<View style={styles.registerContainer}>
-				<Text style={styles.title}> REGISTER </Text>
+				<Text style={styles.title}> {REACT_APP_BACKEND_API_URL} </Text>
 
 				<View style={styles.emailContent}>
 					<Icon name="alternate-email" size={18} color="grey" style={styles.icon} />

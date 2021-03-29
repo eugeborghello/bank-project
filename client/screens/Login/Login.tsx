@@ -112,7 +112,7 @@ const Login = (props) => {
 					{/* Login button */}
 					<View style={styles.loginButton}>
 						<TouchableOpacity activeOpacity={0.2} onPress={handleLogin}>
-							<Text style={styles.loginStyle}>Login</Text>
+							<Text style={styles.loginStyle}>{ REACT_APP_BACKEND_API_URL }</Text>
 						</TouchableOpacity>
 					</View>
 

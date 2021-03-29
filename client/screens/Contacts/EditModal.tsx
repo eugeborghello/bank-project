@@ -1,11 +1,11 @@
 import React, {FC, useState} from 'react';
 import { Text, View, Image, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { styles } from './ContactListStyles';
-import { MaterialIcons, Ionicons, EvilIcons, FontAwesome, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const EditModal = ({editModalVisible, setEditModalVisible, name, image}) => {
     
-    
+   
     return (
         <Modal          
                     transparent={true}

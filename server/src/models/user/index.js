@@ -53,10 +53,7 @@ const User = new mongoose.Schema({
     },
   ],
  
-  contacts : [{
-    email: String,
-    name: String
-  }]
+  contacts: [{ type: mongoose.Schema.ObjectId, ref: 'Contacts' }]
 });
 
 User.methods.encryptPassword = async (password) => {

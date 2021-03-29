@@ -8,23 +8,17 @@ const Contacts = new mongoose.Schema({
       email: {
         type: String,
       },
-      accounts: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "Account",
-        },
-      ],
-      user : [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "User",
-        },
-      ],
-      contactId : 
-        {
-          type: String,
-         
-        },
+      CBU: {
+        type: String,
+      },
+      
+      
+      lastName: {
+        type: String,
+      },
+      
+     
+      
       
       
 })

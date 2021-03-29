@@ -3,6 +3,7 @@ import { Text, View, Image, TouchableOpacity, Modal } from 'react-native';
 import { styles } from './ContactListStyles';
 import { MaterialIcons, Ionicons, EvilIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
 import UserModal from './UserModal';
+import AddModal from './AddModal';
 
 const ContactList: FC = () => {
     const [recent, setRecent] = useState([
@@ -24,6 +25,7 @@ const ContactList: FC = () => {
     ]);
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [addModalVisible, setAddModalVisible] = useState(false);
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
    
@@ -35,6 +37,10 @@ const ContactList: FC = () => {
                  name={name}
                  image={image}
                  />
+            <AddModal
+                addModalVisible={addModalVisible}
+                setAddModalVisible={setAddModalVisible}
+                />
 
             <TouchableOpacity style={styles.back}>
             <MaterialIcons name="arrow-back" size={24} color="black" />
@@ -72,7 +78,7 @@ const ContactList: FC = () => {
                 <View style={styles.subtitles}>
                     <Text style={styles.sub1}> All contacts: </Text>
                     
-                    <TouchableOpacity style={styles.sub2}>
+                    <TouchableOpacity style={styles.sub2} onPress={() => setAddModalVisible(true)}>
                         <Ionicons name="add" size={16} color="grey" />
                         <Text style={styles.sub2Text}> Add</Text>
                         </TouchableOpacity>

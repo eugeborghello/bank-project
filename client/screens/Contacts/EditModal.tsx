@@ -17,9 +17,6 @@ const EditModal = ({editModalVisible, setEditModalVisible, name, image}) => {
                 <View style={styles.myModal}>
                 <View style={styles.modalView}>
                     <Text style={{color: 'grey'}}> Edit</Text>
-                    <TouchableOpacity style={styles.close}  onPress={() => setEditModalVisible(false)}>
-                        <EvilIcons name="close" size={24} color="black" />  
-                    </TouchableOpacity>
                     <View style={styles.photoandname}>
                         <Image source={{uri: image}}
                                 style={styles.modalImg}/>

@@ -3,10 +3,12 @@ import { Text, View, Image, TouchableOpacity, Modal } from 'react-native';
 import { styles } from './ContactListStyles';
 import { MaterialIcons, Ionicons, EvilIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
 import EditModal from './EditModal';
+import DeleteModal from './DeleteModal';
 
 const UserModal = ({modalVisible, setModalVisible, name, image}) => {
 
-    const [editModalVisible, setEditModalVisible] = useState(false)
+    const [editModalVisible, setEditModalVisible] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
 
     return (
        
@@ -22,6 +24,11 @@ const UserModal = ({modalVisible, setModalVisible, name, image}) => {
                     setEditModalVisible={setEditModalVisible}
                     name={name}
                     image={image}/>
+                <DeleteModal
+                    deleteModal={deleteModal}
+                    setDeleteModal={setDeleteModal}
+                    name={name}
+                />
                 <View style={styles.myModal}>
                 
                 <View style={styles.modalView}>
@@ -49,7 +56,8 @@ const UserModal = ({modalVisible, setModalVisible, name, image}) => {
                         </TouchableOpacity>
 
                         
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                            onPress={() => setDeleteModal(true)}>
                             <AntDesign name="delete" size={20} color="white" />
                             <Text style={styles.text}> Delete contact</Text>
                         </TouchableOpacity>

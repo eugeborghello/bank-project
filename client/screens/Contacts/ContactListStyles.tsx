@@ -212,5 +212,24 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         paddingTop: 10
     },
-   
+    deleteButton: {
+        backgroundColor: 'rgb(208, 18, 18)',
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 40,
+        width: 80,
+        marginTop: 10,
+        paddingTop: 10
+    },
+   deleteText: {
+        fontSize: 16,
+        alignSelf: 'center',
+        top: 20
+    },
+   subandclose: {
+       flexDirection: 'row',
+       justifyContent: 'space-between',
+      
+   }
 })
